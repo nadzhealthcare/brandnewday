@@ -1,26 +1,499 @@
 @import "tailwindcss";
 
+/* ---- Lenis smooth scroll (recommended base styles) ---- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #2b1a17;
+
+  /* NADZ brand palette */
+  --maroon: #4a1c20;
+  --maroon-deep: #3a1518;
+  --gold: #c9a24b;
+  --gold-light: #eacf8a;
+  --gold-dark: #a97f2e;
+  --cream: #f6efdf;
+  --tan: #cbb07a;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-maroon: var(--maroon);
+  --color-maroon-deep: var(--maroon-deep);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
+  --color-cream: var(--cream);
+  --color-tan: var(--tan);
+  --font-sans: var(--font-inter);
+  --font-title: var(--font-mona);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+}
+
+/* Mona Sans Expanded SemiBold — for headings/titles */
+.font-title {
+  font-family: var(--font-mona), var(--font-inter), sans-serif;
+  font-weight: 600;
+  font-stretch: 125%;
+  letter-spacing: -0.005em;
+}
+
+/* ---- Marquee ---- */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+.marquee-track:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+/* ---- Gold gradient animated button ---- */
+@keyframes goldShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.btn-gold {
+  background: linear-gradient(
+    100deg,
+    var(--gold-dark) 0%,
+    var(--gold) 20%,
+    var(--gold-light) 40%,
+    var(--gold) 60%,
+    var(--gold-dark) 80%,
+    var(--gold) 100%
+  );
+  background-size: 250% 100%;
+  animation: goldShift 5s ease infinite;
+}
+.btn-gold:hover {
+  animation-duration: 2s;
+}
+
+/* ---- Mega menu entrance ---- */
+@keyframes menuIn {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-menu-in {
+  animation: menuIn 0.18s ease-out both;
+}
+
+/* ---- Dramatic blur-in reveal for hero text ---- */
+@keyframes blurIn {
+  0% {
+    opacity: 0;
+    filter: blur(16px);
+    transform: translateY(18px);
+    letter-spacing: 0.04em;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+    letter-spacing: normal;
+  }
+}
+.blur-in {
+  animation: blurIn 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: filter, transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blur-in {
+    animation: none;
+  }
+}
+
+/* ---- How-it-works scroll timeline ---- */
+.hiw-step {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hiw-step.is-active {
+  opacity: 1;
+  transform: none;
+}
+.hiw-iconbox {
+  transition: box-shadow 0.4s ease;
+}
+.hiw-node {
+  transform: translate(-50%, -50%);
+  transition:
+    background-color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease,
+    transform 0.4s ease;
+}
+.hiw-node.is-active {
+  background-color: #fff;
+  border-color: var(--gold-dark);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.85);
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* animated liquid background blobs */
+.hiw-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(64px);
+  will-change: transform;
+}
+@keyframes hiwFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(16%, 12%) scale(1.18); }
+  66% { transform: translate(-10%, 18%) scale(0.9); }
+}
+@keyframes hiwFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-14%, 10%) scale(1.12); }
+  66% { transform: translate(12%, -12%) scale(1.22); }
+}
+@keyframes hiwFloat3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(14%, -16%) scale(1.2); }
+}
+
+/* liquid shimmer inside the pipe fill */
+@keyframes hiwShimmer {
+  0% { transform: translateX(-140%); }
+  100% { transform: translateX(240%); }
+}
+.hiw-liquid::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 75%
+  );
+  transform: translateX(-140%);
+  animation: hiwShimmer 3.2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hiw-blob,
+  .hiw-liquid::after {
+    animation: none;
+  }
+}
+
+/* NADZ serving-map pins */
+@keyframes nadzPinPop {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(0) scale(1.18);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes nadzPinPing {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.55;
+  }
+  70%,
+  100% {
+    transform: scale(2.3);
+    opacity: 0;
+  }
+}
+.nadz-pin {
+  opacity: 0;
+  transform-origin: 50% 100%;
+}
+.nadz-map.is-in .nadz-pin {
+  animation: nadzPinPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+.nadz-ping {
+  opacity: 0;
+}
+.nadz-map.is-in .nadz-ping {
+  animation: nadzPinPing 2.4s ease-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nadz-map.is-in .nadz-pin {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .nadz-map.is-in .nadz-ping {
+    animation: none;
+  }
+}
+
+/* footer logo — loops: glow pulse + form behind a scan line + glare sweep */
+.footer-logo img {
+  position: relative;
+  z-index: 10;
+  opacity: 0;
+}
+.footer-logo.is-in img {
+  animation: nadzLogoForm 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes nadzLogoForm {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.25;
+    filter: brightness(1.7);
+  }
+  18% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    filter: brightness(1.15);
+  }
+  26%,
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+
+/* soft glow behind the mark */
+.footer-logo-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 0;
+  width: 130%;
+  height: 200%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(236, 203, 125, 0.5) 0%,
+    rgba(236, 203, 125, 0.16) 42%,
+    transparent 70%
+  );
+  filter: blur(26px);
+  opacity: 0;
+  pointer-events: none;
+}
+.footer-logo.is-in .footer-logo-glow {
+  animation: nadzLogoGlow 5s ease-in-out infinite;
+}
+@keyframes nadzLogoGlow {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  50% {
+    opacity: 0.75;
+    transform: translate(-50%, -50%) scale(1.07);
+  }
+}
+
+/* gold scan line that draws the mark */
+.footer-logo-line {
+  position: absolute;
+  top: -6%;
+  bottom: -6%;
+  left: 0;
+  z-index: 20;
+  width: 2px;
+  background: linear-gradient(180deg, #eccb7d, #c69a3e);
+  box-shadow: 0 0 12px 2px rgba(236, 203, 125, 0.75);
+  opacity: 0;
+  pointer-events: none;
+}
+.footer-logo.is-in .footer-logo-line {
+  animation: nadzLogoLine 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes nadzLogoLine {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  2% {
+    opacity: 1;
+  }
+  16% {
+    left: 100%;
+    opacity: 1;
+  }
+  18%,
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+/* shine confined to the logo silhouette */
+.footer-logo-glare {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  -webkit-mask: url(/assets/logo-nadz-dark.svg) left center / contain no-repeat;
+  mask: url(/assets/logo-nadz-dark.svg) left center / contain no-repeat;
+  background: linear-gradient(
+    105deg,
+    transparent 44%,
+    rgba(255, 255, 255, 0.92) 50%,
+    transparent 56%
+  );
+  background-size: 220% 100%;
+  background-position: 160% 0;
+  opacity: 0;
+}
+.footer-logo.is-in .footer-logo-glare {
+  animation: nadzLogoGlare 5s ease-in-out infinite;
+}
+@keyframes nadzLogoGlare {
+  0%,
+  22% {
+    background-position: 160% 0;
+    opacity: 0;
+  }
+  24% {
+    opacity: 1;
+  }
+  34% {
+    background-position: -60% 0;
+    opacity: 1;
+  }
+  36%,
+  100% {
+    background-position: -60% 0;
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .footer-logo img {
+    opacity: 1;
+    animation: none;
+    clip-path: none;
+  }
+  .footer-logo-line,
+  .footer-logo-glare {
+    display: none;
+  }
+  .footer-logo-glow {
+    opacity: 0.4;
+    animation: none;
+  }
+}
+
+/* comprehensive-care middle card — red "blood" liquid floor */
+@keyframes ccWave {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes ccBubble {
+  0% {
+    transform: translateY(12px) scale(0.8);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-90px) scale(1);
+    opacity: 0;
+  }
+}
+.cc-liquid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 64%;
+  overflow: hidden;
+  pointer-events: none;
+}
+.cc-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  will-change: transform;
+}
+.cc-wave--back {
+  animation: ccWave 7s linear infinite;
+  opacity: 0.5;
+}
+.cc-wave--front {
+  animation: ccWave 4.5s linear infinite;
+}
+.cc-bubble {
+  position: absolute;
+  bottom: 12%;
+  border-radius: 9999px;
+  background: rgba(255, 120, 130, 0.45);
+  animation: ccBubble 4s ease-in infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cc-wave,
+  .cc-bubble {
+    animation: none;
+  }
+}
+
+/* thin scrollbar for nested lists */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
