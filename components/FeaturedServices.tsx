@@ -74,6 +74,54 @@ function clamp(v: number, a: number, b: number) {
   return Math.max(a, Math.min(b, v));
 }
 
+/* The card visual, shared by the desktop coverflow and the mobile carousel. */
+function CardInner({ s }: { s: Service }) {
+  return (
+    <div
+      className="group relative h-full w-full overflow-hidden rounded-[26px] shadow-[0_30px_60px_-28px_rgba(43,20,25,0.6)] ring-1 ring-black/5"
+      style={{
+        backgroundImage: `url(${s.img}), linear-gradient(160deg,#5c2230,#2a0f13)`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/25" />
+
+      <span className="absolute left-4 top-4 rounded-full border border-white/50 bg-black/15 px-3 py-1.5 text-[12px] font-medium text-white backdrop-blur-sm">
+        {s.badge}
+      </span>
+      <Link
+        href={s.href}
+        aria-label={`Open ${s.title}`}
+        className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full bg-white text-[color:var(--maroon)] shadow transition-transform hover:scale-105"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <ArrowRight className="h-4 w-4" />
+      </Link>
+
+      <div className="absolute inset-x-0 bottom-0 p-5">
+        <h3 className="font-title text-2xl uppercase leading-tight text-white">
+          {s.title}
+        </h3>
+        <p className="mt-2 line-clamp-2 text-[13.5px] leading-snug text-white/80">
+          {s.desc}
+        </p>
+        <Link
+          href="/book"
+          onClick={(e) => e.stopPropagation()}
+          className="mt-4 flex items-center justify-between rounded-full bg-white px-5 py-3 text-[14px] font-semibold text-[color:var(--maroon)] shadow-lg transition-transform hover:-translate-y-0.5"
+        >
+          <span className="flex items-center gap-2">
+            <Phone className="h-4 w-4" />
+            Book Now
+          </span>
+          <ChevronRight className="h-4 w-4" />
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 export default function FeaturedServices() {
   const rootRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -85,6 +133,7 @@ export default function FeaturedServices() {
     curve: 40,
   });
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   const dimsRef = useRef(dims);
   const activeCur = useRef(0);
@@ -93,6 +142,15 @@ export default function FeaturedServices() {
   useEffect(() => {
     dimsRef.current = dims;
   }, [dims]);
+
+  // the coverflow only runs on desktop; mobile uses a native scroll carousel
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     const measure = () => {
@@ -106,9 +164,10 @@ export default function FeaturedServices() {
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
-  }, []);
+  }, [isDesktop]);
 
   useEffect(() => {
+    if (!isDesktop) return; // skip the heavy RAF loop on mobile
     let raf = 0;
     const REVEAL_DUR = 1200;
     const ENTRY_SLOTS = 2.6;
@@ -178,7 +237,7 @@ export default function FeaturedServices() {
       cancelAnimationFrame(raf);
       io.disconnect();
     };
-  }, []);
+  }, [isDesktop]);
 
   // clicking a dot scrolls to that card's slice of the pinned range
   const goTo = (i: number) => {
@@ -191,6 +250,31 @@ export default function FeaturedServices() {
   };
 
   const stageHeight = Math.round(dims.cardH + dims.curve * 6.6 + 20);
+
+  // ---- Mobile / tablet: native scroll-snap carousel with bigger cards ----
+  if (!isDesktop) {
+    return (
+      <section className="bg-white px-4 py-16 sm:px-6 sm:py-20">
+        <SectionTitle className="mb-3 text-center text-[1.7rem] text-[color:var(--maroon)] sm:text-[2.2rem]">
+          Featured Services
+        </SectionTitle>
+        <p className="mx-auto mb-8 max-w-xl text-center text-[15px] text-black/55">
+          The care our families reach for most — brought straight to your home.
+        </p>
+
+        <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-3 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {SERVICES.map((s, i) => (
+            <div
+              key={i}
+              className="aspect-[5/7] w-[82%] max-w-[360px] shrink-0 snap-center sm:w-[62%]"
+            >
+              <CardInner s={s} />
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
@@ -226,48 +310,7 @@ export default function FeaturedServices() {
               }}
               onClick={() => goTo(i)}
             >
-              <div
-                className="group relative h-full w-full overflow-hidden rounded-[26px] shadow-[0_30px_60px_-28px_rgba(43,20,25,0.6)] ring-1 ring-black/5"
-                style={{
-                  backgroundImage: `url(${s.img}), linear-gradient(160deg,#5c2230,#2a0f13)`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              >
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/25" />
-
-                <span className="absolute left-4 top-4 rounded-full border border-white/50 bg-black/15 px-3 py-1.5 text-[12px] font-medium text-white backdrop-blur-sm">
-                  {s.badge}
-                </span>
-                <Link
-                  href={s.href}
-                  aria-label={`Open ${s.title}`}
-                  className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full bg-white text-[color:var(--maroon)] shadow transition-transform hover:scale-105"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-
-                <div className="absolute inset-x-0 bottom-0 p-5">
-                  <h3 className="font-title text-2xl uppercase leading-tight text-white">
-                    {s.title}
-                  </h3>
-                  <p className="mt-2 line-clamp-2 text-[13.5px] leading-snug text-white/80">
-                    {s.desc}
-                  </p>
-                  <Link
-                    href="/book"
-                    onClick={(e) => e.stopPropagation()}
-                    className="mt-4 flex items-center justify-between rounded-full bg-white px-5 py-3 text-[14px] font-semibold text-[color:var(--maroon)] shadow-lg transition-transform hover:-translate-y-0.5"
-                  >
-                    <span className="flex items-center gap-2">
-                      <Phone className="h-4 w-4" />
-                      Book Now
-                    </span>
-                    <ChevronRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
+              <CardInner s={s} />
             </div>
           ))}
         </div>

@@ -4,6 +4,7 @@ import Spline from "@splinetool/react-spline/next";
 import { Phone, Timer, Stethoscope } from "lucide-react";
 import DhaBadge from "./DhaBadge";
 import BookingBar from "./BookingBar";
+import AutoScrollRow from "./AutoScrollRow";
 
 /* ---------- small pieces ---------- */
 
@@ -43,7 +44,7 @@ function CtaButtons() {
   );
 }
 
-function TitleBlock() {
+function TitleBlock({ showCta = true }: { showCta?: boolean }) {
   return (
     <div className="max-w-xl">
       <h1
@@ -60,9 +61,11 @@ function TitleBlock() {
         Redefining the standards of modern healthcare through continuous
         innovation and human connection.
       </p>
-      <div className="blur-in mt-8" style={{ animationDelay: "0.5s" }}>
-        <CtaButtons />
-      </div>
+      {showCta && (
+        <div className="blur-in mt-8" style={{ animationDelay: "0.5s" }}>
+          <CtaButtons />
+        </div>
+      )}
     </div>
   );
 }
@@ -151,20 +154,16 @@ function Badges() {
   );
 }
 
-/* Mobile-only: the 4 glass cards as an edge-to-edge horizontal carousel,
+/* Mobile-only: the 4 glass cards as an edge-to-edge auto-playing carousel,
    aligned to the bottom of the hero. */
 function GlassCarousel() {
   return (
-    <div className="-mx-6 flex snap-x gap-3 overflow-x-auto px-6 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-      <div className="shrink-0 snap-start">
-        <BestCard />
-      </div>
+    <AutoScrollRow className="-mx-6 px-6 pb-1" speed={0.35}>
+      <BestCard />
       {BADGE_ITEMS.map((item, i) => (
-        <div key={i} className="shrink-0 snap-start">
-          <GlassCard>{item}</GlassCard>
-        </div>
+        <GlassCard key={i}>{item}</GlassCard>
       ))}
-    </div>
+    </AutoScrollRow>
   );
 }
 
@@ -217,14 +216,10 @@ export default function Hero() {
         </div>
 
         {/* ---- Mobile / tablet layout (flow) ---- */}
-        <div className="relative z-10 flex min-h-[100svh] flex-col justify-between gap-8 p-6 sm:min-h-[640px] sm:p-9 lg:hidden">
-          <div className="pt-24">
-            <TitleBlock />
-          </div>
-          <div className="flex flex-col gap-4">
-            <EightHundred />
-            <GlassCarousel />
-          </div>
+        <div className="relative z-10 flex min-h-[100svh] flex-col justify-end gap-5 p-6 pt-24 sm:min-h-[640px] sm:p-9 lg:hidden">
+          <TitleBlock showCta={false} />
+          <EightHundred />
+          <GlassCarousel />
         </div>
       </div>
 
