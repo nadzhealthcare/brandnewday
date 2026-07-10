@@ -42,11 +42,18 @@ const WHY: { icon: LucideIcon; title: string; desc: string }[] = [
   { icon: Clock, title: "24/7 Availability", desc: "Care whenever you need it — day or night, every day." },
 ];
 
+/* diagonal light streak that glides across a card on hover */
+function Glare() {
+  return (
+    <span className="pointer-events-none absolute inset-y-0 left-[-70%] w-1/2 -skew-x-[20deg] bg-gradient-to-r from-transparent via-white/25 to-transparent blur-[1px] transition-[left] duration-[800ms] ease-in-out group-hover:left-[140%]" />
+  );
+}
+
 function SocialDot({ children }: { children: React.ReactNode }) {
   return (
     <a
       href="#"
-      className="grid h-9 w-9 place-items-center rounded-full bg-[color:var(--maroon)] text-white transition-transform hover:-translate-y-0.5"
+      className="grid h-9 w-9 place-items-center rounded-full bg-[color:var(--maroon)] text-white transition-all duration-300 hover:-translate-y-0.5 hover:scale-110 hover:bg-[color:var(--gold-dark)] hover:shadow-[0_10px_20px_-8px_rgba(43,26,23,0.7)]"
     >
       {children}
     </a>
@@ -82,19 +89,19 @@ export default function WhoWeAre() {
 
       {/* 2 — feature image with overlaid glass cards */}
       <section className="px-4 pt-12 sm:px-6 sm:pt-16">
-        <div className="relative mx-auto max-w-[1180px] overflow-hidden rounded-[30px]">
+        <div className="group relative mx-auto max-w-[1180px] overflow-hidden rounded-[30px]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={IMG_MAIN}
             alt="The NADZ care team"
-            className="h-[620px] w-full object-cover sm:h-[560px]"
+            className="h-[620px] w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04] sm:h-[560px]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/35" />
 
           <div className="absolute inset-0 flex flex-col justify-between gap-4 p-5 sm:p-7 lg:flex-row lg:items-end">
             {/* left — value proposition */}
-            <div className="max-w-sm rounded-[22px] border border-white/12 bg-black/40 p-5 backdrop-blur-md">
-              <span className="grid h-9 w-9 place-items-center rounded-lg bg-white/12 text-[color:var(--gold-light)]">
+            <div className="group/card max-w-sm rounded-[22px] border border-white/12 bg-black/40 p-5 backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-[color:var(--gold-light)]/40 hover:bg-black/55">
+              <span className="grid h-9 w-9 place-items-center rounded-lg bg-white/12 text-[color:var(--gold-light)] transition-transform duration-500 group-hover/card:-rotate-6 group-hover/card:scale-110">
                 <Gem className="h-5 w-5" />
               </span>
               <p className="mt-3 text-[14px] leading-relaxed text-white/85">
@@ -112,7 +119,7 @@ export default function WhoWeAre() {
               {[Stethoscope, HeartPulse, Syringe, Activity, Home].map((Icon, i) => (
                 <span
                   key={i}
-                  className="grid h-9 w-9 place-items-center rounded-full text-white/85 transition-colors hover:bg-white/10 hover:text-white"
+                  className="grid h-9 w-9 place-items-center rounded-full text-white/85 transition-all duration-300 hover:-translate-y-0.5 hover:scale-110 hover:bg-[color:var(--gold-light)] hover:text-[color:var(--maroon)]"
                 >
                   <Icon className="h-5 w-5" strokeWidth={1.6} />
                 </span>
@@ -120,7 +127,7 @@ export default function WhoWeAre() {
             </div>
 
             {/* right — our story */}
-            <div className="max-w-sm rounded-[22px] border border-white/12 bg-black/40 p-5 backdrop-blur-md lg:text-right">
+            <div className="max-w-sm rounded-[22px] border border-white/12 bg-black/40 p-5 backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-[color:var(--gold-light)]/40 hover:bg-black/55 lg:text-right">
               <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/55">
                 Our Story
               </span>
@@ -157,15 +164,16 @@ export default function WhoWeAre() {
               return (
                 <div
                   key={s.label}
-                  className="flex items-center gap-3 rounded-2xl bg-[#f5f4f2] px-4 py-3.5 ring-1 ring-black/5"
+                  className="group relative flex items-center gap-3 overflow-hidden rounded-2xl bg-[#f5f4f2] px-4 py-3.5 ring-1 ring-black/5 transition-all duration-500 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_22px_44px_-30px_rgba(43,26,23,0.5)] hover:ring-[color:var(--gold)]/30"
                 >
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white text-[color:var(--maroon)] ring-1 ring-black/5">
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white text-[color:var(--maroon)] ring-1 ring-black/5 transition-all duration-500 group-hover:scale-110 group-hover:bg-[color:var(--maroon)] group-hover:text-white">
                     <Icon className="h-5 w-5" />
                   </span>
                   <div className="min-w-0">
                     <p className="text-[14px] font-semibold text-[#1c1c1c]">{s.label}</p>
                     <p className="text-[12px] text-black/45">{s.note}</p>
                   </div>
+                  <Glare />
                 </div>
               );
             })}
@@ -196,7 +204,8 @@ export default function WhoWeAre() {
             <p className="text-[13px] text-black/45">Co-founder</p>
           </div>
           <div className="flex flex-col gap-5">
-            <div className="rounded-[22px] bg-white p-5 shadow-[0_16px_36px_-24px_rgba(43,26,23,0.4)] ring-1 ring-black/5">
+            <div className="group relative overflow-hidden rounded-[22px] bg-white p-5 shadow-[0_16px_36px_-24px_rgba(43,26,23,0.4)] ring-1 ring-black/5 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_30px_56px_-30px_rgba(43,26,23,0.5)] hover:ring-[color:var(--gold)]/30">
+              <span className="absolute left-0 top-0 h-1 w-0 bg-[color:var(--gold)] transition-all duration-500 group-hover:w-full" />
               <p className="text-[14.5px] italic leading-relaxed text-black/65">
                 &ldquo;Each service bespoke, tuned to your pace — a harmony of
                 healing, woven with grace.&rdquo;
@@ -204,6 +213,7 @@ export default function WhoWeAre() {
               <p className="mt-3 text-[12.5px] font-semibold text-[color:var(--gold-dark)]">
                 The NADZ Promise
               </p>
+              <Glare />
             </div>
             <div className="flex items-center gap-2.5">
               <SocialDot>
@@ -236,12 +246,16 @@ export default function WhoWeAre() {
               {PROMISE.map((f) => {
                 const Icon = f.icon;
                 return (
-                  <div key={f.title} className="rounded-2xl bg-[#f5f4f2] p-5 ring-1 ring-black/5">
+                  <div key={f.title} className="group relative overflow-hidden rounded-2xl bg-[#f5f4f2] p-5 ring-1 ring-black/5 transition-all duration-500 hover:-translate-y-1 hover:bg-white hover:shadow-[0_26px_50px_-30px_rgba(43,26,23,0.5)] hover:ring-[color:var(--gold)]/30">
+                    <span className="absolute left-0 top-0 h-1 w-0 bg-[color:var(--gold)] transition-all duration-500 group-hover:w-full" />
                     <span className="flex items-center gap-2.5 text-[color:var(--maroon)]">
-                      <Icon className="h-5 w-5" />
+                      <span className="grid h-9 w-9 place-items-center rounded-xl bg-white text-[color:var(--maroon)] ring-1 ring-black/5 transition-all duration-500 group-hover:scale-110 group-hover:bg-[color:var(--maroon)] group-hover:text-white">
+                        <Icon className="h-5 w-5" />
+                      </span>
                       <span className="text-[15px] font-semibold text-[#1c1c1c]">{f.title}</span>
                     </span>
                     <p className="mt-2 text-[13px] leading-snug text-black/55">{f.desc}</p>
+                    <Glare />
                   </div>
                 );
               })}
@@ -252,12 +266,16 @@ export default function WhoWeAre() {
               {WHY.map((f) => {
                 const Icon = f.icon;
                 return (
-                  <div key={f.title} className="rounded-2xl bg-[#f5f4f2] p-5 ring-1 ring-black/5">
+                  <div key={f.title} className="group relative overflow-hidden rounded-2xl bg-[#f5f4f2] p-5 ring-1 ring-black/5 transition-all duration-500 hover:-translate-y-1 hover:bg-white hover:shadow-[0_26px_50px_-30px_rgba(43,26,23,0.5)] hover:ring-[color:var(--gold)]/30">
+                    <span className="absolute left-0 top-0 h-1 w-0 bg-[color:var(--gold)] transition-all duration-500 group-hover:w-full" />
                     <span className="flex items-center gap-2.5 text-[color:var(--maroon)]">
-                      <Icon className="h-5 w-5" />
+                      <span className="grid h-9 w-9 place-items-center rounded-xl bg-white text-[color:var(--maroon)] ring-1 ring-black/5 transition-all duration-500 group-hover:scale-110 group-hover:bg-[color:var(--maroon)] group-hover:text-white">
+                        <Icon className="h-5 w-5" />
+                      </span>
                       <span className="text-[15px] font-semibold text-[#1c1c1c]">{f.title}</span>
                     </span>
                     <p className="mt-2 text-[13px] leading-snug text-black/55">{f.desc}</p>
+                    <Glare />
                   </div>
                 );
               })}
@@ -271,9 +289,9 @@ export default function WhoWeAre() {
             </div>
 
             {/* col C — image card */}
-            <div className="relative min-h-[360px] overflow-hidden rounded-[24px] lg:min-h-full">
+            <div className="group relative min-h-[360px] overflow-hidden rounded-[24px] lg:min-h-full">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={IMG_PROMISE} alt="NADZ care" className="absolute inset-0 h-full w-full object-cover" />
+              <img src={IMG_PROMISE} alt="NADZ care" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.06]" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/10" />
               <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2.5 p-5">
                 <Link href="/services/doctor-on-call" className="inline-flex items-center justify-between rounded-full bg-white/90 px-5 py-3 text-[14px] font-semibold text-[color:var(--maroon)] backdrop-blur transition-transform hover:-translate-y-0.5">
