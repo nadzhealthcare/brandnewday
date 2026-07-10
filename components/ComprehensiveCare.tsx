@@ -131,7 +131,7 @@ function Card({
     // Wrapper handles the zoom-on-hover (kept separate from the height reveal)
     <div className="group transition-transform duration-300 ease-out will-change-transform hover:z-10 hover:scale-[1.04] lg:w-[212px]">
       <div
-        className="relative w-full overflow-hidden rounded-[26px] bg-[#2b2320] shadow-[0_18px_40px_-24px_rgba(43,35,32,0.45)] transition-shadow duration-300 group-hover:shadow-[0_34px_60px_-28px_rgba(43,35,32,0.6)]"
+        className="relative w-full overflow-hidden rounded-[26px] bg-[#2b2320] shadow-[0_18px_40px_-24px_rgba(43,35,32,0.45)] transition-shadow duration-300 group-hover:shadow-[0_34px_60px_-28px_rgba(43,35,32,0.6)] max-lg:aspect-square"
         style={
           isDesktop
             ? {
@@ -204,7 +204,7 @@ function Card({
         )}
 
         <div
-          className={`relative flex flex-col p-5 ${isDesktop
+          className={`relative flex flex-col p-5 max-lg:h-full ${isDesktop
               ? ""
               : `transition-all duration-[900ms] ease-out ${inView
                 ? "opacity-100 translate-y-0"

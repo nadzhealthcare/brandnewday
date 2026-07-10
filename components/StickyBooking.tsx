@@ -21,11 +21,13 @@ export default function StickyBooking() {
       return;
     }
     const onScroll = () => {
-      // if the page has an in-hero booking bar (home), only show the sticky
-      // copy once that anchor has scrolled out of view
+      // if the page has a *visible* in-hero booking bar (home on sm+), only
+      // show the sticky copy once that anchor has scrolled out of view;
+      // otherwise (phones, inner pages) reveal it past a scroll threshold
       const anchor = document.querySelector<HTMLElement>("[data-booking-anchor]");
-      const past = anchor
-        ? anchor.getBoundingClientRect().bottom < 8
+      const anchorVisible = !!anchor && anchor.offsetParent !== null;
+      const past = anchorVisible
+        ? anchor!.getBoundingClientRect().bottom < 8
         : window.scrollY > 320;
       // never cover the footer
       const nearBottom =

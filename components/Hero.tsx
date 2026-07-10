@@ -119,34 +119,51 @@ function BestCard() {
   );
 }
 
+const BADGE_ITEMS = [
+  <DhaBadge key="dha" />,
+  <div key="reach" className="flex items-center gap-3">
+    <div className="leading-tight">
+      <p className="text-[11px] text-white/60">We Reach you in</p>
+      <p className="text-[16px] font-bold text-white">30 mins</p>
+    </div>
+    <Timer className="h-8 w-8 text-white/85" strokeWidth={1.6} />
+  </div>,
+  <div key="247" className="flex items-center gap-3">
+    <div className="leading-tight">
+      <p className="text-[16px] font-bold text-white">24/7</p>
+      <p className="text-[11px] text-white/60">
+        medical assistance
+        <br />
+        at your doorstep
+      </p>
+    </div>
+    <Timer className="h-8 w-8 text-white/85" strokeWidth={1.6} />
+  </div>,
+];
+
 function Badges() {
   return (
     <div className="flex flex-wrap items-stretch gap-3">
-      <GlassCard>
-        <DhaBadge />
-      </GlassCard>
-      <GlassCard>
-        <div className="flex items-center gap-3">
-          <div className="leading-tight">
-            <p className="text-[11px] text-white/60">We Reach you in</p>
-            <p className="text-[16px] font-bold text-white">30 mins</p>
-          </div>
-          <Timer className="h-8 w-8 text-white/85" strokeWidth={1.6} />
+      {BADGE_ITEMS.map((item, i) => (
+        <GlassCard key={i}>{item}</GlassCard>
+      ))}
+    </div>
+  );
+}
+
+/* Mobile-only: the 4 glass cards as an edge-to-edge horizontal carousel,
+   aligned to the bottom of the hero. */
+function GlassCarousel() {
+  return (
+    <div className="-mx-6 flex snap-x gap-3 overflow-x-auto px-6 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="shrink-0 snap-start">
+        <BestCard />
+      </div>
+      {BADGE_ITEMS.map((item, i) => (
+        <div key={i} className="shrink-0 snap-start">
+          <GlassCard>{item}</GlassCard>
         </div>
-      </GlassCard>
-      <GlassCard>
-        <div className="flex items-center gap-3">
-          <div className="leading-tight">
-            <p className="text-[16px] font-bold text-white">24/7</p>
-            <p className="text-[11px] text-white/60">
-              medical assistance
-              <br />
-              at your doorstep
-            </p>
-          </div>
-          <Timer className="h-8 w-8 text-white/85" strokeWidth={1.6} />
-        </div>
-      </GlassCard>
+      ))}
     </div>
   );
 }
@@ -166,8 +183,8 @@ function BrainLoading() {
 
 export default function Hero() {
   return (
-    <section className="bg-white px-3 pb-6 pt-3 sm:px-5 sm:pb-8 lg:px-6">
-      <div className="relative min-h-[640px] overflow-hidden rounded-[26px] border-[8px] border-white bg-[#2a0e12] shadow-[0_30px_70px_-30px_rgba(74,28,32,0.55)] sm:rounded-[32px] sm:border-[12px] lg:h-[calc(100vh-208px)] lg:max-h-[740px] lg:min-h-[600px]">
+    <section className="bg-white px-0 pb-0 pt-0 sm:px-5 sm:pb-8 sm:pt-3 lg:px-6">
+      <div className="relative min-h-[100svh] overflow-hidden rounded-none border-0 bg-[#2a0e12] shadow-[0_30px_70px_-30px_rgba(74,28,32,0.55)] sm:min-h-[640px] sm:rounded-[32px] sm:border-[12px] sm:border-white lg:h-[calc(100vh-208px)] lg:max-h-[740px] lg:min-h-[600px]">
         {/* 3D brain background */}
         <div className="absolute inset-0">
           <Suspense fallback={<BrainLoading />}>
@@ -200,22 +217,20 @@ export default function Hero() {
         </div>
 
         {/* ---- Mobile / tablet layout (flow) ---- */}
-        <div className="relative z-10 flex min-h-[640px] flex-col justify-between gap-8 p-6 sm:p-9 lg:hidden">
+        <div className="relative z-10 flex min-h-[100svh] flex-col justify-between gap-8 p-6 sm:min-h-[640px] sm:p-9 lg:hidden">
           <div className="pt-24">
             <TitleBlock />
           </div>
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-4">
             <EightHundred />
-            <div className="flex flex-wrap gap-3">
-              <BestCard />
-            </div>
-            <Badges />
+            <GlassCarousel />
           </div>
         </div>
       </div>
 
-      {/* booking bar — sits at the base of the hero, sticks to the bottom on scroll */}
-      <div className="relative z-20 mx-auto mt-3 max-w-[1180px] sm:mt-4 sm:px-2">
+      {/* booking bar — sits at the base of the hero (sm+); on phones the
+          booking flow is a floating button handled by <StickyBooking/> */}
+      <div className="relative z-20 mx-auto mt-4 hidden max-w-[1180px] px-2 sm:block">
         <BookingBar />
       </div>
     </section>
