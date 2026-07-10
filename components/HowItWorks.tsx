@@ -33,10 +33,38 @@ const STEPS = [
 ];
 
 const NODES = [1 / 6, 3 / 6, 5 / 6];
+// progress at which each step becomes active in the mobile stacked view
+const M_THRESHOLDS = [0, 0.34, 0.67];
 const SCROLL_VH = 240; // pinned scroll distance while the bar fills
 
 function clamp(v: number, a: number, b: number) {
   return Math.max(a, Math.min(b, v));
+}
+
+/* image clip + icon/title/description for a single step, shared by both the
+   desktop grid and the mobile stacked view */
+function StepInner({ s, j }: { s: (typeof STEPS)[number]; j: number }) {
+  const Clip = j === 0 ? PhoneBookingClip : j === 1 ? CarRouteClip : DoorbellClip;
+  return (
+    <>
+      <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-lg ring-1 ring-white/10">
+        <Clip />
+      </div>
+      <div className="mt-5 flex items-start gap-3.5">
+        <div className="hiw-iconbox grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white text-[color:var(--maroon)] ring-1 ring-white/10">
+          <s.Icon className="h-5 w-5" />
+        </div>
+        <div>
+          <h4 className="text-[15px] font-semibold text-white">
+            {s.num} – {s.title}
+          </h4>
+          <p className="mt-1.5 text-[13.5px] leading-snug text-white/60">
+            {s.desc}
+          </p>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default function HowItWorks() {
@@ -44,6 +72,7 @@ export default function HowItWorks() {
   const fillRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const mStepRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     let raf = 0;
@@ -73,6 +102,14 @@ export default function HowItWorks() {
             step.classList.toggle("is-active", active);
             step.style.opacity = active ? "1" : "0";
             step.style.transform = active ? "none" : "translateY(28px)";
+          }
+
+          // mobile: each step slides in and stacks on top of the previous
+          const m = mStepRefs.current[j];
+          if (m) {
+            const on = progress >= M_THRESHOLDS[j];
+            m.style.opacity = on ? "1" : "0";
+            m.style.transform = on ? "none" : "translateY(44px)";
           }
         }
       }
@@ -118,12 +155,12 @@ export default function HowItWorks() {
           <SectionTitle className="mb-3 bg-gradient-to-r from-[#eccf8f] via-[#f7ecc9] to-[#c9a24b] bg-clip-text text-center text-[1.7rem] text-transparent sm:text-[2.2rem]">
             How NADZ Homecare Works
           </SectionTitle>
-          <p className="mx-auto mb-12 max-w-xl text-center text-[15px] text-white/60">
+          <p className="mx-auto mb-8 max-w-xl text-center text-[15px] text-white/60 sm:mb-12">
             From your first call to follow-up — care in three simple steps.
           </p>
 
           {/* capsule pipe filling with liquid */}
-          <div className="relative mx-auto mb-14 w-full max-w-[900px]">
+          <div className="relative mx-auto mb-10 w-full max-w-[900px] sm:mb-14">
             <div className="relative h-6 w-full overflow-hidden rounded-full bg-black/30 shadow-[inset_0_2px_8px_rgba(0,0,0,0.55)] ring-1 ring-white/15">
               <div
                 ref={fillRef}
@@ -151,8 +188,8 @@ export default function HowItWorks() {
             ))}
           </div>
 
-          {/* steps */}
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-6">
+          {/* steps — desktop grid (revealed left→right) */}
+          <div className="hidden gap-6 md:grid md:grid-cols-3">
             {STEPS.map((s, j) => (
               <div
                 key={j}
@@ -168,38 +205,38 @@ export default function HowItWorks() {
                   transitionDelay: `${j * 90}ms`,
                 }}
               >
-                {j === 0 ? (
-                  <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-lg ring-1 ring-white/10">
-                    <PhoneBookingClip />
-                  </div>
-                ) : j === 1 ? (
-                  <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-lg ring-1 ring-white/10">
-                    <CarRouteClip />
-                  </div>
-                ) : (
-                  <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-lg ring-1 ring-white/10">
-                    <DoorbellClip />
-                  </div>
-                )}
-                <div className="mt-5 flex items-start gap-3.5">
-                  <div className="hiw-iconbox grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white text-[color:var(--maroon)] ring-1 ring-white/10">
-                    <s.Icon className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h4 className="text-[15px] font-semibold text-white">
-                      {s.num} – {s.title}
-                    </h4>
-                    <p className="mt-1.5 text-[13.5px] leading-snug text-white/60">
-                      {s.desc}
-                    </p>
-                  </div>
+                <StepInner s={s} j={j} />
+              </div>
+            ))}
+          </div>
+
+          {/* steps — mobile stack (each step slides in over the previous) */}
+          <div className="relative min-h-[370px] md:hidden">
+            {STEPS.map((s, j) => (
+              <div
+                key={j}
+                ref={(el) => {
+                  mStepRefs.current[j] = el;
+                }}
+                className="absolute inset-x-0 top-0"
+                style={{
+                  zIndex: j + 1,
+                  opacity: j === 0 ? 1 : 0,
+                  transform: j === 0 ? "none" : "translateY(44px)",
+                  transition:
+                    "opacity 0.5s ease, transform 0.6s cubic-bezier(0.22,1,0.36,1)",
+                }}
+              >
+                {/* solid backdrop so the incoming step fully covers the last */}
+                <div className="rounded-2xl bg-[#331828] pb-2">
+                  <StepInner s={s} j={j} />
                 </div>
               </div>
             ))}
           </div>
 
           {/* cta */}
-          <div className="mt-14 flex flex-col items-center">
+          <div className="mt-10 flex flex-col items-center sm:mt-14">
             <Link
               href="/book"
               className="btn-gold inline-flex items-center gap-2.5 rounded-full px-7 py-3.5 text-[15px] font-semibold text-[color:var(--maroon)] shadow-[0_12px_28px_-10px_rgba(169,127,46,0.95)] ring-1 ring-white/40 transition-transform hover:-translate-y-0.5"
