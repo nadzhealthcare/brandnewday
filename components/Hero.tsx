@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import Spline from "@splinetool/react-spline/next";
 import { Phone, Timer, Stethoscope } from "lucide-react";
 import DhaBadge from "./DhaBadge";
+import BookingBar from "./BookingBar";
 
 /* ---------- small pieces ---------- */
 
@@ -166,7 +167,7 @@ function BrainLoading() {
 export default function Hero() {
   return (
     <section className="bg-white px-3 pb-6 pt-3 sm:px-5 sm:pb-8 lg:px-6">
-      <div className="relative min-h-[640px] overflow-hidden rounded-[26px] border-[8px] border-white bg-[#2a0e12] shadow-[0_30px_70px_-30px_rgba(74,28,32,0.55)] sm:rounded-[32px] sm:border-[12px] lg:h-[calc(100vh-132px)] lg:max-h-[820px] lg:min-h-[660px]">
+      <div className="relative min-h-[640px] overflow-hidden rounded-[26px] border-[8px] border-white bg-[#2a0e12] shadow-[0_30px_70px_-30px_rgba(74,28,32,0.55)] sm:rounded-[32px] sm:border-[12px] lg:h-[calc(100vh-208px)] lg:max-h-[740px] lg:min-h-[600px]">
         {/* 3D brain background */}
         <div className="absolute inset-0">
           <Suspense fallback={<BrainLoading />}>
@@ -211,6 +212,11 @@ export default function Hero() {
             <Badges />
           </div>
         </div>
+      </div>
+
+      {/* booking bar — sits at the base of the hero, sticks to the bottom on scroll */}
+      <div className="relative z-20 mx-auto mt-3 max-w-[1180px] sm:mt-4 sm:px-2">
+        <BookingBar />
       </div>
     </section>
   );
