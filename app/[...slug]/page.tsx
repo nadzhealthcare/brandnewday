@@ -5,6 +5,8 @@ import Navbar from "@/components/Navbar";
 import PageHero from "@/components/PageHero";
 import WhoWeAre from "@/components/WhoWeAre";
 import MissionVision from "@/components/MissionVision";
+import Careers from "@/components/Careers";
+import FaqPage from "@/components/FaqPage";
 import {
   PAGE_META,
   HERO_IMAGES,
@@ -16,6 +18,8 @@ import {
 const CUSTOM_PAGES: Record<string, React.ComponentType> = {
   "/about/who-we-are": WhoWeAre,
   "/about/mission-vision": MissionVision,
+  "/about/careers": Careers,
+  "/about/faqs": FaqPage,
 };
 
 // only pre-generate the known menu routes; anything else 404s
