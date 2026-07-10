@@ -1,8 +1,8 @@
 const CARDS: { title: string; img: string }[] = [
-  { title: "Doctor-Led Care", img: "/assets/stack/1.jpg" },
-  { title: "Delivered To Your Doorstep", img: "/assets/stack/2.jpg" },
-  { title: "Backed By Advanced Diagnostics", img: "/assets/stack/3.jpg" },
-  { title: "Focused On Lifelong Wellness", img: "/assets/stack/4.jpg" },
+  { title: "Doctor-Led Care", img: "/assets/doctorled.jpg" },
+  { title: "Delivered To Your Doorstep", img: "/assets/Delivered.jpg" },
+  { title: "Backed By Advanced Diagnostics", img: "/assets/advanced.jpg" },
+  { title: "Focused On Lifelong Wellness", img: "/assets/lifestyle.jpg" },
 ];
 
 // falls back to the shared placeholder photo, then a maroon gradient
@@ -26,13 +26,8 @@ export default function StackCards() {
                 backgroundPosition: "center",
               }}
             >
-              {/* maroon wash so the title stays legible (dark left, image breathes on the right) */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#280e15] via-[#280e15]/85 to-[#280e15]/25" />
-              {/* soft gold glow behind the title */}
-              <div className="pointer-events-none absolute -left-10 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(201,162,75,0.25),transparent_70%)] blur-2xl" />
-
               <div className="absolute inset-y-0 left-0 flex max-w-[62%] items-center p-7 sm:p-10 lg:p-14">
-                <h3 className="font-title bg-gradient-to-r from-[#eccf8f] via-[#f7ecc9] to-[#c9a24b] bg-clip-text text-2xl leading-[1.1] text-transparent sm:text-4xl lg:text-[42px]">
+                <h3 className="font-title bg-gradient-to-r from-[#eccf8f] via-[#f7ecc9] to-[#c9a24b] bg-clip-text text-2xl leading-[1.1] text-transparent drop-shadow-[0_2px_10px_rgba(0,0,0,0.65)] sm:text-4xl lg:text-[42px]">
                   {c.title}
                 </h3>
               </div>

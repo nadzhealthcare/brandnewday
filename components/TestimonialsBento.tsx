@@ -1,9 +1,7 @@
-import { ThumbsUp, Activity, Play } from "lucide-react";
+import { ThumbsUp, Activity } from "lucide-react";
 import SectionTitle from "./SectionTitle";
 import ReviewsTile from "./ReviewsTile";
 import ServingMapTile from "./ServingMapTile";
-
-const VIDEO_IMG = "/assets/featured-placeholder.jpg";
 
 export default function TestimonialsBento() {
   return (
@@ -21,15 +19,18 @@ export default function TestimonialsBento() {
           <ReviewsTile />
 
           {/* B — testimonial video (tall) */}
-          <div
-            className="group relative overflow-hidden rounded-[26px] md:col-span-1 md:row-span-2"
-            style={{
-              backgroundImage: `url(${VIDEO_IMG})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/25" />
+          <div className="group relative overflow-hidden rounded-[26px] md:col-span-1 md:row-span-2">
+            <video
+              className="absolute inset-0 h-full w-full object-cover"
+              src="/assets/testimonial.mp4"
+              poster="/assets/featured-placeholder.jpg"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/25" />
             <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-[#14b8a6] px-3 py-1.5 text-[12px] font-medium text-white shadow">
               <ThumbsUp className="h-3.5 w-3.5" /> Fast, Reliable Healthcare
             </span>
@@ -39,10 +40,7 @@ export default function TestimonialsBento() {
             <span className="absolute right-4 top-[92px] grid h-8 w-8 place-items-center rounded-full bg-black/50 text-white backdrop-blur">
               <Activity className="h-4 w-4" />
             </span>
-            <button className="absolute left-1/2 top-1/2 grid h-14 w-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-[color:var(--maroon)] shadow-lg transition-transform group-hover:scale-105">
-              <Play className="ml-0.5 h-6 w-6 fill-current" />
-            </button>
-            <div className="absolute inset-x-0 bottom-0 p-5">
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5">
               <p className="text-[18px] font-semibold leading-tight text-white">
                 What Our Patients Say
                 <br />
