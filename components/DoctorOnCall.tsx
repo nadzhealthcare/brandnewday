@@ -311,6 +311,68 @@ export default function DoctorOnCall() {
         </div>
       </section>
 
+      {/* the art of living — Dr. Nadia video */}
+      <section className="px-4 pt-16 sm:px-6 sm:pt-20">
+        <div className="mx-auto max-w-[1180px]">
+          <SectionTitle className="text-center text-[2rem] leading-[1.1] text-[color:var(--maroon)] sm:text-[2.7rem]">
+            The Art of Living — Guided by Dr. Nadia
+          </SectionTitle>
+
+          <div className="mt-10 grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+            {/* video */}
+            <div className="group relative overflow-hidden rounded-[24px] shadow-[0_30px_70px_-30px_rgba(43,26,23,0.55)] ring-1 ring-black/5 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_40px_80px_-30px_rgba(43,26,23,0.6)]">
+              <div className="relative aspect-video">
+                <iframe
+                  src="https://www.youtube-nocookie.com/embed/G4umn6nzFnc?autoplay=1&mute=1&loop=1&playlist=G4umn6nzFnc&rel=0&modestbranding=1&playsinline=1"
+                  title="The Art of Living — Dr. Nadia Choudhry"
+                  allow="autoplay; encrypted-media; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="absolute inset-0 h-full w-full"
+                />
+              </div>
+            </div>
+
+            {/* copy + focus list */}
+            <div>
+              <p className="text-[16px] leading-relaxed text-black/60">
+                At NADZ, every doctor is carefully selected and guided under the
+                vision of Dr. Nadia, Co-Founder of NADZ Healthcare.
+              </p>
+              <p className="mt-6 text-[13px] font-semibold uppercase tracking-[0.18em] text-[color:var(--maroon)]">
+                We focus on
+              </p>
+              <div className="mt-4 space-y-3">
+                {[
+                  "Taking time to listen to your concerns",
+                  "Combining strong clinical judgment with gentle, respectful care",
+                  "Communicating clearly with you and your family",
+                ].map((item) => (
+                  <div
+                    key={item}
+                    className="group relative flex items-center gap-4 overflow-hidden rounded-[18px] border border-black/5 bg-[#faf7f2] px-5 py-4 transition-all duration-500 hover:-translate-y-0.5 hover:border-[color:var(--gold)]/30 hover:bg-white hover:shadow-[0_22px_44px_-30px_rgba(43,26,23,0.5)]"
+                  >
+                    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[color:var(--maroon)] text-white transition-transform duration-500 group-hover:scale-110">
+                      <CircleCheck className="h-5 w-5" strokeWidth={2} />
+                    </span>
+                    <p className="text-[15px] font-medium leading-snug text-[#241417]">
+                      {item}
+                    </p>
+                    <Glare />
+                  </div>
+                ))}
+              </div>
+              <Link
+                href="/contact"
+                className="group mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-[color:var(--gold)] px-8 py-4 text-[15px] font-semibold text-[color:var(--maroon)] shadow-[0_16px_36px_-16px_rgba(169,127,46,0.8)] transition-transform hover:-translate-y-0.5"
+              >
+                Talk to Our Care Coordinator
+                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* closing CTA band */}
       <section className="px-4 py-16 sm:px-6 sm:py-20">
         <div
