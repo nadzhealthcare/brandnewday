@@ -21,6 +21,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import SectionTitle from "./SectionTitle";
+import HowItWorks from "./HowItWorks";
 
 /* diagonal light streak that glides across a card on hover */
 function Glare() {
@@ -322,6 +323,9 @@ export default function DoctorOnCall() {
           </div>
         </div>
       </section>
+
+      {/* how it works — animated */}
+      <HowItWorks />
 
       {/* closing CTA band */}
       <section className="px-4 py-16 sm:px-6 sm:py-20">

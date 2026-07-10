@@ -78,8 +78,8 @@ export default async function MenuPage({
                 description={meta.description}
                 images={images}
               />
-              {Body && <Body />}
-              {path.startsWith("/services/") && <HowItWorks />}
+              {/* pages with a custom body place HowItWorks themselves */}
+              {Body ? <Body /> : path.startsWith("/services/") && <HowItWorks />}
             </>
           )}
         </main>
