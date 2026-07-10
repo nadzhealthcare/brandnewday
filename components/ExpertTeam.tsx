@@ -23,7 +23,7 @@ const TEAM: Member[] = [
     langs: "EN · FR · AR",
     intro:
       "Leads NADZ's clinical model, ensuring every patient interaction meets the highest standards of medical judgment, safety and care.",
-    img: "/assets/team/1.jpg",
+    img: "/assets/drnadia.jpg",
     years: 16,
     featured: true,
   },
@@ -33,7 +33,7 @@ const TEAM: Member[] = [
     langs: "EN · AR",
     intro:
       "Two decades treating complex adult conditions — now bringing hospital-grade internal medicine to your living room.",
-    img: "/assets/team/2.jpg",
+    img: "/assets/drnadia.jpg",
     years: 20,
   },
   {
@@ -42,7 +42,7 @@ const TEAM: Member[] = [
     langs: "EN · AR",
     intro:
       "Your family's first point of contact — from newborns to grandparents, all under one trusted doctor.",
-    img: "/assets/team/3.jpg",
+    img: "/assets/drnadia.jpg",
     years: 12,
     featured: true,
   },
@@ -52,7 +52,7 @@ const TEAM: Member[] = [
     langs: "EN · FR",
     intro:
       "Helps patients rebuild mobility and strength with tailored physiotherapy programs delivered at home.",
-    img: "/assets/team/4.jpg",
+    img: "/assets/drnadia.jpg",
     years: 5,
   },
   {
@@ -61,7 +61,7 @@ const TEAM: Member[] = [
     langs: "EN · AR · UR",
     intro:
       "Gentle, specialised care for children — because little patients deserve big expertise.",
-    img: "/assets/team/5.jpg",
+    img: "/assets/drnadia.jpg",
     years: 10,
   },
   {
@@ -70,7 +70,7 @@ const TEAM: Member[] = [
     langs: "EN · FR · AR",
     intro:
       "Designs preventive and longevity plans — advanced diagnostics and therapies that keep you healthier for longer.",
-    img: "/assets/team/6.jpg",
+    img: "/assets/drnadia.jpg",
     years: 14,
     featured: true,
   },
@@ -80,7 +80,7 @@ const TEAM: Member[] = [
     langs: "EN · AR",
     intro:
       "Medical and aesthetic skin care at home — from diagnoses to advanced treatments, without the waiting room.",
-    img: "/assets/team/7.jpg",
+    img: "/assets/drnadia.jpg",
     years: 11,
   },
   {
@@ -89,7 +89,7 @@ const TEAM: Member[] = [
     langs: "EN · KO",
     intro:
       "Heart-health monitoring and diagnostics brought to your door, with rapid escalation when it matters.",
-    img: "/assets/team/8.jpg",
+    img: "/assets/drnadia.jpg",
     years: 18,
     featured: true,
   },
@@ -99,7 +99,7 @@ const TEAM: Member[] = [
     langs: "EN · HI · AR",
     intro:
       "Compassionate women's health care — prenatal, postnatal and beyond, in the comfort of home.",
-    img: "/assets/team/9.jpg",
+    img: "/assets/drnadia.jpg",
     years: 13,
   },
   {
@@ -108,7 +108,7 @@ const TEAM: Member[] = [
     langs: "EN · AR",
     intro:
       "Rapid-response urgent care, arriving fast and equipped to stabilise and treat on the spot.",
-    img: "/assets/team/10.jpg",
+    img: "/assets/drnadia.jpg",
     years: 9,
   },
   {
@@ -117,7 +117,7 @@ const TEAM: Member[] = [
     langs: "EN · RU",
     intro:
       "Builds personalised nutrition and recovery plans that turn everyday habits into lasting health.",
-    img: "/assets/team/11.jpg",
+    img: "/assets/drnadia.jpg",
     years: 7,
   },
 ];
