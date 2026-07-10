@@ -4,6 +4,7 @@ import TopBar from "@/components/TopBar";
 import Navbar from "@/components/Navbar";
 import PageHero from "@/components/PageHero";
 import WhoWeAre from "@/components/WhoWeAre";
+import MissionVision from "@/components/MissionVision";
 import {
   PAGE_META,
   HERO_IMAGES,
@@ -14,6 +15,7 @@ import {
 // routes with a fully custom page instead of the default slider hero
 const CUSTOM_PAGES: Record<string, React.ComponentType> = {
   "/about/who-we-are": WhoWeAre,
+  "/about/mission-vision": MissionVision,
 };
 
 // only pre-generate the known menu routes; anything else 404s
