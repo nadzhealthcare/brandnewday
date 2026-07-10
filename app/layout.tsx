@@ -5,6 +5,7 @@ import ConsoleFilter from "@/components/ConsoleFilter";
 import SmoothScroll from "@/components/SmoothScroll";
 import FloatingWidgets from "@/components/FloatingWidgets";
 import StickyBooking from "@/components/StickyBooking";
+import OfferPopup from "@/components/OfferPopup";
 import Footer from "@/components/Footer";
 import "./globals.css";
 
@@ -45,6 +46,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <StickyBooking />
+        <OfferPopup />
         <FloatingWidgets />
       </body>
     </html>

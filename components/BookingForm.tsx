@@ -10,6 +10,7 @@ import {
   LoaderCircle,
   ChevronDown,
 } from "lucide-react";
+import { waLink } from "@/lib/contact";
 
 const SERVICES: string[] = [
   "Doctor on Call",
@@ -27,9 +28,6 @@ const SERVICES: string[] = [
   "Peptide Therapy",
   "Other / Not sure",
 ];
-
-// WhatsApp booking number (digits only, intl format)
-const WA_NUMBER = "971521597336";
 
 export default function BookingForm() {
   const [service, setService] = useState("");
@@ -73,10 +71,7 @@ export default function BookingForm() {
       phone ? `Phone: +971 ${phone}` : null,
       location ? `Location: ${location}` : null,
     ].filter(Boolean);
-    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
-      lines.join("\n"),
-    )}`;
-    window.open(url, "_blank", "noopener,noreferrer");
+    window.open(waLink(lines.join("\n")), "_blank", "noopener,noreferrer");
   };
 
   return (
