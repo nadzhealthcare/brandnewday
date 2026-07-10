@@ -7,6 +7,7 @@ import WhoWeAre from "@/components/WhoWeAre";
 import MissionVision from "@/components/MissionVision";
 import Careers from "@/components/Careers";
 import FaqPage from "@/components/FaqPage";
+import DoctorOnCall from "@/components/DoctorOnCall";
 import {
   PAGE_META,
   HERO_IMAGES,
@@ -20,6 +21,11 @@ const CUSTOM_PAGES: Record<string, React.ComponentType> = {
   "/about/mission-vision": MissionVision,
   "/about/careers": Careers,
   "/about/faqs": FaqPage,
+};
+
+// routes that keep the default slider hero, then render a custom body below it
+const CUSTOM_BODIES: Record<string, React.ComponentType> = {
+  "/services/doctor-on-call": DoctorOnCall,
 };
 
 // only pre-generate the known menu routes; anything else 404s
@@ -53,6 +59,7 @@ export default async function MenuPage({
   if (!meta) notFound();
 
   const Custom = CUSTOM_PAGES[path];
+  const Body = CUSTOM_BODIES[path];
   const images = HERO_IMAGES[path] ?? DEFAULT_HERO_IMAGES;
 
   return (
@@ -64,11 +71,14 @@ export default async function MenuPage({
           {Custom ? (
             <Custom />
           ) : (
-            <PageHero
-              title={meta.title}
-              description={meta.description}
-              images={images}
-            />
+            <>
+              <PageHero
+                title={meta.title}
+                description={meta.description}
+                images={images}
+              />
+              {Body && <Body />}
+            </>
           )}
         </main>
       </div>
