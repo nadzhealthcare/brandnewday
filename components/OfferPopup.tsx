@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { X, MessageCircle } from "lucide-react";
+import { X } from "lucide-react";
 import { waLink } from "@/lib/contact";
 
 /* ------------------------------------------------------------------ *
@@ -13,7 +13,7 @@ import { waLink } from "@/lib/contact";
  * ------------------------------------------------------------------ */
 
 // Replace this with the current promo artwork (or feed it from a backend later).
-const OFFER_IMAGE = "/assets/offer.png";
+const OFFER_IMAGE = "/assets/offer.jpg";
 const OFFER_ALT = "Exclusive limited-time IV therapy discount";
 const OFFER_WA_MESSAGE =
   "Hi NADZ, I'd like to claim your latest offer.";
@@ -106,32 +106,20 @@ export default function OfferPopup() {
           <X className="h-5 w-5" />
         </button>
 
-        {/* cover image */}
+        {/* cover image — the whole poster claims the offer on WhatsApp */}
         <button
           type="button"
           onClick={claim}
           className="block w-full cursor-pointer"
-          aria-label="Claim this offer"
+          aria-label="Claim this offer on WhatsApp"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={OFFER_IMAGE}
             alt={OFFER_ALT}
-            className="aspect-[4/5] w-full object-cover"
+            className="block h-auto w-full"
           />
         </button>
-
-        {/* claim button */}
-        <div className="bg-[#2a0e12] p-4">
-          <button
-            type="button"
-            onClick={claim}
-            className="group flex w-full items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-[#c9a24a] via-[#e8cf86] to-[#c9a24a] px-6 py-3.5 text-[15px] font-bold uppercase tracking-wide text-[#3a1518] transition-transform hover:-translate-y-0.5"
-          >
-            <MessageCircle className="h-4 w-4" />
-            Claim Now
-          </button>
-        </div>
       </div>
     </div>
   );
