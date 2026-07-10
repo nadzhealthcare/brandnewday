@@ -28,12 +28,12 @@ const TEAM: Member[] = [
     featured: true,
   },
   {
-    name: "Dr. Omar Haddad",
-    title: "Internal Medicine",
+    name: "Dr. Avinash Babu",
+    title: "General Practitioner",
     langs: "EN · AR",
     intro:
       "Two decades treating complex adult conditions — now bringing hospital-grade internal medicine to your living room.",
-    img: "/assets/drnadia.jpg",
+    img: "/assets/dravinash.jpg",
     years: 20,
   },
   {
@@ -125,11 +125,10 @@ const TEAM: Member[] = [
 function LangPill({ langs, tone }: { langs: string; tone: "dark" | "maroon" }) {
   return (
     <span
-      className={`inline-flex items-center rounded-full px-3 py-1 text-[11px] font-medium tracking-wide backdrop-blur ${
-        tone === "maroon"
-          ? "bg-white/15 text-white/90 ring-1 ring-white/20"
-          : "bg-white/12 text-white/85 ring-1 ring-white/15"
-      }`}
+      className={`inline-flex items-center rounded-full px-3 py-1 text-[11px] font-medium tracking-wide backdrop-blur ${tone === "maroon"
+        ? "bg-white/15 text-white/90 ring-1 ring-white/20"
+        : "bg-white/12 text-white/85 ring-1 ring-white/15"
+        }`}
     >
       {langs}
     </span>

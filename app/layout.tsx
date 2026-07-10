@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import ConsoleFilter from "@/components/ConsoleFilter";
 import SmoothScroll from "@/components/SmoothScroll";
 import FloatingWidgets from "@/components/FloatingWidgets";
+import StickyBooking from "@/components/StickyBooking";
 import Footer from "@/components/Footer";
 import "./globals.css";
 
@@ -43,6 +44,7 @@ export default function RootLayout({
         <SmoothScroll />
         {children}
         <Footer />
+        <StickyBooking />
         <FloatingWidgets />
       </body>
     </html>
