@@ -26,8 +26,8 @@ export default function StackCards() {
                 backgroundPosition: "center",
               }}
             >
-              <div className="absolute inset-y-0 left-0 flex max-w-[62%] items-center p-7 sm:p-10 lg:p-14">
-                <h3 className="font-title bg-gradient-to-r from-[#eccf8f] via-[#f7ecc9] to-[#c9a24b] bg-clip-text text-2xl leading-[1.1] text-transparent drop-shadow-[0_2px_10px_rgba(0,0,0,0.65)] sm:text-4xl lg:text-[42px]">
+              <div className="absolute inset-0 flex items-center justify-center p-6 text-center">
+                <h3 className="font-title text-xl uppercase leading-[1.1] text-white sm:text-3xl lg:text-[34px]">
                   {c.title}
                 </h3>
               </div>
