@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { X } from "lucide-react";
+import { X, ArrowRight } from "lucide-react";
 import { waLink } from "@/lib/contact";
 
 /* ------------------------------------------------------------------ *
@@ -119,6 +119,16 @@ export default function OfferPopup() {
             alt={OFFER_ALT}
             className="block h-auto w-full"
           />
+        </button>
+
+        {/* gold claim button, overlaid on the poster's bottom band */}
+        <button
+          type="button"
+          onClick={claim}
+          className="group absolute bottom-[2.5%] left-1/2 z-10 flex w-[72%] max-w-[280px] -translate-x-1/2 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#b8892f] via-[#f4dd97] to-[#b8892f] px-6 py-3 text-[15px] font-bold uppercase tracking-wide text-[#3a1518] shadow-[0_14px_30px_-10px_rgba(0,0,0,0.7)] ring-1 ring-[#f4dd97]/60 transition-transform hover:-translate-y-0.5"
+        >
+          Claim Now
+          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
         </button>
       </div>
     </div>
