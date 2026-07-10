@@ -9,6 +9,8 @@ import Careers from "@/components/Careers";
 import FaqPage from "@/components/FaqPage";
 import DoctorOnCall from "@/components/DoctorOnCall";
 import HowItWorks from "@/components/HowItWorks";
+import ServiceBody from "@/components/ServiceBody";
+import { SERVICE_BODIES } from "@/lib/service-content";
 import {
   PAGE_META,
   HERO_IMAGES,
@@ -61,6 +63,7 @@ export default async function MenuPage({
 
   const Custom = CUSTOM_PAGES[path];
   const Body = CUSTOM_BODIES[path];
+  const bodyData = SERVICE_BODIES[path];
   const images = HERO_IMAGES[path] ?? DEFAULT_HERO_IMAGES;
 
   return (
@@ -78,8 +81,14 @@ export default async function MenuPage({
                 description={meta.description}
                 images={images}
               />
-              {/* pages with a custom body place HowItWorks themselves */}
-              {Body ? <Body /> : path.startsWith("/services/") && <HowItWorks />}
+              {/* custom / data-driven bodies place HowItWorks themselves */}
+              {Body ? (
+                <Body />
+              ) : bodyData ? (
+                <ServiceBody data={bodyData} />
+              ) : (
+                path.startsWith("/services/") && <HowItWorks />
+              )}
             </>
           )}
         </main>
