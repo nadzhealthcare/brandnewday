@@ -32,6 +32,24 @@ import {
   House,
   Coffee,
   ClipboardList,
+  Bone,
+  PersonStanding,
+  Dumbbell,
+  Shield,
+  Battery,
+  Sun,
+  Wine,
+  Plane,
+  TestTube,
+  Dna,
+  Ribbon,
+  FlaskConical,
+  Microscope,
+  Snowflake,
+  CalendarClock,
+  Hospital,
+  BedDouble,
+  Ambulance,
   type LucideIcon,
 } from "lucide-react";
 
@@ -282,5 +300,217 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     closingTitle: "Healing isn't only treatment — it's comfort.",
     closingDesc:
       "Call or WhatsApp us — a DHA-licensed palliative nurse can be with you, typically within 30 minutes in Dubai.",
+  },
+
+  /* ---------------------------------------------------------------- */
+  "/services/physiotherapy-at-home": {
+    eyebrow: "Physiotherapy · Dubai",
+    title: "DHA-licensed physiotherapists, in 30 minutes",
+    intro:
+      "24/7 access to DHA-licensed physiotherapists for post-surgical rehabilitation, sports injuries, chronic pain, neurological and elderly physiotherapy — personalised, one-on-one, in the comfort of home.",
+    highlights: [
+      { icon: ShieldCheck, big: "DHA", small: "licensed physiotherapists" },
+      { icon: Clock, big: "24/7", small: "evenings & weekends too" },
+      { icon: Zap, big: "30 min", small: "typical arrival in Dubai" },
+      { icon: UserRound, big: "1-on-1", small: "personalised attention" },
+    ],
+    featuresEyebrow: "Conditions We Treat",
+    featuresTitle: "Rehabilitation for every need",
+    features: [
+      { icon: Bone, title: "Post-surgical rehab", desc: "Orthopedic rehabilitation after surgery, at home." },
+      { icon: Activity, title: "Back, neck & joint pain", desc: "Hands-on management of everyday pain." },
+      { icon: Brain, title: "Neurological therapy", desc: "Recovery for stroke, Parkinson's and MS." },
+      { icon: PersonStanding, title: "Elderly & fall prevention", desc: "Balance, strength and safe mobility." },
+      { icon: Dumbbell, title: "Sports injury recovery", desc: "Return-to-play rehabilitation programmes." },
+      { icon: Baby, title: "Women's & postnatal", desc: "Pre- and post-natal physiotherapy support." },
+    ],
+    includedTitle: "Every Session Includes",
+    includedLead: "A complete, progressive plan — not a one-off visit.",
+    included: [
+      "Same-day or scheduled visits, including evenings and weekends",
+      "A DHA-licensed assessment reviewing your medical history",
+      "Physical evaluation of movement and strength",
+      "A tailored plan of exercises and manual therapy",
+      "Home exercise guidance with clear progression",
+      "Coordination with your medical team where needed",
+    ],
+    whoEyebrow: "Care Wherever You Are",
+    whoTitle: "Therapy that comes to you",
+    who: LOCATIONS,
+    closingTitle: "Because you deserve more than a waiting room.",
+    closingDesc:
+      "Message or call us with your condition and location — a DHA-licensed physiotherapist can be with you, typically within 30 minutes.",
+  },
+
+  /* ---------------------------------------------------------------- */
+  "/services/iv-drips": {
+    eyebrow: "IV Therapy · Dubai",
+    title: "Complete IV therapy, at your doorstep",
+    intro:
+      "Medical-grade hydration, vitamins, minerals and antioxidants delivered straight into the bloodstream — administered by DHA-certified clinicians at your home, hotel or office, with medical supervision throughout.",
+    highlights: [
+      { icon: ShieldCheck, big: "DHA", small: "certified clinicians" },
+      { icon: Clock, big: "24/7", small: "same-day availability" },
+      { icon: Zap, big: "< 5 min", small: "POC testing, MOHAP-certified" },
+      { icon: HeartPulse, big: "Monitored", small: "supervised start to finish" },
+    ],
+    featuresEyebrow: "Our Drip Menu",
+    featuresTitle: "A drip for every goal",
+    features: [
+      { icon: Droplets, title: "IV Hydration", desc: "Deep rehydration and electrolyte balance." },
+      { icon: Shield, title: "Immunity Booster", desc: "Vitamins and antioxidants for immune support." },
+      { icon: Battery, title: "Energy & Recovery", desc: "Restore energy and bounce back faster." },
+      { icon: Sun, title: "Beauty & Glow", desc: "Glutathione for radiant, healthy skin." },
+      { icon: Sparkles, title: "NAD⁺ Vitality", desc: "Cellular renewal and longevity support." },
+      { icon: Wine, title: "Hangover Relief", desc: "Fast recovery from dehydration and fatigue." },
+    ],
+    includedTitle: "Every Drip Includes",
+    includedLead: "Medical supervision, from the first drop to the last.",
+    included: [
+      "A clinician review of your health history and goals",
+      "A protocol recommended for your specific needs",
+      "The IV administered by a DHA-certified nurse",
+      "Point-of-care lab results in under 5 minutes",
+      "Medical monitoring throughout the session",
+      "Same-day and 24/7 availability across Dubai",
+    ],
+    whoEyebrow: "Who It's For",
+    whoTitle: "Feel like yourself again",
+    who: [
+      { icon: Building2, title: "Busy professionals", desc: "A reset that fits around your schedule." },
+      { icon: Dumbbell, title: "Fitness enthusiasts", desc: "Recovery and performance support." },
+      { icon: Plane, title: "Frequent travellers", desc: "Beat jet lag and stay at your best." },
+    ],
+    closingTitle: "Feel more like yourself again.",
+    closingDesc:
+      "Message or call us with your goals — a DHA-certified nurse will recommend the right protocol and come to you.",
+  },
+
+  /* ---------------------------------------------------------------- */
+  "/services/labs-at-home": {
+    eyebrow: "Lab Testing · Dubai",
+    title: "Lab tests at home — discreet, private, accurate",
+    intro:
+      "DHA-licensed nurses collect your samples at home, hotel or office across Dubai, processed in DHA & JCI-accredited laboratories, with results shared securely — no queues, no exposure, no commute on an empty stomach.",
+    highlights: [
+      { icon: ShieldCheck, big: "DHA", small: "licensed nurses" },
+      { icon: FlaskConical, big: "JCI", small: "accredited laboratories" },
+      { icon: Clock, big: "24/7", small: "collection across Dubai" },
+      { icon: Shield, big: "Private", small: "secure, discreet results" },
+    ],
+    featuresEyebrow: "Tests Available",
+    featuresTitle: "From routine panels to genomics",
+    features: [
+      { icon: TestTube, title: "Routine panels", desc: "CBC, glucose, lipid, liver, kidney and thyroid." },
+      { icon: Dna, title: "Genomics & DNA", desc: "Microbiome, pharmacogenetics and ancestry." },
+      { icon: Ribbon, title: "Tumour markers", desc: "CA-125, PSA, AFP and other screens." },
+      { icon: FlaskConical, title: "Hormones & vitamins", desc: "Thyroid, hormone profiles, vitamin D and B12." },
+      { icon: HeartPulse, title: "Advanced diagnostics", desc: "Cardiac markers and NIPT." },
+      { icon: Microscope, title: "Infectious & allergy", desc: "COVID-19, HIV, hepatitis, STD and allergy panels." },
+    ],
+    includedTitle: "How Your Test Works",
+    includedLead: "Accredited testing, handled end to end.",
+    included: [
+      "Share your test requirements by call or WhatsApp",
+      "Confirmed panels with clear preparation guidance",
+      "Sample collection by a DHA-licensed nurse",
+      "Processing in DHA & JCI-accredited laboratories",
+      "Secure, private delivery of your reports",
+      "Optional doctor consultation to interpret results",
+    ],
+    whoEyebrow: "Collection Wherever You Are",
+    whoTitle: "Testing that comes to you",
+    who: LOCATIONS,
+    closingTitle: "Your results, without the waiting room.",
+    closingDesc:
+      "Message or call us with what you need tested — a DHA-licensed nurse will collect your samples at a time that suits you.",
+  },
+
+  /* ---------------------------------------------------------------- */
+  "/services/vaccination-at-home": {
+    eyebrow: "Vaccination · Dubai",
+    title: "Adult & travel vaccines, with post-care",
+    intro:
+      "DHA-compliant vaccinations at home, hotel or office in Dubai — flu shots, adult immunisations and travel vaccines, with strict cold-chain management and post-vaccination monitoring. Please note: NADZ provides vaccinations for adults only.",
+    highlights: [
+      { icon: ShieldCheck, big: "DHA", small: "licensed nurses" },
+      { icon: Snowflake, big: "Cold-chain", small: "temperature-controlled" },
+      { icon: Clock, big: "15–30 min", small: "post-vaccine monitoring" },
+      { icon: CalendarClock, big: "24/7", small: "flexible scheduling" },
+    ],
+    featuresEyebrow: "Vaccines & Care",
+    featuresTitle: "Protection, professionally delivered",
+    features: [
+      { icon: Syringe, title: "Flu shots", desc: "Seasonal influenza protection at home." },
+      { icon: ShieldPlus, title: "Adult immunisations", desc: "Td/Tdap, Hepatitis A & B, HPV and Pneumococcal." },
+      { icon: Plane, title: "Travel vaccines", desc: "Yellow Fever, Typhoid, Hepatitis A & B, Meningococcal." },
+      { icon: Snowflake, title: "Cold-chain safety", desc: "Vaccines kept in temperature-controlled transport." },
+      { icon: Shield, title: "Post-vaccine monitoring", desc: "15–30 minutes of on-site observation." },
+      { icon: CalendarClock, title: "Follow-up reminders", desc: "Documentation and timely reminders." },
+    ],
+    includedTitle: "Every Visit Includes",
+    includedLead: "Medical-grade protocols, in sterile, private care.",
+    included: [
+      "A pre-vaccination medical assessment",
+      "Vaccination administered by a DHA-licensed nurse",
+      "Temperature-controlled, cold-chain-managed vaccines",
+      "15–30 minutes of post-vaccination monitoring",
+      "Documentation and follow-up reminders",
+      "Sterile, private care wherever you are",
+    ],
+    whoEyebrow: "Who It's For",
+    whoTitle: "Convenient, safe protection",
+    who: [
+      { icon: Building2, title: "Busy professionals", desc: "Get protected without losing a day to a clinic." },
+      { icon: Shield, title: "Elderly & immunocompromised", desc: "Safer care, away from busy waiting rooms." },
+      { icon: Plane, title: "Frequent travellers", desc: "Travel vaccines ahead of your trip." },
+    ],
+    closingTitle: "Protection that comes to you.",
+    closingDesc:
+      "Message or call us — a DHA-licensed nurse will handle your assessment, vaccination and follow-up at home.",
+  },
+
+  /* ---------------------------------------------------------------- */
+  "/services/medical-tourism": {
+    eyebrow: "Medical Tourism · Dubai",
+    title: "Care coordination from arrival to recovery",
+    intro:
+      "Your on-ground care coordinator in Dubai — planning appointments, navigating hospitals, managing logistics and organising recovery, so your care is planned, coordinated and looked after end-to-end.",
+    highlights: [
+      { icon: Hospital, big: "End-to-end", small: "arrival to recovery" },
+      { icon: Ambulance, big: "24/7", small: "air ambulance transfers" },
+      { icon: Languages, big: "Multilingual", small: "concierge & case team" },
+      { icon: Globe, big: "Global", small: "patients welcomed" },
+    ],
+    featuresEyebrow: "What We Coordinate",
+    featuresTitle: "Everything but the procedure",
+    features: [
+      { icon: Hospital, title: "Hospital & specialist network", desc: "Matching you to the right specialists and consultations." },
+      { icon: Plane, title: "Visa & travel assistance", desc: "Documentation guidance and airport transfers." },
+      { icon: BedDouble, title: "Accommodation & recovery", desc: "Stays arranged for patients and families." },
+      { icon: Languages, title: "Multilingual concierge", desc: "Language support and day-to-day case coordination." },
+      { icon: Ambulance, title: "Air ambulance & transfers", desc: "Medically equipped critical-care transfers, 24/7." },
+      { icon: HeartPulse, title: "Post-treatment follow-up", desc: "Recovery planning and continuity of care." },
+    ],
+    includedTitle: "Specialties We Coordinate",
+    includedLead: "Access Dubai's leading specialists, seamlessly.",
+    included: [
+      "Cardiology, orthopedics and neurology",
+      "Oncology and fertility",
+      "Cosmetic, plastic & reconstructive surgery",
+      "Dental care and dermatology",
+      "Gastroenterology, urology, ENT and ophthalmology",
+      "Physiotherapy and rehabilitation",
+    ],
+    whoEyebrow: "Who It's For",
+    whoTitle: "Care planned before you arrive",
+    who: [
+      { icon: Globe, title: "International patients", desc: "Your Dubai care mapped out before you land." },
+      { icon: Users, title: "Patients & families", desc: "Support for everyone travelling with you." },
+      { icon: HeartPulse, title: "Complex cases", desc: "Coordinated, continuous care throughout." },
+    ],
+    closingTitle: "Your care in Dubai — planned, coordinated, looked after.",
+    closingDesc:
+      "Message or call us — our multilingual team will coordinate your appointments, travel and recovery end to end.",
   },
 };
