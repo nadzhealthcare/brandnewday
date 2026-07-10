@@ -158,7 +158,7 @@ export default function Navbar() {
             return (
               <div
                 key={item.label}
-                className="static"
+                className="relative"
                 onMouseEnter={() => setOpenMenu(i)}
               >
                 <button
@@ -175,7 +175,7 @@ export default function Navbar() {
                 </button>
 
                 {isOpen && (
-                  <div className="absolute left-0 right-0 top-full flex justify-center px-4 pt-3">
+                  <div className="absolute left-1/2 top-full -translate-x-1/2 pt-3">
                     <MegaPanel item={item} />
                   </div>
                 )}
