@@ -71,21 +71,6 @@ const INCLUDED: string[] = [
   "Integration with nursing, physiotherapy and pharmacy delivery",
 ];
 
-const STEPS: { title: string; desc: string }[] = [
-  {
-    title: "Call or WhatsApp",
-    desc: "Tell us your symptoms and location — home, hotel or office.",
-  },
-  {
-    title: "Doctor assigned",
-    desc: "We confirm your DHA-certified doctor and a precise visit time.",
-  },
-  {
-    title: "Doctor arrives",
-    desc: "Examination, a clear plan explained, and any onward services arranged.",
-  },
-];
-
 const WHO: { icon: LucideIcon; title: string; desc: string }[] = [
   {
     icon: Plane,
@@ -236,41 +221,6 @@ export default function DoctorOnCall() {
                 </p>
                 <Glare />
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* how it works */}
-      <section className="px-4 py-16 sm:px-6 sm:py-20">
-        <div className="mx-auto max-w-[1180px]">
-          <p className="text-center text-[12px] font-semibold uppercase tracking-[0.22em] text-black/40">
-            How It Works
-          </p>
-          <SectionTitle className="mt-3 text-center text-[2rem] text-[color:var(--maroon)] sm:text-[2.6rem]">
-            A doctor at your door in three steps
-          </SectionTitle>
-
-          <div className="mt-10 grid gap-4 sm:grid-cols-3">
-            {STEPS.map((s, i) => (
-              <article
-                key={s.title}
-                className="group relative overflow-hidden rounded-[24px] bg-[#faf7f2] p-7 ring-1 ring-black/5 transition-all duration-500 hover:-translate-y-1.5 hover:bg-white hover:shadow-[0_30px_56px_-30px_rgba(43,26,23,0.5)] hover:ring-[color:var(--gold)]/30"
-              >
-                <span className="font-title text-[40px] leading-none text-[color:var(--maroon)]/15 transition-colors duration-500 group-hover:text-[color:var(--gold)]/50">
-                  0{i + 1}
-                </span>
-                <h3 className="mt-3 text-[17px] font-semibold text-[#2b1a17]">
-                  {s.title}
-                </h3>
-                <p className="mt-2 text-[14px] leading-relaxed text-black/55">
-                  {s.desc}
-                </p>
-                <span className="absolute bottom-6 right-6 text-[color:var(--maroon)]/20 transition-all duration-500 group-hover:translate-x-1 group-hover:text-[color:var(--maroon)]">
-                  <ArrowUpRight className="h-6 w-6" />
-                </span>
-                <Glare />
-              </article>
             ))}
           </div>
         </div>

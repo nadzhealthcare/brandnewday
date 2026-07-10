@@ -8,6 +8,7 @@ import MissionVision from "@/components/MissionVision";
 import Careers from "@/components/Careers";
 import FaqPage from "@/components/FaqPage";
 import DoctorOnCall from "@/components/DoctorOnCall";
+import HowItWorks from "@/components/HowItWorks";
 import {
   PAGE_META,
   HERO_IMAGES,
@@ -78,6 +79,7 @@ export default async function MenuPage({
                 images={images}
               />
               {Body && <Body />}
+              {path.startsWith("/services/") && <HowItWorks />}
             </>
           )}
         </main>
