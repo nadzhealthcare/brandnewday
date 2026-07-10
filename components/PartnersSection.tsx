@@ -3,19 +3,19 @@ import { ArrowRight } from "lucide-react";
 import SectionTitle from "./SectionTitle";
 import PartnersGrid from "./PartnersGrid";
 
-const LEFT_IMAGE = "/assets/Frame_30_1536x788_fae8d9c41f.webp";
+const LEFT_IMAGE = "/assets/partner.jpg";
 
 export default function PartnersSection() {
   return (
     <section className="bg-[#f7f8fa] px-4 py-16 sm:px-6 sm:py-24">
       <div className="mx-auto grid max-w-[1180px] items-stretch gap-8 lg:grid-cols-[0.9fr_1.1fr]">
         {/* left image */}
-        <div className="relative grid min-h-[280px] place-items-center overflow-hidden rounded-[28px] bg-white p-8 shadow-sm ring-1 ring-black/5 lg:min-h-full">
+        <div className="relative min-h-[280px] overflow-hidden rounded-[28px] shadow-sm ring-1 ring-black/5 lg:min-h-full">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={LEFT_IMAGE}
-            alt="Barraquer Eye Hospital — NADZ partner"
-            className="max-h-full max-w-full object-contain"
+            alt="NADZ partnerships in healthcare"
+            className="h-full w-full object-cover"
           />
         </div>
 
