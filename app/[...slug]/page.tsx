@@ -11,6 +11,8 @@ import DoctorOnCall from "@/components/DoctorOnCall";
 import HowItWorks from "@/components/HowItWorks";
 import ServiceBody from "@/components/ServiceBody";
 import { SERVICE_BODIES } from "@/lib/service-content";
+import MediaBody from "@/components/MediaBody";
+import { MEDIA_BODIES } from "@/lib/media-content";
 import {
   PAGE_META,
   HERO_IMAGES,
@@ -64,6 +66,7 @@ export default async function MenuPage({
   const Custom = CUSTOM_PAGES[path];
   const Body = CUSTOM_BODIES[path];
   const bodyData = SERVICE_BODIES[path];
+  const mediaData = MEDIA_BODIES[path];
   const images = HERO_IMAGES[path] ?? DEFAULT_HERO_IMAGES;
 
   return (
@@ -86,6 +89,8 @@ export default async function MenuPage({
                 <Body />
               ) : bodyData ? (
                 <ServiceBody data={bodyData} />
+              ) : mediaData ? (
+                <MediaBody data={mediaData} />
               ) : (
                 path.startsWith("/services/") && <HowItWorks />
               )}
