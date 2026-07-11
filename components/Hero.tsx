@@ -44,9 +44,15 @@ function CtaButtons() {
   );
 }
 
-function TitleBlock({ showCta = true }: { showCta?: boolean }) {
+function TitleBlock({
+  showCta = true,
+  centered = false,
+}: {
+  showCta?: boolean;
+  centered?: boolean;
+}) {
   return (
-    <div className="max-w-xl">
+    <div className={`max-w-xl ${centered ? "mx-auto text-center" : ""}`}>
       <h1
         className="blur-in font-title text-[1.9rem] uppercase leading-[1] text-white sm:text-[2.6rem] lg:text-[48px]"
         style={{ animationDelay: "0.05s" }}
@@ -55,14 +61,19 @@ function TitleBlock({ showCta = true }: { showCta?: boolean }) {
         <br /> With Innovation
       </h1>
       <p
-        className="blur-in mt-5 max-w-md text-[15px] leading-relaxed text-white/70"
+        className={`blur-in mt-5 max-w-md text-[15px] leading-relaxed text-white/70 ${
+          centered ? "mx-auto" : ""
+        }`}
         style={{ animationDelay: "0.28s" }}
       >
         Redefining the standards of modern healthcare through continuous
         innovation and human connection.
       </p>
       {showCta && (
-        <div className="blur-in mt-8" style={{ animationDelay: "0.5s" }}>
+        <div
+          className={`blur-in mt-8 ${centered ? "flex justify-center" : ""}`}
+          style={{ animationDelay: "0.5s" }}
+        >
           <CtaButtons />
         </div>
       )}
@@ -201,8 +212,8 @@ export default function Hero() {
 
         {/* ---- Desktop layout (absolute) ---- */}
         <div className="pointer-events-none absolute inset-0 z-10 hidden lg:block">
-          <div className="pointer-events-auto absolute left-14 top-1/2 -translate-y-1/2">
-            <TitleBlock />
+          <div className="pointer-events-auto absolute inset-x-0 top-1/2 flex -translate-y-1/2 justify-center px-6">
+            <TitleBlock centered />
           </div>
           <div className="pointer-events-auto absolute bottom-10 left-14">
             <EightHundred />
