@@ -212,8 +212,8 @@ export default function Hero() {
 
         {/* ---- Desktop layout (absolute) ---- */}
         <div className="pointer-events-none absolute inset-0 z-10 hidden lg:block">
-          <div className="pointer-events-auto absolute inset-x-0 top-1/2 flex -translate-y-1/2 justify-center px-6">
-            <TitleBlock centered />
+          <div className="pointer-events-auto absolute left-14 top-1/2 -translate-y-1/2">
+            <TitleBlock />
           </div>
           <div className="pointer-events-auto absolute bottom-10 left-14">
             <EightHundred />
@@ -226,11 +226,17 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ---- Mobile / tablet layout (flow) ---- */}
-        <div className="relative z-10 flex min-h-[100svh] flex-col justify-end gap-5 p-6 pt-24 sm:min-h-[640px] sm:p-9 lg:hidden">
-          <TitleBlock showCta={false} />
-          <EightHundred />
-          <GlassCarousel />
+        {/* ---- Mobile / tablet layout ---- */}
+        <div className="relative z-10 min-h-[100svh] sm:min-h-[640px] lg:hidden">
+          {/* title + description, centered in the middle of the hero */}
+          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 px-6 sm:px-9">
+            <TitleBlock showCta={false} centered />
+          </div>
+          {/* 800 number + glass carousel pinned to the bottom */}
+          <div className="absolute inset-x-0 bottom-0 flex flex-col gap-4 p-6 sm:p-9">
+            <EightHundred />
+            <GlassCarousel />
+          </div>
         </div>
       </div>
 
