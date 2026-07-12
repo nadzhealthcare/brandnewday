@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { X, ArrowRight } from "lucide-react";
 import { waLink } from "@/lib/contact";
 
@@ -22,18 +23,22 @@ const INACTIVITY_MS = 30_000;
 const FIRST_OPEN_MS = 1200;
 
 export default function OfferPopup() {
+  const pathname = usePathname();
+  const suppressed = pathname.startsWith("/pay");
   const [open, setOpen] = useState(false);
   const openRef = useRef(false);
   openRef.current = open;
 
-  // open once on first load
+  // open once on first load (not on payment pages)
   useEffect(() => {
+    if (suppressed) return;
     const t = setTimeout(() => setOpen(true), FIRST_OPEN_MS);
     return () => clearTimeout(t);
-  }, []);
+  }, [suppressed]);
 
   // re-open after 30s of inactivity
   useEffect(() => {
+    if (suppressed) return;
     let timer: ReturnType<typeof setTimeout>;
     const reset = () => {
       clearTimeout(timer);
@@ -54,7 +59,7 @@ export default function OfferPopup() {
       clearTimeout(timer);
       events.forEach((e) => window.removeEventListener(e, reset));
     };
-  }, []);
+  }, [suppressed]);
 
   // lock body scroll + close on Escape while open
   useEffect(() => {
@@ -73,6 +78,8 @@ export default function OfferPopup() {
     window.open(waLink(OFFER_WA_MESSAGE), "_blank", "noopener,noreferrer");
     setOpen(false);
   };
+
+  if (suppressed) return null;
 
   return (
     <div

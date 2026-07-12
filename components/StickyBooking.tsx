@@ -13,7 +13,7 @@ export default function StickyBooking() {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false); // mobile sheet
 
-  const hidden = HIDDEN.has(pathname);
+  const hidden = HIDDEN.has(pathname) || pathname.startsWith("/pay");
 
   useEffect(() => {
     if (hidden) {
