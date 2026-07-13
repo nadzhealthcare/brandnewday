@@ -28,6 +28,16 @@ export const metadata: Metadata = {
   title: "NADZ Healthcare — Your Family Doctor",
   description:
     "NADZ Healthcare brings the clinic to your home — doctor on call, nursing care, IV drips, labs at home, vaccination, and longevity medicine.",
+  icons: {
+    icon: [
+      { url: "/assets/32.png", sizes: "32x32", type: "image/png" },
+      { url: "/assets/16.png", sizes: "16x16", type: "image/png" },
+      { url: "/assets/192.png", sizes: "192x192", type: "image/png" },
+      { url: "/assets/512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/assets/180.png", sizes: "180x180", type: "image/png" }],
+  },
+  manifest: "/manifest.webmanifest",
   // Protective noindex while the old domain is still live (prevents duplicate
   // content). At cutover, set NEXT_PUBLIC_ALLOW_INDEX=true in Vercel to allow
   // search engines to index this site.
