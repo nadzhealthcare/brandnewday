@@ -1,7 +1,7 @@
 import TopBar from "@/components/TopBar";
 import Navbar from "@/components/Navbar";
 
-export default function BlogLayout({
+export default function MediaLayout({
   children,
 }: {
   children: React.ReactNode;

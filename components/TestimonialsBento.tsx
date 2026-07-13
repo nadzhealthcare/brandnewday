@@ -1,9 +1,28 @@
 import { ThumbsUp, Activity } from "lucide-react";
 import SectionTitle from "./SectionTitle";
-import ReviewsTile from "./ReviewsTile";
+import ReviewsTile, { type Review } from "./ReviewsTile";
 import ServingMapTile from "./ServingMapTile";
+import { getTestimonials } from "@/lib/strapi";
 
-export default function TestimonialsBento() {
+function initials(name: string): string {
+  return name
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() ?? "")
+    .join("");
+}
+
+export default async function TestimonialsBento() {
+  const testimonials = await getTestimonials();
+  const reviews: Review[] = testimonials.map((t) => ({
+    name: t.patientName,
+    initials: initials(t.patientName),
+    text: t.review,
+    time: t.serviceLabel || "Verified patient",
+  }));
+  const featured = testimonials[0];
+
   return (
     <section className="bg-white px-4 py-16 sm:px-6 sm:py-24">
       <div className="mx-auto max-w-[1240px]">
@@ -16,7 +35,7 @@ export default function TestimonialsBento() {
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:grid-rows-[224px_268px_164px]">
           {/* A — reviews highlight (USPs + vertical review carousel) */}
-          <ReviewsTile />
+          <ReviewsTile reviews={reviews} />
 
           {/* B — testimonial video (tall) */}
           <div className="group relative overflow-hidden rounded-[26px] md:col-span-1 md:row-span-2">
@@ -68,18 +87,22 @@ export default function TestimonialsBento() {
           {/* E — patient quote (wide) */}
           <div className="flex flex-col justify-between rounded-[26px] bg-[#faf7f2] p-6 ring-1 ring-black/5 md:col-span-2">
             <p className="text-[16px] leading-relaxed text-[#3a2a26] sm:text-[18px]">
-              &ldquo;The doctor arrived within half an hour and treated my father
-              with such care — it felt like family looking after us.&rdquo;
+              &ldquo;
+              {featured?.review ||
+                "The doctor arrived within half an hour and treated my father with such care — it felt like family looking after us."}
+              &rdquo;
             </p>
             <div className="mt-4 flex items-center gap-3">
               <span className="grid h-9 w-9 place-items-center rounded-full bg-[color:var(--maroon)] text-[13px] font-semibold text-white">
-                AK
+                {featured ? initials(featured.patientName) : "AK"}
               </span>
               <div className="leading-tight">
                 <p className="text-[14px] font-semibold text-[color:var(--maroon)]">
-                  Aisha K.
+                  {featured?.patientName || "Aisha K."}
                 </p>
-                <p className="text-[12.5px] text-black/50">Downtown Dubai</p>
+                <p className="text-[12.5px] text-black/50">
+                  {featured?.serviceLabel || "NADZ patient"}
+                </p>
               </div>
             </div>
           </div>

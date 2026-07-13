@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { Star } from "lucide-react";
 
 /* ---------- Google reviews shown in the vertical carousel ---------- */
-type Review = { name: string; initials: string; text: string; time: string };
+export type Review = { name: string; initials: string; text: string; time: string };
 
-const REVIEWS: Review[] = [
+const FALLBACK_REVIEWS: Review[] = [
   {
     name: "Ruwan Ranjith Fernando",
     initials: "RF",
@@ -89,7 +89,8 @@ function Counter({
 const CARD_H = 116;
 const STEP = 132;
 
-export default function ReviewsTile() {
+export default function ReviewsTile({ reviews }: { reviews?: Review[] }) {
+  const REVIEWS = reviews && reviews.length ? reviews : FALLBACK_REVIEWS;
   const rootRef = useRef<HTMLDivElement>(null);
   const vpRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);

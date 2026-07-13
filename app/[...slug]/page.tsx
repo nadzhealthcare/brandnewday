@@ -36,10 +36,12 @@ const CUSTOM_BODIES: Record<string, React.ComponentType> = {
 // only pre-generate the known menu routes; anything else 404s
 export const dynamicParams = false;
 
+// media routes served by dedicated routes under app/media/*
+const DEDICATED = ["/media/blogs", "/media/press-releases", "/media/events"];
+
 export function generateStaticParams() {
-  // /media/blogs and its articles are served by dedicated routes (app/media/blogs)
   return ALL_PATHS.filter(
-    (p) => p !== "/media/blogs" && !p.startsWith("/media/blogs/"),
+    (p) => !DEDICATED.some((d) => p === d || p.startsWith(d + "/")),
   ).map((p) => ({ slug: p.replace(/^\//, "").split("/") }));
 }
 

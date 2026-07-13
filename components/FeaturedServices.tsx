@@ -85,7 +85,8 @@ function CardInner({ s }: { s: Service }) {
         backgroundPosition: "center",
       }}
     >
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/25" />
+      {/* darkness only over the bottom (title/desc/button); fully clear above */}
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.92)_0%,rgba(0,0,0,0.72)_30%,rgba(0,0,0,0)_60%)]" />
 
       <span className="absolute left-4 top-4 rounded-full border border-white/50 bg-black/15 px-3 py-1.5 text-[12px] font-medium text-white backdrop-blur-sm">
         {s.badge}

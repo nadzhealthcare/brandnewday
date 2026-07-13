@@ -85,3 +85,76 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
   );
   return json?.data?.[0] ?? null;
 }
+
+/* ---------------- Testimonials ---------------- */
+export type Testimonial = {
+  id: number;
+  patientName: string;
+  headline?: string | null;
+  review: string;
+  rating?: number | null;
+  serviceLabel?: string | null;
+};
+
+export async function getTestimonials(): Promise<Testimonial[]> {
+  const json = await strapiFetch<StrapiList<Testimonial>>(
+    `/api/testimonials?sort=sortOrder:asc&pagination[pageSize]=50`,
+  );
+  return (json?.data ?? []).filter((t) => t.review && t.patientName);
+}
+
+/* ---------------- Press Releases ---------------- */
+export type PressRelease = {
+  id: number;
+  title: string;
+  slug: string;
+  excerpt?: string | null;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
+  source?: string | null;
+  sourceUrl?: string | null;
+  readTime?: string | null;
+  category?: string | null;
+  date?: string | null;
+  image?: StrapiMedia;
+  content?: { intro?: string | null } | null;
+};
+
+export async function getPressReleases(): Promise<PressRelease[]> {
+  const json = await strapiFetch<StrapiList<PressRelease>>(
+    `/api/press-releases?populate[image]=true&sort=publishedAt:desc&pagination[pageSize]=50`,
+  );
+  return json?.data ?? [];
+}
+
+export async function getPressReleaseBySlug(
+  slug: string,
+): Promise<PressRelease | null> {
+  const json = await strapiFetch<StrapiList<PressRelease>>(
+    `/api/press-releases?filters[slug][$eq]=${encodeURIComponent(
+      slug,
+    )}&populate[image]=true&populate[content][populate]=*`,
+  );
+  return json?.data?.[0] ?? null;
+}
+
+/* ---------------- Events ---------------- */
+export type EventItem = {
+  id: number;
+  title: string;
+  slug: string;
+  excerpt?: string | null;
+  eventDate?: string | null;
+  eventEndDate?: string | null;
+  location?: string | null;
+  category?: string | null;
+  image?: StrapiMedia;
+};
+
+export async function getEvents(): Promise<EventItem[]> {
+  // the events type has no media field, so no populate
+  const json = await strapiFetch<StrapiList<EventItem>>(
+    `/api/events?sort=eventDate:desc&pagination[pageSize]=50`,
+  );
+  return json?.data ?? [];
+}
