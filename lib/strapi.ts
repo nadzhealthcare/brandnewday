@@ -158,3 +158,74 @@ export async function getEvents(): Promise<EventItem[]> {
   );
   return json?.data ?? [];
 }
+
+/* ---------------- Awards & Achievements (single type) ---------------- */
+export type AwardItem = {
+  id: number;
+  title: string;
+  body?: string | null;
+  image?: StrapiMedia;
+};
+type SinglePage<T> = {
+  data:
+    | ({
+        pageTitle?: string | null;
+        pageSubtitle?: string | null;
+        pillText?: string | null;
+      } & T)
+    | null;
+};
+
+export async function getAwards(): Promise<{
+  pageTitle?: string | null;
+  pageSubtitle?: string | null;
+  pillText?: string | null;
+  items: AwardItem[];
+}> {
+  const json = await strapiFetch<SinglePage<{ items?: AwardItem[] }>>(
+    `/api/awards-achievement?populate[items][populate]=*`,
+  );
+  const d = json?.data;
+  return {
+    pageTitle: d?.pageTitle,
+    pageSubtitle: d?.pageSubtitle,
+    pillText: d?.pillText,
+    items: d?.items ?? [],
+  };
+}
+
+/* ---------------- Interviews & Podcasts (single type) ---------------- */
+export type InterviewItem = {
+  id: number;
+  title: string;
+  body?: string | null;
+  youtubeUrl?: string | null;
+};
+
+export async function getInterviews(): Promise<{
+  pageTitle?: string | null;
+  pageSubtitle?: string | null;
+  pillText?: string | null;
+  items: InterviewItem[];
+}> {
+  const json = await strapiFetch<SinglePage<{ items?: InterviewItem[] }>>(
+    `/api/interview-podcast?populate[items][populate]=*`,
+  );
+  const d = json?.data;
+  return {
+    pageTitle: d?.pageTitle,
+    pageSubtitle: d?.pageSubtitle,
+    pillText: d?.pillText,
+    items: d?.items ?? [],
+  };
+}
+
+/** Extract a YouTube video id from any common URL form. */
+export function youtubeId(url?: string | null): string | null {
+  if (!url) return null;
+  const m =
+    url.match(/[?&]v=([^&]+)/) ||
+    url.match(/youtu\.be\/([^?&]+)/) ||
+    url.match(/embed\/([^?&]+)/);
+  return m ? m[1] : null;
+}

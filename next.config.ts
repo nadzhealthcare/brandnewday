@@ -16,6 +16,8 @@ const nextConfig: NextConfig = {
         port: "1337",
         pathname: "/uploads/**",
       },
+      { protocol: "https", hostname: "img.youtube.com" },
+      { protocol: "https", hostname: "i.ytimg.com" },
     ],
   },
 };

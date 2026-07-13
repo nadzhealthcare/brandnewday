@@ -37,7 +37,13 @@ const CUSTOM_BODIES: Record<string, React.ComponentType> = {
 export const dynamicParams = false;
 
 // media routes served by dedicated routes under app/media/*
-const DEDICATED = ["/media/blogs", "/media/press-releases", "/media/events"];
+const DEDICATED = [
+  "/media/blogs",
+  "/media/press-releases",
+  "/media/events",
+  "/media/awards",
+  "/media/interviews-podcasts",
+];
 
 export function generateStaticParams() {
   return ALL_PATHS.filter(
