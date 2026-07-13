@@ -28,6 +28,13 @@ export const metadata: Metadata = {
   title: "NADZ Healthcare — Your Family Doctor",
   description:
     "NADZ Healthcare brings the clinic to your home — doctor on call, nursing care, IV drips, labs at home, vaccination, and longevity medicine.",
+  // Protective noindex while the old domain is still live (prevents duplicate
+  // content). At cutover, set NEXT_PUBLIC_ALLOW_INDEX=true in Vercel to allow
+  // search engines to index this site.
+  robots:
+    process.env.NEXT_PUBLIC_ALLOW_INDEX === "true"
+      ? undefined
+      : { index: false, follow: false },
 };
 
 export default function RootLayout({

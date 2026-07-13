@@ -497,3 +497,72 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* ---- CMS article body (Markdown/HTML from Strapi) ---- */
+.article-body {
+  color: rgba(0, 0, 0, 0.72);
+  font-size: 16.5px;
+  line-height: 1.75;
+}
+.article-body > *:first-child {
+  margin-top: 0;
+}
+.article-body p {
+  margin: 1.1em 0;
+}
+.article-body h2 {
+  font-family: var(--font-mona), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--maroon);
+  margin: 1.8em 0 0.6em;
+}
+.article-body h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #241417;
+  margin: 1.5em 0 0.5em;
+}
+.article-body strong {
+  color: #241417;
+  font-weight: 700;
+}
+.article-body a {
+  color: var(--maroon);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.article-body ul,
+.article-body ol {
+  margin: 1.1em 0;
+  padding-left: 1.4em;
+}
+.article-body ul {
+  list-style: disc;
+}
+.article-body ol {
+  list-style: decimal;
+}
+.article-body li {
+  margin: 0.4em 0;
+}
+.article-body blockquote {
+  border-left: 3px solid var(--gold);
+  background: #fbf8f0;
+  margin: 1.4em 0;
+  padding: 0.6em 1.1em;
+  border-radius: 0 12px 12px 0;
+  color: rgba(0, 0, 0, 0.6);
+}
+.article-body img {
+  border-radius: 16px;
+  margin: 1.5em 0;
+  max-width: 100%;
+  height: auto;
+}
+.article-body hr {
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  margin: 2em 0;
+}

@@ -37,7 +37,10 @@ const CUSTOM_BODIES: Record<string, React.ComponentType> = {
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return ALL_PATHS.map((p) => ({ slug: p.replace(/^\//, "").split("/") }));
+  // /media/blogs and its articles are served by dedicated routes (app/media/blogs)
+  return ALL_PATHS.filter(
+    (p) => p !== "/media/blogs" && !p.startsWith("/media/blogs/"),
+  ).map((p) => ({ slug: p.replace(/^\//, "").split("/") }));
 }
 
 export async function generateMetadata({
