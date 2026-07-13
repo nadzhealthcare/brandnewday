@@ -7,6 +7,8 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { ArrowLeft, Clock } from "lucide-react";
 import { getArticleBySlug, mediaUrl } from "@/lib/strapi";
+import { extractFaqs } from "@/lib/faq";
+import FaqAccordion from "@/components/FaqAccordion";
 
 export const revalidate = 300;
 
@@ -40,7 +42,7 @@ export default async function ArticlePage({
   if (!a) notFound();
 
   const img = mediaUrl(a.image, "large");
-  const body = a.content?.intro || "";
+  const { body, faqs } = extractFaqs(a.content?.intro || "");
 
   return (
     <div className="bg-white">
@@ -100,6 +102,8 @@ export default async function ArticlePage({
             {body}
           </ReactMarkdown>
         </div>
+
+        <FaqAccordion items={faqs} title="FAQs" />
 
         <div className="mt-12 border-t border-black/5 pt-8 text-center">
           <Link

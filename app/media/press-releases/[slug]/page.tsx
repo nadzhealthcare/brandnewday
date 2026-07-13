@@ -7,6 +7,8 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { getPressReleaseBySlug, mediaUrl } from "@/lib/strapi";
+import { extractFaqs } from "@/lib/faq";
+import FaqAccordion from "@/components/FaqAccordion";
 
 export const revalidate = 300;
 
@@ -34,7 +36,7 @@ export default async function PressReleasePage({
   if (!a) notFound();
 
   const img = mediaUrl(a.image, "large");
-  const body = a.content?.intro || "";
+  const { body, faqs } = extractFaqs(a.content?.intro || "");
 
   return (
     <div className="bg-white">
@@ -87,6 +89,7 @@ export default async function PressReleasePage({
             </ReactMarkdown>
           </div>
         )}
+        <FaqAccordion items={faqs} title="FAQs" />
         {a.sourceUrl && (
           <a
             href={a.sourceUrl}
