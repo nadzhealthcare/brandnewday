@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight, Star, Globe } from "lucide-react";
 import SectionTitle from "./SectionTitle";
 
 const FALLBACK = "/assets/featured-placeholder.jpg";
@@ -10,8 +10,7 @@ type Member = {
   name: string;
   title: string;
   langs: string;
-  intro: string;
-  img: string;
+  img: string; // replace with each member's photo in /public/assets
   years: number;
   featured?: boolean;
 };
@@ -19,121 +18,94 @@ type Member = {
 const TEAM: Member[] = [
   {
     name: "Dr. Nadia Choudhry",
-    title: "Founder & Medical Director",
-    langs: "EN · FR · AR",
-    intro:
-      "Leads NADZ's clinical model, ensuring every patient interaction meets the highest standards of medical judgment, safety and care.",
+    title: "General Practitioner",
+    langs: "English, Arabic, Urdu, Hindi, Punjabi",
     img: "/assets/drnadia.jpg",
-    years: 16,
+    years: 13,
     featured: true,
   },
   {
     name: "Dr. Avinash Babu",
     title: "General Practitioner",
-    langs: "EN · AR",
-    intro:
-      "Two decades treating complex adult conditions — now bringing hospital-grade internal medicine to your living room.",
+    langs: "English, Tamil, Telugu, Russian",
     img: "/assets/dravinash.jpg",
-    years: 20,
-  },
-  {
-    name: "Dr. Sara Al Marri",
-    title: "Family Physician",
-    langs: "EN · AR",
-    intro:
-      "Your family's first point of contact — from newborns to grandparents, all under one trusted doctor.",
-    img: "/assets/drnadia.jpg",
-    years: 12,
-    featured: true,
-  },
-  {
-    name: "James Whitfield",
-    title: "Physiotherapy Lead",
-    langs: "EN · FR",
-    intro:
-      "Helps patients rebuild mobility and strength with tailored physiotherapy programs delivered at home.",
-    img: "/assets/drnadia.jpg",
     years: 5,
   },
   {
-    name: "Dr. Leila Rahman",
-    title: "Pediatrics",
-    langs: "EN · AR · UR",
-    intro:
-      "Gentle, specialised care for children — because little patients deserve big expertise.",
-    img: "/assets/drnadia.jpg",
-    years: 10,
+    name: "Dr. Dianne Jokene",
+    title: "Osteopathic Practitioner",
+    langs: "English",
+    img: "/assets/team/dianne.jpg",
+    years: 15,
   },
   {
-    name: "Dr. Karim Nassar",
-    title: "Longevity & Wellness",
-    langs: "EN · FR · AR",
-    intro:
-      "Designs preventive and longevity plans — advanced diagnostics and therapies that keep you healthier for longer.",
-    img: "/assets/drnadia.jpg",
-    years: 14,
+    name: "Dr. Muhammad Ahsaan Akhtar",
+    title: "Physiotherapist",
+    langs: "English, Urdu, Hindi, Punjabi",
+    img: "/assets/team/ahsaan.jpg",
+    years: 5,
     featured: true,
   },
   {
-    name: "Dr. Aisha Farouk",
-    title: "Dermatology",
-    langs: "EN · AR",
-    intro:
-      "Medical and aesthetic skin care at home — from diagnoses to advanced treatments, without the waiting room.",
-    img: "/assets/drnadia.jpg",
-    years: 11,
+    name: "Dr. Nada Thakur",
+    title: "Physiotherapist",
+    langs: "English, Hindi",
+    img: "/assets/team/nada.jpg",
+    years: 5,
   },
   {
-    name: "Dr. Daniel Kim",
-    title: "Cardiology",
-    langs: "EN · KO",
-    intro:
-      "Heart-health monitoring and diagnostics brought to your door, with rapid escalation when it matters.",
-    img: "/assets/drnadia.jpg",
-    years: 18,
-    featured: true,
+    name: "Chandra KC",
+    title: "Registered Nurse",
+    langs: "English, Nepali, Hindi",
+    img: "/assets/team/chandra.jpg",
+    years: 3,
   },
   {
-    name: "Dr. Priya Nair",
-    title: "Obstetrics & Gynaecology",
-    langs: "EN · HI · AR",
-    intro:
-      "Compassionate women's health care — prenatal, postnatal and beyond, in the comfort of home.",
-    img: "/assets/drnadia.jpg",
-    years: 13,
+    name: "Roja Devi Ningthoujam",
+    title: "Registered Nurse",
+    langs: "English, Hindi",
+    img: "/assets/team/roja.jpg",
+    years: 4,
   },
   {
-    name: "Dr. Yusuf Karim",
-    title: "Emergency Medicine",
-    langs: "EN · AR",
-    intro:
-      "Rapid-response urgent care, arriving fast and equipped to stabilise and treat on the spot.",
-    img: "/assets/drnadia.jpg",
-    years: 9,
-  },
-  {
-    name: "Dr. Elena Petrova",
-    title: "Nutrition & Dietetics",
-    langs: "EN · RU",
-    intro:
-      "Builds personalised nutrition and recovery plans that turn everyday habits into lasting health.",
-    img: "/assets/drnadia.jpg",
+    name: "Anjana Ghale",
+    title: "Registered Nurse",
+    langs: "English, Hindi, Nepali",
+    img: "/assets/team/anjana.jpg",
     years: 7,
+  },
+  {
+    name: "Bincy Eldhose",
+    title: "Registered Nurse",
+    langs: "English, Tamil, Malayalam",
+    img: "/assets/team/bincy.jpg",
+    years: 3,
+  },
+  {
+    name: "Kajal Andriya",
+    title: "Assistant Nurse",
+    langs: "English, Hindi, Malayalam",
+    img: "/assets/team/kajal.jpg",
+    years: 3,
+  },
+  {
+    name: "Desire Mendoza",
+    title: "Caregiver",
+    langs: "English, Arabic, Tagalog",
+    img: "/assets/team/desire.jpg",
+    years: 8,
+  },
+  {
+    name: "Zainabu Ibrahim",
+    title: "Caregiver",
+    langs: "English, Arabic, TWI",
+    img: "/assets/team/zainabu.jpg",
+    years: 9,
   },
 ];
 
-function LangPill({ langs, tone }: { langs: string; tone: "dark" | "maroon" }) {
-  return (
-    <span
-      className={`inline-flex items-center rounded-full px-3 py-1 text-[11px] font-medium tracking-wide backdrop-blur ${tone === "maroon"
-        ? "bg-white/15 text-white/90 ring-1 ring-white/20"
-        : "bg-white/12 text-white/85 ring-1 ring-white/15"
-        }`}
-    >
-      {langs}
-    </span>
-  );
-}
+// duplicated for a seamless infinite loop
+const LOOP = [...TEAM, ...TEAM];
 
 export default function ExpertTeam() {
   const scrollerRef = useRef<HTMLDivElement>(null);
@@ -143,9 +115,11 @@ export default function ExpertTeam() {
   const updateThumb = useCallback(() => {
     const s = scrollerRef.current;
     if (!s) return;
-    const w = (s.clientWidth / s.scrollWidth) * 100;
-    const left = (s.scrollLeft / s.scrollWidth) * 100;
-    setThumb({ w, left });
+    const half = s.scrollWidth / 2 || 1;
+    setThumb({
+      w: Math.min(100, (s.clientWidth / half) * 100),
+      left: ((s.scrollLeft % half) / half) * 100,
+    });
   }, []);
 
   useEffect(() => {
@@ -154,17 +128,15 @@ export default function ExpertTeam() {
     return () => window.removeEventListener("resize", updateThumb);
   }, [updateThumb]);
 
-  // autoplay (pauses on hover)
+  // autoplay with a seamless loop (jumps back by one set when past the first)
   useEffect(() => {
     const id = window.setInterval(() => {
       const s = scrollerRef.current;
       if (!s || pausedRef.current) return;
+      const half = s.scrollWidth / 2;
       const step = (s.firstElementChild?.clientWidth ?? 260) + 20;
-      if (s.scrollLeft + s.clientWidth >= s.scrollWidth - 6) {
-        s.scrollTo({ left: 0, behavior: "smooth" });
-      } else {
-        s.scrollBy({ left: step, behavior: "smooth" });
-      }
+      if (s.scrollLeft >= half - 1) s.scrollLeft -= half; // seamless reset
+      s.scrollBy({ left: step, behavior: "smooth" });
     }, 3000);
     return () => window.clearInterval(id);
   }, []);
@@ -172,6 +144,9 @@ export default function ExpertTeam() {
   const nudge = (dir: number) => {
     const s = scrollerRef.current;
     if (!s) return;
+    const half = s.scrollWidth / 2;
+    if (dir > 0 && s.scrollLeft >= half - 1) s.scrollLeft -= half;
+    if (dir < 0 && s.scrollLeft <= 1) s.scrollLeft += half;
     s.scrollBy({ left: dir * (s.clientWidth * 0.8), behavior: "smooth" });
   };
 
@@ -184,7 +159,8 @@ export default function ExpertTeam() {
               Meet the Expert Team
             </SectionTitle>
             <p className="mt-3 max-w-xl text-[15px] text-black/55">
-              DHA-licensed doctors and specialists behind every NADZ visit.
+              DHA-licensed doctors, nurses and specialists behind every NADZ
+              visit.
             </p>
           </div>
           <div className="flex gap-2.5">
@@ -212,70 +188,44 @@ export default function ExpertTeam() {
           onMouseEnter={() => (pausedRef.current = true)}
           onMouseLeave={() => (pausedRef.current = false)}
           onTouchStart={() => (pausedRef.current = true)}
-          className="no-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-2"
+          className="no-scrollbar flex gap-5 overflow-x-auto scroll-smooth pb-2"
         >
-          {TEAM.map((m, i) => (
+          {LOOP.map((m, i) => (
             <article
               key={i}
-              className="group relative h-[400px] w-[248px] shrink-0 snap-start overflow-hidden rounded-[26px] bg-[#140a12] shadow-[0_24px_50px_-26px_rgba(30,10,16,0.6)] sm:w-[266px]"
+              className="group flex h-[422px] w-[252px] shrink-0 flex-col overflow-hidden rounded-[22px] bg-white shadow-[0_18px_44px_-28px_rgba(30,10,16,0.4)] ring-1 ring-black/[0.06] sm:w-[268px]"
             >
-              {/* default: photo */}
-              <div
-                className="absolute inset-0 bg-cover bg-top transition-opacity duration-500 group-hover:opacity-0"
-                style={{
-                  backgroundImage: `url(${m.img}), url(${FALLBACK})`,
-                }}
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent transition-opacity duration-500 group-hover:opacity-0" />
-              <div className="absolute inset-x-0 bottom-0 p-5 transition-opacity duration-300 group-hover:opacity-0">
-                <h3 className="text-[19px] font-semibold leading-tight text-white">
+              {/* photo */}
+              <div className="relative h-[300px] w-full shrink-0 overflow-hidden bg-[#efe8e2]">
+                <div
+                  className="absolute inset-0 bg-cover bg-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                  style={{ backgroundImage: `url(${m.img}), url(${FALLBACK})` }}
+                />
+                <div className="absolute inset-x-0 top-0 flex items-start justify-between p-3">
+                  {m.featured ? (
+                    <span className="rounded-full bg-[color:var(--maroon)] px-3.5 py-1.5 text-[12px] font-semibold text-white shadow-md">
+                      Featured
+                    </span>
+                  ) : (
+                    <span />
+                  )}
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[12px] font-semibold text-[#2b1a17] shadow-md">
+                    <Star className="h-3.5 w-3.5 fill-[color:var(--maroon)] text-[color:var(--maroon)]" />
+                    {m.years} years
+                  </span>
+                </div>
+              </div>
+
+              {/* info */}
+              <div className="flex flex-1 flex-col p-4 sm:p-5">
+                <h3 className="text-[17px] font-semibold leading-snug text-[#1c1c1c]">
                   {m.name}
                 </h3>
-                <p className="mt-0.5 text-[13px] text-[color:var(--gold-light)]">
-                  {m.title}
-                </p>
-                <div className="mt-3">
-                  <LangPill langs={m.langs} tone="dark" />
+                <p className="mt-1 text-[13.5px] text-black/50">{m.title}</p>
+                <div className="mt-auto flex items-center gap-2 border-t border-black/[0.06] pt-3.5 text-[12.5px] text-black/55">
+                  <Globe className="h-4 w-4 shrink-0 text-[color:var(--maroon)]" />
+                  <span className="leading-snug">{m.langs}</span>
                 </div>
-              </div>
-
-              {/* hover: maroon abstract gradient + intro */}
-              <div
-                className="absolute inset-0 flex flex-col justify-between p-5 pt-16 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                style={{
-                  backgroundImage:
-                    "radial-gradient(120% 90% at 25% 15%, #7a3040 0%, transparent 55%), linear-gradient(160deg, #4a1c20 0%, #1e0a11 100%)",
-                }}
-              >
-                <div className="relative">
-                  <h3 className="text-[19px] font-semibold leading-tight text-white">
-                    {m.name}
-                  </h3>
-                  <p className="mt-0.5 text-[13px] text-[color:var(--gold-light)]">
-                    {m.title}
-                  </p>
-                  <p className="mt-4 text-[13px] leading-relaxed text-white/75">
-                    {m.intro}
-                  </p>
-                </div>
-                <div className="relative">
-                  <LangPill langs={m.langs} tone="maroon" />
-                </div>
-              </div>
-
-              {/* top badges — always visible over both states */}
-              <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-start justify-between p-4">
-                {m.featured ? (
-                  <span className="rounded-full bg-[color:var(--maroon)] px-4 py-1.5 text-[12px] font-semibold text-white shadow-md">
-                    Featured
-                  </span>
-                ) : (
-                  <span />
-                )}
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-1.5 text-[12px] font-semibold text-[#2b1a17] shadow-md">
-                  <Star className="h-3.5 w-3.5 fill-[color:var(--maroon)] text-[color:var(--maroon)]" />
-                  {m.years} years
-                </span>
               </div>
             </article>
           ))}
