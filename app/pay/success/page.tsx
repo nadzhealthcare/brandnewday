@@ -2,34 +2,54 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CircleCheck } from "lucide-react";
 import { getStripe } from "@/lib/stripe";
+import { getTabbyPayment, captureTabbyPayment } from "@/lib/tabby";
 
 export const metadata: Metadata = {
   title: "Payment Received — NADZ Healthcare",
   robots: { index: false },
 };
 
+function money(amount: number, currency: string) {
+  return new Intl.NumberFormat("en-AE", {
+    style: "currency",
+    currency: currency.toUpperCase(),
+  }).format(amount);
+}
+
 export default async function PaySuccessPage({
   searchParams,
 }: {
-  searchParams: Promise<{ session_id?: string }>;
+  // Stripe returns session_id; Tabby returns payment_id
+  searchParams: Promise<{ session_id?: string; payment_id?: string }>;
 }) {
-  const { session_id } = await searchParams;
+  const { session_id, payment_id } = await searchParams;
 
   let amountLabel: string | null = null;
   let paid = true;
+
   const stripe = getStripe();
   if (stripe && session_id) {
     try {
       const s = await stripe.checkout.sessions.retrieve(session_id);
       paid = s.payment_status === "paid";
       if (s.amount_total != null) {
-        amountLabel = new Intl.NumberFormat("en-AE", {
-          style: "currency",
-          currency: (s.currency || "aed").toUpperCase(),
-        }).format(s.amount_total / 100);
+        amountLabel = money(s.amount_total / 100, s.currency || "aed");
       }
     } catch {
       /* show generic success */
+    }
+  } else if (payment_id) {
+    // Tabby: confirm the payment is authorized, then capture it
+    const p = await getTabbyPayment(payment_id);
+    if (p) {
+      if (p.status === "AUTHORIZED") {
+        await captureTabbyPayment(p.id, p.amount);
+        paid = true;
+      } else {
+        paid = p.status === "CLOSED";
+      }
+      const amt = Number(p.amount);
+      if (Number.isFinite(amt)) amountLabel = money(amt, p.currency || "AED");
     }
   }
 

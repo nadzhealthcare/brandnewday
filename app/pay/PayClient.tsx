@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { CreditCard, ShieldCheck, Lock, Loader2 } from "lucide-react";
+import {
+  CreditCard,
+  ShieldCheck,
+  Lock,
+  Loader2,
+  ChevronDown,
+} from "lucide-react";
 import type { PayData } from "@/lib/paylink";
 
 function AppleIcon({ className = "" }: { className?: string }) {
@@ -14,7 +20,7 @@ function AppleIcon({ className = "" }: { className?: string }) {
 
 function TabbyMark() {
   return (
-    <span className="text-[15px] font-extrabold tracking-tight text-[#3bffa0]">
+    <span className="rounded bg-[#3bffa0] px-1.5 py-0.5 text-[13px] font-extrabold tracking-tight text-[#0b0b0b]">
       tabby
     </span>
   );
@@ -28,17 +34,38 @@ function TamaraMark() {
   );
 }
 
+function rejectionMessage(reason: string): string {
+  switch (reason) {
+    case "order_amount_too_high":
+      return "This amount is above Tabby's limit — please pay by card.";
+    case "order_amount_too_low":
+      return "This amount is below Tabby's minimum — please pay by card.";
+    default:
+      return "Tabby isn't available for this order — please pay by card.";
+  }
+}
+
 export default function PayClient({
   refToken,
   data,
   stripeReady,
+  tabbyReady,
 }: {
   refToken: string;
   data: PayData | null;
   stripeReady: boolean;
+  tabbyReady: boolean;
 }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Tabby buyer step
+  const [tabbyOpen, setTabbyOpen] = useState(false);
+  const [tabbyLoading, setTabbyLoading] = useState(false);
+  const [tabbyMsg, setTabbyMsg] = useState<string | null>(null);
+  const [name, setName] = useState(data?.n ?? "");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState(data?.p ?? "");
 
   const payWithCard = async () => {
     setError(null);
@@ -60,6 +87,35 @@ export default function PayClient({
     }
   };
 
+  const payWithTabby = async () => {
+    setTabbyMsg(null);
+    if (!name.trim() || !email.trim() || !phone.trim()) {
+      setTabbyMsg("Please enter your name, email and phone.");
+      return;
+    }
+    setTabbyLoading(true);
+    try {
+      const res = await fetch("/api/checkout/tabby", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ref: refToken, name, email, phone }),
+      });
+      const json = await res.json();
+      if (json.url) {
+        window.location.href = json.url;
+        return;
+      }
+      setTabbyMsg(
+        json.rejected
+          ? rejectionMessage(json.reason)
+          : json.error || "Could not start Tabby checkout",
+      );
+    } catch {
+      setTabbyMsg("Something went wrong — please try card.");
+    }
+    setTabbyLoading(false);
+  };
+
   const amountLabel =
     data &&
     new Intl.NumberFormat("en-AE", {
@@ -67,6 +123,9 @@ export default function PayClient({
       currency: data.c || "AED",
       minimumFractionDigits: data.a % 1 === 0 ? 0 : 2,
     }).format(data.a);
+
+  const field =
+    "w-full rounded-xl border border-black/10 bg-white px-4 py-2.5 text-[14px] text-[#241417] outline-none transition-colors focus:border-[color:var(--maroon)]/50";
 
   return (
     <main className="grid min-h-[100svh] place-items-center bg-[color:var(--cream)] px-4 py-10">
@@ -141,19 +200,81 @@ export default function PayClient({
                   )}
                 </button>
 
-                {/* BNPL — enabled once merchant approval + keys land */}
-                <button
-                  type="button"
-                  disabled
-                  className="flex w-full items-center justify-between rounded-2xl border border-black/10 bg-[#f5f4f2] px-5 py-4 text-[14px] font-medium text-black/50"
-                >
-                  <span className="flex items-center gap-2">
-                    <TabbyMark /> Split in 4 · interest-free
-                  </span>
-                  <span className="text-[11px] font-semibold uppercase tracking-wide text-black/35">
-                    Soon
-                  </span>
-                </button>
+                {/* Tabby */}
+                {tabbyReady ? (
+                  <div className="overflow-hidden rounded-2xl border border-black/10">
+                    <button
+                      type="button"
+                      onClick={() => setTabbyOpen((o) => !o)}
+                      className="flex w-full items-center justify-between bg-[#f5f4f2] px-5 py-4 text-[14px] font-medium text-[#241417]"
+                    >
+                      <span className="flex items-center gap-2">
+                        <TabbyMark /> Split in 4 · interest-free
+                      </span>
+                      <ChevronDown
+                        className={`h-4 w-4 text-black/40 transition-transform ${
+                          tabbyOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+                    {tabbyOpen && (
+                      <div className="space-y-2.5 border-t border-black/10 bg-white p-4">
+                        <input
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          placeholder="Full name"
+                          className={field}
+                        />
+                        <input
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          type="email"
+                          placeholder="Email"
+                          className={field}
+                        />
+                        <input
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          type="tel"
+                          placeholder="Phone (e.g. +9715…)"
+                          className={field}
+                        />
+                        <button
+                          type="button"
+                          onClick={payWithTabby}
+                          disabled={tabbyLoading}
+                          className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#3bffa0] px-5 py-3 text-[14px] font-bold text-[#0b0b0b] transition-transform hover:-translate-y-0.5 disabled:opacity-60"
+                        >
+                          {tabbyLoading ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                          ) : (
+                            "Continue with Tabby"
+                          )}
+                        </button>
+                        {tabbyMsg && (
+                          <p className="text-center text-[12.5px] text-[color:var(--maroon)]">
+                            {tabbyMsg}
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    disabled
+                    className="flex w-full items-center justify-between rounded-2xl border border-black/10 bg-[#f5f4f2] px-5 py-4 text-[14px] font-medium text-black/50"
+                  >
+                    <span className="flex items-center gap-2">
+                      <TabbyMark /> Split in 4 · interest-free
+                    </span>
+                    <span className="text-[11px] font-semibold uppercase tracking-wide text-black/35">
+                      Soon
+                    </span>
+                  </button>
+                )}
+
+                {/* Tamara — enabled once its keys land */}
                 <button
                   type="button"
                   disabled
@@ -180,7 +301,7 @@ export default function PayClient({
               {/* trust footer */}
               <div className="flex items-center justify-center gap-2 border-t border-black/5 px-6 py-4 text-[12px] text-black/45">
                 <ShieldCheck className="h-4 w-4 text-[color:var(--maroon)]" />
-                Secure payment · powered by Stripe
+                Secure payment
               </div>
             </>
           )}
