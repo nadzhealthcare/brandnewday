@@ -159,10 +159,10 @@ export default function Footer() {
             {/* subscribe */}
             <div className="mt-10 border-t border-black/10 pt-6">
               <p className="text-[14px] text-black/45">
-                Care that comes to you.
+                Get notified instant
               </p>
               <p className="text-[16px] font-semibold text-[#171717]">
-                Book a callback with NADZ.
+                Subscribe to our Newsletter
               </p>
               <form className="mt-4 flex max-w-md items-center gap-2 rounded-full border border-black/10 bg-white p-1.5 pl-4">
                 <input
