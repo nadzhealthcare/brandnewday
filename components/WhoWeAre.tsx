@@ -17,8 +17,14 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import SectionTitle from "./SectionTitle";
+import FeatureSlider from "./FeatureSlider";
 
-const IMG_MAIN = "/assets/doctorled.jpg";
+const FEATURE_SLIDES = [
+  "/assets/slider1.jpg",
+  "/assets/slider2.jpg",
+  "/assets/slider3.jpg",
+  "/assets/slider4.jpg",
+];
 const IMG_PROMISE = "/assets/drnadia.jpg";
 
 const SERVE: { icon: LucideIcon; label: string; note: string }[] = [
@@ -89,14 +95,8 @@ export default function WhoWeAre() {
 
       {/* 2 — feature image with overlaid glass cards */}
       <section className="px-4 pt-12 sm:px-6 sm:pt-16">
-        <div className="group relative mx-auto max-w-[1180px] overflow-hidden rounded-[30px]">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={IMG_MAIN}
-            alt="The NADZ care team"
-            className="h-[620px] w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04] sm:h-[560px]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/35" />
+        <div className="group relative mx-auto h-[620px] max-w-[1180px] overflow-hidden rounded-[30px] bg-[#2a0e12] sm:h-[560px]">
+          <FeatureSlider images={FEATURE_SLIDES} />
 
           <div className="absolute inset-0 flex flex-col justify-between gap-4 p-5 sm:p-7 lg:flex-row lg:items-end">
             {/* left — value proposition */}
