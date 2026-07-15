@@ -6,6 +6,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import FloatingWidgets from "@/components/FloatingWidgets";
 import StickyBooking from "@/components/StickyBooking";
 import OfferPopup from "@/components/OfferPopup";
+import CookieConsent from "@/components/CookieConsent";
 import Footer from "@/components/Footer";
 import "./globals.css";
 
@@ -64,6 +65,7 @@ export default function RootLayout({
         <Footer />
         <StickyBooking />
         <OfferPopup />
+        <CookieConsent />
         <FloatingWidgets />
       </body>
     </html>

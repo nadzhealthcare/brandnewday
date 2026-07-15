@@ -24,7 +24,9 @@ const FIRST_OPEN_MS = 1200;
 
 export default function OfferPopup() {
   const pathname = usePathname();
-  const suppressed = pathname.startsWith("/pay");
+  const suppressed =
+    pathname.startsWith("/pay") ||
+    ["/cookies", "/privacy", "/terms"].includes(pathname);
   const [open, setOpen] = useState(false);
   const openRef = useRef(false);
   openRef.current = open;
