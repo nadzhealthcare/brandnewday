@@ -1,8 +1,6 @@
 import Link from "next/link";
 import {
   Stethoscope,
-  HeartPulse,
-  Syringe,
   Activity,
   Home,
   Heart,
@@ -25,7 +23,7 @@ const FEATURE_SLIDES = [
   "/assets/slider3.jpg",
   "/assets/slider4.jpg",
 ];
-const IMG_PROMISE = "/assets/drnadia.jpg";
+const IMG_PROMISE = "/assets/trusted-care.jpg";
 
 const SERVE: { icon: LucideIcon; label: string; note: string }[] = [
   { icon: Stethoscope, label: "Routine Check-ups", note: "Preventive, ongoing care" },
@@ -112,18 +110,6 @@ export default function WhoWeAre() {
               <p className="mt-3 text-[13px] font-semibold text-[color:var(--gold-light)]">
                 Dr. Nadia Choudhry · Co-founder
               </p>
-            </div>
-
-            {/* center, service icon bar */}
-            <div className="mx-auto hidden items-center gap-1.5 self-center rounded-full border border-white/15 bg-black/40 px-3 py-2 backdrop-blur-md lg:flex">
-              {[Stethoscope, HeartPulse, Syringe, Activity, Home].map((Icon, i) => (
-                <span
-                  key={i}
-                  className="grid h-9 w-9 place-items-center rounded-full text-white/85 transition-all duration-300 hover:-translate-y-0.5 hover:scale-110 hover:bg-[color:var(--gold-light)] hover:text-[color:var(--maroon)]"
-                >
-                  <Icon className="h-5 w-5" strokeWidth={1.6} />
-                </span>
-              ))}
             </div>
 
             {/* right, our story */}
