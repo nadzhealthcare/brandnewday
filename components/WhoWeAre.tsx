@@ -53,10 +53,21 @@ function Glare() {
   );
 }
 
-function SocialDot({ children }: { children: React.ReactNode }) {
+function SocialDot({
+  href,
+  label,
+  children,
+}: {
+  href: string;
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
     <a
-      href="#"
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
       className="grid h-9 w-9 place-items-center rounded-full bg-[color:var(--maroon)] text-white transition-all duration-300 hover:-translate-y-0.5 hover:scale-110 hover:bg-[color:var(--gold-dark)] hover:shadow-[0_10px_20px_-8px_rgba(43,26,23,0.7)]"
     >
       {children}
@@ -202,13 +213,16 @@ export default function WhoWeAre() {
               <Glare />
             </div>
             <div className="flex items-center gap-2.5">
-              <SocialDot>
+              <SocialDot href="https://x.com/nadzhealthcare" label="X">
                 <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor"><path d="M18.9 2H22l-7.1 8.1L23.3 22h-6.6l-5.2-6.8L5.6 22H2.4l7.6-8.7L1 2h6.8l4.7 6.2L18.9 2Zm-1.2 18h1.8L7.4 3.9H5.5L17.7 20Z" /></svg>
               </SocialDot>
-              <SocialDot>
+              <SocialDot href="https://www.instagram.com/nadzhealthcare/" label="Instagram">
                 <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg>
               </SocialDot>
-              <SocialDot>
+              <SocialDot href="https://www.facebook.com/nadzhealthcare/" label="Facebook">
+                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073Z" /></svg>
+              </SocialDot>
+              <SocialDot href="https://www.linkedin.com/company/nadzhealthcare/" label="LinkedIn">
                 <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0 0-5ZM3 9h4v12H3V9Zm6 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C20.6 8.65 22 10.6 22 14v7h-4v-6.2c0-1.48-.03-3.38-2.06-3.38-2.06 0-2.38 1.6-2.38 3.27V21H9V9Z" /></svg>
               </SocialDot>
             </div>

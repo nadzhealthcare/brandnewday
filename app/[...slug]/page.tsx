@@ -7,6 +7,7 @@ import WhoWeAre from "@/components/WhoWeAre";
 import MissionVision from "@/components/MissionVision";
 import Careers from "@/components/Careers";
 import FaqPage from "@/components/FaqPage";
+import ContactPage from "@/components/ContactPage";
 import DoctorOnCall from "@/components/DoctorOnCall";
 import HowItWorks from "@/components/HowItWorks";
 import ServiceBody from "@/components/ServiceBody";
@@ -26,6 +27,7 @@ const CUSTOM_PAGES: Record<string, React.ComponentType> = {
   "/about/mission-vision": MissionVision,
   "/about/careers": Careers,
   "/about/faqs": FaqPage,
+  "/contact": ContactPage,
 };
 
 // routes that keep the default slider hero, then render a custom body below it
