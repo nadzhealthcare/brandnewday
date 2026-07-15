@@ -27,14 +27,18 @@ export default function AutoScrollRow({
     let raf = 0;
     let paused = false;
     let resumeTimer: ReturnType<typeof setTimeout>;
+    // Own float accumulator — reading el.scrollLeft back rounds to an integer,
+    // so a sub-pixel `speed` would truncate to 0 each frame (never advancing,
+    // notably on mobile). Track the exact position ourselves instead.
+    let pos = el.scrollLeft;
 
     const step = () => {
       if (!paused) {
         const half = el.scrollWidth / 2;
         if (half > 0) {
-          let next = el.scrollLeft + speed;
-          if (next >= half) next -= half;
-          el.scrollLeft = next;
+          pos += speed;
+          if (pos >= half) pos -= half;
+          el.scrollLeft = pos;
         }
       }
       raf = requestAnimationFrame(step);
@@ -45,6 +49,7 @@ export default function AutoScrollRow({
       paused = true;
       clearTimeout(resumeTimer);
       resumeTimer = setTimeout(() => {
+        pos = el.scrollLeft; // re-sync after any manual scroll
         paused = false;
       }, 2500);
     };

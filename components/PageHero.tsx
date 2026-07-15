@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Phone, Timer } from "lucide-react";
 import DhaBadge from "./DhaBadge";
+import AutoScrollRow from "./AutoScrollRow";
 
 function WhatsAppIcon({ className = "" }: { className?: string }) {
   return (
@@ -44,44 +45,58 @@ function GlassCard({ children }: { children: React.ReactNode }) {
   );
 }
 
+const BADGE_ITEMS = [
+  <DhaBadge key="dha" />,
+  <div key="reach" className="flex items-center gap-3">
+    <div className="leading-tight">
+      <p className="text-[11px] text-white/60">We Reach you in</p>
+      <p className="text-[16px] font-bold text-white">30 mins</p>
+    </div>
+    <Timer className="h-8 w-8 text-white/85" strokeWidth={1.6} />
+  </div>,
+  <div key="247" className="flex items-center gap-3">
+    <div className="leading-tight">
+      <p className="text-[16px] font-bold text-white">24/7</p>
+      <p className="text-[11px] text-white/60">
+        medical assistance
+        <br />
+        at your doorstep
+      </p>
+    </div>
+    <Timer className="h-8 w-8 text-white/85" strokeWidth={1.6} />
+  </div>,
+];
+
 function Badges() {
   return (
     <div className="flex flex-wrap items-stretch gap-3">
-      <GlassCard>
-        <DhaBadge />
-      </GlassCard>
-      <GlassCard>
-        <div className="flex items-center gap-3">
-          <div className="leading-tight">
-            <p className="text-[11px] text-white/60">We Reach you in</p>
-            <p className="text-[16px] font-bold text-white">30 mins</p>
-          </div>
-          <Timer className="h-8 w-8 text-white/85" strokeWidth={1.6} />
-        </div>
-      </GlassCard>
-      <GlassCard>
-        <div className="flex items-center gap-3">
-          <div className="leading-tight">
-            <p className="text-[16px] font-bold text-white">24/7</p>
-            <p className="text-[11px] text-white/60">
-              medical assistance
-              <br />
-              at your doorstep
-            </p>
-          </div>
-          <Timer className="h-8 w-8 text-white/85" strokeWidth={1.6} />
-        </div>
-      </GlassCard>
+      {BADGE_ITEMS.map((item, i) => (
+        <GlassCard key={i}>{item}</GlassCard>
+      ))}
     </div>
+  );
+}
+
+/* Mobile-only: the glass cards as an edge-to-edge auto-playing carousel,
+   aligned to the bottom of the hero (mirrors the home hero). */
+function GlassCarousel() {
+  return (
+    <AutoScrollRow className="-mx-6 px-6 pb-1" speed={0.35}>
+      {BADGE_ITEMS.map((item, i) => (
+        <GlassCard key={i}>{item}</GlassCard>
+      ))}
+    </AutoScrollRow>
   );
 }
 
 function TitleBlock({
   title,
   description,
+  showCta = true,
 }: {
   title: string;
   description: string;
+  showCta?: boolean;
 }) {
   return (
     <div className="max-w-xl">
@@ -91,9 +106,11 @@ function TitleBlock({
       <p className="blur-in mt-5 max-w-md text-[15px] leading-relaxed text-white/70" style={{ animationDelay: "0.28s" }}>
         {description}
       </p>
-      <div className="blur-in mt-8" style={{ animationDelay: "0.5s" }}>
-        <CtaButtons />
-      </div>
+      {showCta && (
+        <div className="blur-in mt-8" style={{ animationDelay: "0.5s" }}>
+          <CtaButtons />
+        </div>
+      )}
     </div>
   );
 }
@@ -170,11 +187,11 @@ export default function PageHero({
         </div>
 
         {/* ---- Mobile / tablet layout ---- */}
-        <div className="relative z-10 flex min-h-[560px] flex-col justify-between gap-8 p-6 sm:p-9 lg:hidden">
-          <div className="pt-24">
-            <TitleBlock title={title} description={description} />
-          </div>
-          <Badges />
+        {/* title + description sit right above the glass-card carousel, the
+            whole group pinned to the bottom (mirrors the home hero). */}
+        <div className="relative z-10 flex min-h-[560px] flex-col justify-end gap-5 p-6 pt-24 sm:p-9 lg:hidden">
+          <TitleBlock title={title} description={description} showCta={false} />
+          <GlassCarousel />
         </div>
 
         {/* slider dots */}
