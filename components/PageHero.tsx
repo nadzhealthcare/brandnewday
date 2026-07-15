@@ -81,7 +81,7 @@ function Badges() {
    aligned to the bottom of the hero (mirrors the home hero). */
 function GlassCarousel() {
   return (
-    <AutoScrollRow className="-mx-6 px-6 pb-1" speed={0.35}>
+    <AutoScrollRow className="-mx-6 px-6 pb-1" speed={0.55}>
       {BADGE_ITEMS.map((item, i) => (
         <GlassCard key={i}>{item}</GlassCard>
       ))}
@@ -137,8 +137,8 @@ export default function PageHero({
   }, [slides.length]);
 
   return (
-    <section className="bg-white px-3 pb-6 pt-3 sm:px-5 sm:pb-8 lg:px-6">
-      <div className="relative min-h-[560px] overflow-hidden rounded-[26px] border-[8px] border-white bg-[#2a0e12] shadow-[0_30px_70px_-30px_rgba(74,28,32,0.55)] sm:rounded-[32px] sm:border-[12px] lg:h-[calc(100vh-160px)] lg:max-h-[720px] lg:min-h-[560px]">
+    <section className="bg-white px-0 pb-0 pt-0 sm:px-5 sm:pb-8 sm:pt-3 lg:px-6">
+      <div className="relative min-h-[560px] overflow-hidden rounded-none border-0 bg-[#2a0e12] shadow-[0_30px_70px_-30px_rgba(74,28,32,0.55)] sm:rounded-[32px] sm:border-[12px] sm:border-white lg:h-[calc(100vh-160px)] lg:max-h-[720px] lg:min-h-[560px]">
         {/* slider — images and (mp4/webm) video slides */}
         <div className="absolute inset-0">
           {slides.map((src, i) => {

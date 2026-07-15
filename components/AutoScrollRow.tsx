@@ -21,9 +21,6 @@ export default function AutoScrollRow({
     const el = ref.current;
     if (!el) return;
 
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
-
     let raf = 0;
     let paused = false;
     let resumeTimer: ReturnType<typeof setTimeout>;

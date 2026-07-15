@@ -169,7 +169,7 @@ function Badges() {
    aligned to the bottom of the hero. */
 function GlassCarousel() {
   return (
-    <AutoScrollRow className="-mx-6 px-6 pb-1" speed={0.35}>
+    <AutoScrollRow className="-mx-6 px-6 pb-1" speed={0.55}>
       <BestCard />
       {BADGE_ITEMS.map((item, i) => (
         <GlassCard key={i}>{item}</GlassCard>
