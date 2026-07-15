@@ -80,9 +80,9 @@ export const HERO_IMAGES: Record<string, string[]> = {
 
   // Services
   "/services/doctor-on-call": [
-    "/assets/doctor-on-call.png",
+    "/assets/doc-slider.png",
+    "/assets/doctor-on-call.mp4",
     "/assets/doct.jpg",
-    "/assets/drnadia.jpg",
   ],
   "/services/nursing-care": [
     "/assets/nurse-on-call.png",

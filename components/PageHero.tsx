@@ -122,19 +122,37 @@ export default function PageHero({
   return (
     <section className="bg-white px-3 pb-6 pt-3 sm:px-5 sm:pb-8 lg:px-6">
       <div className="relative min-h-[560px] overflow-hidden rounded-[26px] border-[8px] border-white bg-[#2a0e12] shadow-[0_30px_70px_-30px_rgba(74,28,32,0.55)] sm:rounded-[32px] sm:border-[12px] lg:h-[calc(100vh-160px)] lg:max-h-[720px] lg:min-h-[560px]">
-        {/* image slider */}
+        {/* slider — images and (mp4/webm) video slides */}
         <div className="absolute inset-0">
-          {slides.map((src, i) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              key={`${src}-${i}`}
-              src={src}
-              alt=""
-              aria-hidden={i !== index}
-              className="absolute inset-0 h-full w-full object-cover transition-opacity duration-[1100ms] ease-in-out"
-              style={{ opacity: i === index ? 1 : 0 }}
-            />
-          ))}
+          {slides.map((src, i) => {
+            const cls =
+              "absolute inset-0 h-full w-full object-cover transition-opacity duration-[1100ms] ease-in-out";
+            const style = { opacity: i === index ? 1 : 0 };
+            return /\.(mp4|webm)$/i.test(src) ? (
+              <video
+                key={`${src}-${i}`}
+                src={src}
+                aria-hidden={i !== index}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                className={cls}
+                style={style}
+              />
+            ) : (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                key={`${src}-${i}`}
+                src={src}
+                alt=""
+                aria-hidden={i !== index}
+                className={cls}
+                style={style}
+              />
+            );
+          })}
         </div>
 
         {/* warm glow + legibility overlay (matches home hero) */}
