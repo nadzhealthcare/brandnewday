@@ -50,21 +50,25 @@ export default function PayClient({
   data,
   stripeReady,
   tabbyReady,
+  initialEmail = "",
+  tabbyDefaultOpen = false,
 }: {
   refToken: string;
   data: PayData | null;
   stripeReady: boolean;
   tabbyReady: boolean;
+  initialEmail?: string;
+  tabbyDefaultOpen?: boolean;
 }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // Tabby buyer step
-  const [tabbyOpen, setTabbyOpen] = useState(false);
+  const [tabbyOpen, setTabbyOpen] = useState(tabbyDefaultOpen);
   const [tabbyLoading, setTabbyLoading] = useState(false);
   const [tabbyMsg, setTabbyMsg] = useState<string | null>(null);
   const [name, setName] = useState(data?.n ?? "");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(initialEmail);
   const [phone, setPhone] = useState(data?.p ?? "");
 
   const payWithCard = async () => {
