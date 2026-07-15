@@ -8,9 +8,9 @@ import { getArticles, mediaUrl } from "@/lib/strapi";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Blogs — NADZ Healthcare",
+  title: "Blogs, NADZ Healthcare",
   description:
-    "Insights and guides from the NADZ care team — home healthcare, longevity, family health and preventive care.",
+    "Insights and guides from the NADZ care team, home healthcare, longevity, family health and preventive care.",
 };
 
 export default async function BlogsPage() {
@@ -37,7 +37,7 @@ export default async function BlogsPage() {
           </SectionTitle>
           <p className="mx-auto mt-4 max-w-2xl text-[15.5px] leading-relaxed text-white/65">
             Doctor-written guidance on home healthcare, longevity and family
-            wellness — straight from the NADZ care team.
+            wellness, straight from the NADZ care team.
           </p>
         </div>
       </section>
@@ -47,7 +47,7 @@ export default async function BlogsPage() {
         <div className="mx-auto max-w-[1180px]">
           {items.length === 0 ? (
             <p className="py-16 text-center text-[15px] text-black/45">
-              Articles are on their way — please check back soon.
+              Articles are on their way, please check back soon.
             </p>
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

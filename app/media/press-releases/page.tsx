@@ -8,7 +8,7 @@ import { getPressReleases, mediaUrl } from "@/lib/strapi";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Press Releases — NADZ Healthcare",
+  title: "Press Releases, NADZ Healthcare",
   description: "Official announcements and news from NADZ Healthcare.",
 };
 
@@ -44,7 +44,7 @@ export default async function PressReleasesPage() {
         <div className="mx-auto max-w-[1180px]">
           {items.length === 0 ? (
             <p className="py-16 text-center text-[15px] text-black/45">
-              Announcements are on their way — please check back soon.
+              Announcements are on their way, please check back soon.
             </p>
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

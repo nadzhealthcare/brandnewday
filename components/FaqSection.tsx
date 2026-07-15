@@ -8,7 +8,7 @@ import SectionTitle from "./SectionTitle";
 const FAQS: { q: string; a: string }[] = [
   {
     q: "Do you provide care 24/7?",
-    a: "Yes — our doctor-on-call and urgent services run around the clock, every day of the week, so help is always one call away.",
+    a: "Yes, our doctor-on-call and urgent services run around the clock, every day of the week, so help is always one call away.",
   },
   {
     q: "Are your doctors DHA-licensed?",
@@ -28,7 +28,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "How do I book a visit?",
-    a: "Call or WhatsApp us, or tap Book an appointment — we'll triage your needs and guide you to the right service.",
+    a: "Call or WhatsApp us, or tap Book an appointment, we'll triage your needs and guide you to the right service.",
   },
 ];
 

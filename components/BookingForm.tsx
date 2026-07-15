@@ -24,7 +24,7 @@ const SERVICES: string[] = [
   "Medical Tourism",
   "NADZ Vital Brain",
   "Autonomic Control",
-  "NAD+ IV Therapy",
+  "NAD⁺ IV Therapy",
   "Peptide Therapy",
   "Other / Not sure",
 ];

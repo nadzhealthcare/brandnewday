@@ -59,7 +59,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const meta = PAGE_META["/" + slug.join("/")];
   return {
-    title: meta ? `${meta.title} — NADZ Healthcare` : "NADZ Healthcare",
+    title: meta ? `${meta.title}, NADZ Healthcare` : "NADZ Healthcare",
     description: meta?.description,
   };
 }

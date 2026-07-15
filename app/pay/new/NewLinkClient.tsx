@@ -83,7 +83,7 @@ export default function NewLinkClient() {
           <input
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Description (e.g. IV Drip — home visit)"
+            placeholder="Description (e.g. IV Drip, home visit)"
             className={field}
           />
           <input

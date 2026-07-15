@@ -16,7 +16,7 @@ const FALLBACK_REVIEWS: Review[] = [
   {
     name: "VA Refurbished",
     initials: "VA",
-    text: "Amazed by Dr. Jerusalem and her team — they took our baby's illness very seriously and kept checking in.",
+    text: "Amazed by Dr. Jerusalem and her team, they took our baby's illness very seriously and kept checking in.",
     time: "8 months ago",
   },
   {
@@ -160,7 +160,7 @@ export default function ReviewsTile({ reviews }: { reviews?: Review[] }) {
       }}
     >
       <div className="grid h-full grid-cols-1 gap-5 p-6 sm:grid-cols-[1.02fr_0.98fr] sm:items-center sm:gap-6">
-        {/* left — USPs */}
+        {/* left, USPs */}
         <div className="flex flex-col justify-center gap-4">
           {USPS.map((u, idx) => (
             <div key={idx} className="flex items-baseline gap-3">
@@ -183,7 +183,7 @@ export default function ReviewsTile({ reviews }: { reviews?: Review[] }) {
           ))}
         </div>
 
-        {/* right — vertical review carousel */}
+        {/* right, vertical review carousel */}
         <div
           ref={vpRef}
           className="relative h-[210px] overflow-hidden md:h-full md:min-h-[176px]"

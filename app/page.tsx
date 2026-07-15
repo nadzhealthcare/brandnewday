@@ -19,7 +19,7 @@ export default function Home() {
     <>
       <TopBar />
       <div className="relative">
-        {/* sticky navbar — glass over the hero, solid on scroll */}
+        {/* sticky navbar, glass over the hero, solid on scroll */}
         <Navbar />
         {/* pull the hero up so the navbar floats over it at the top */}
         <main className="flex-1 -mt-20 sm:-mt-[84px] lg:-mt-[88px]">

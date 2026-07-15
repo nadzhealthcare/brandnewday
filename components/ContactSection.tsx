@@ -103,7 +103,7 @@ export default function ContactSection() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-25"
       />
-      {/* energized DNA — brightly revealed inside the roaming spotlight */}
+      {/* energized DNA, brightly revealed inside the roaming spotlight */}
       <div ref={revealRef} className="pointer-events-none absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -113,14 +113,14 @@ export default function ContactSection() {
           className="h-full w-full object-cover"
         />
       </div>
-      {/* legibility gradient — kept lighter so the DNA shows through */}
+      {/* legibility gradient, kept lighter so the DNA shows through */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/65 via-black/20 to-black/40" />
 
       <div className="relative mx-auto grid w-full max-w-[1180px] items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
         {/* left: title + description + contact info */}
         <div>
           <SectionTitle className="max-w-[15ch] text-[2.1rem] leading-[1.05] text-white sm:text-[3rem]">
-            What If You Got the Same Care — At Home?
+            What If You Got the Same Care, At Home?
           </SectionTitle>
           <p className="mt-5 max-w-md text-[15.5px] leading-relaxed text-white/70">
             Most patients lose over 80 minutes travelling and waiting for a
@@ -172,7 +172,7 @@ export default function ContactSection() {
                 <Check className="h-6 w-6" />
               </span>
               <p className="text-[15px] font-semibold text-white">
-                Thanks — we&apos;ll be in touch!
+                Thanks, we&apos;ll be in touch!
               </p>
               <p className="text-[13px] text-white/60">
                 Our care team will call you back within business hours.

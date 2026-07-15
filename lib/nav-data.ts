@@ -114,7 +114,7 @@ export const NAV: NavItem[] = [
         icon: Droplets,
         description: "Restorative infusions delivered in comfort.",
         children: [
-          { label: "IV NAD+", href: "/services/iv-drips/iv-nad-plus" },
+          { label: "IV NAD⁺", href: "/services/iv-drips/iv-nad-plus" },
           {
             label: "IV Glutathione Radiance Drip",
             href: "/services/iv-drips/iv-glutathione-radiance",
@@ -216,7 +216,7 @@ export const NAV: NavItem[] = [
     columns: 1,
     items: [
       {
-        label: "NAD++ IV Therapy",
+        label: "NAD⁺ IV Therapy",
         href: "/wellness/nad-plus-iv-therapy",
         icon: Sparkles,
         description: "Cellular renewal for energy and longevity.",

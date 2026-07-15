@@ -30,14 +30,14 @@ export default async function TestimonialsBento() {
           Loved by Families Across Dubai
         </SectionTitle>
         <p className="mx-auto mb-12 mt-3 max-w-xl text-center text-[15px] text-black/55">
-          Thousands of home visits delivered — here&apos;s what our patients say.
+          Thousands of home visits delivered, here&apos;s what our patients say.
         </p>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:grid-rows-[224px_268px_164px]">
-          {/* A — reviews highlight (USPs + vertical review carousel) */}
+          {/* A, reviews highlight (USPs + vertical review carousel) */}
           <ReviewsTile reviews={reviews} />
 
-          {/* B — testimonial video (tall) */}
+          {/* B, testimonial video (tall) */}
           <div className="group relative overflow-hidden rounded-[26px] md:col-span-1 md:row-span-2">
             <video
               className="absolute inset-0 h-full w-full object-cover"
@@ -68,10 +68,10 @@ export default async function TestimonialsBento() {
             </div>
           </div>
 
-          {/* C — serving locations (animated Dubai map with NADZ pins) */}
+          {/* C, serving locations (animated Dubai map with NADZ pins) */}
           <ServingMapTile />
 
-          {/* D — response-time USP */}
+          {/* D, response-time USP */}
           <div className="flex flex-col justify-between rounded-[26px] bg-gradient-to-br from-[#4a1c20] to-[#280f14] p-6 text-white md:col-span-1">
             <span className="text-[13px] text-white/60">Fast when it matters</span>
             <div>
@@ -84,12 +84,12 @@ export default async function TestimonialsBento() {
             </div>
           </div>
 
-          {/* E — patient quote (wide) */}
+          {/* E, patient quote (wide) */}
           <div className="flex flex-col justify-between rounded-[26px] bg-[#faf7f2] p-6 ring-1 ring-black/5 md:col-span-2">
             <p className="text-[16px] leading-relaxed text-[#3a2a26] sm:text-[18px]">
               &ldquo;
               {featured?.review ||
-                "The doctor arrived within half an hour and treated my father with such care — it felt like family looking after us."}
+                "The doctor arrived within half an hour and treated my father with such care, it felt like family looking after us."}
               &rdquo;
             </p>
             <div className="mt-4 flex items-center gap-3">
@@ -107,7 +107,7 @@ export default async function TestimonialsBento() {
             </div>
           </div>
 
-          {/* F — 24/7 USP */}
+          {/* F, 24/7 USP */}
           <div className="flex flex-col justify-between rounded-[26px] bg-[#f5f4f2] p-6 ring-1 ring-black/5 md:col-span-1">
             <span className="text-[13px] text-black/45">Always on</span>
             <div>

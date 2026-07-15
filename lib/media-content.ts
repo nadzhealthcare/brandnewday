@@ -46,12 +46,12 @@ export const MEDIA_BODIES: Record<string, MediaBodyData> = {
     eyebrow: "Media & Press · Blogs",
     title: "Insights & guides from our clinicians",
     intro:
-      "Practical, doctor-written guidance on home healthcare, longevity and family wellness — straight from the NADZ care team.",
+      "Practical, doctor-written guidance on home healthcare, longevity and family wellness, straight from the NADZ care team.",
     topicsEyebrow: "What We Write About",
     topicsTitle: "Explore by topic",
     topics: [
       { icon: Stethoscope, title: "Home Healthcare", desc: "Getting the most from care that comes to you." },
-      { icon: Leaf, title: "Longevity & Wellness", desc: "NAD+, peptides and healthy ageing." },
+      { icon: Leaf, title: "Longevity & Wellness", desc: "NAD⁺, peptides and healthy ageing." },
       { icon: HeartPulse, title: "Family Health", desc: "Guidance for every age in the family." },
       { icon: ShieldCheck, title: "Preventive Care", desc: "Screening, testing and staying ahead." },
     ],
@@ -66,7 +66,7 @@ export const MEDIA_BODIES: Record<string, MediaBodyData> = {
     eyebrow: "Media & Press · Awards & Achievements",
     title: "Recognition for care that goes further",
     intro:
-      "The standards and milestones that define NADZ — a commitment to excellence across Dubai's home-healthcare landscape.",
+      "The standards and milestones that define NADZ, a commitment to excellence across Dubai's home-healthcare landscape.",
     topicsEyebrow: "Our Standards",
     topicsTitle: "What we're recognised for",
     topics: [
@@ -86,7 +86,7 @@ export const MEDIA_BODIES: Record<string, MediaBodyData> = {
     eyebrow: "Media & Press · Press Releases",
     title: "The latest official NADZ announcements",
     intro:
-      "Official news from NADZ Healthcare — service launches, partnerships and company milestones.",
+      "Official news from NADZ Healthcare, service launches, partnerships and company milestones.",
     topicsEyebrow: "In the News",
     topicsTitle: "What you'll find here",
     topics: [
@@ -106,7 +106,7 @@ export const MEDIA_BODIES: Record<string, MediaBodyData> = {
     eyebrow: "Media & Press · Interviews & Podcasts",
     title: "Conversations on health & longevity",
     intro:
-      "Dr. Nadia and the NADZ team on the ideas shaping modern home healthcare — from the family-doctor philosophy to longevity science.",
+      "Dr. Nadia and the NADZ team on the ideas shaping modern home healthcare, from the family-doctor philosophy to longevity science.",
     topicsEyebrow: "Listen & Watch",
     topicsTitle: "What to expect",
     topics: [
@@ -126,7 +126,7 @@ export const MEDIA_BODIES: Record<string, MediaBodyData> = {
     eyebrow: "Media & Press · Events & Highlights",
     title: "Where NADZ has been and what's next",
     intro:
-      "Community moments, wellness events and health talks — a look at where NADZ shows up across Dubai.",
+      "Community moments, wellness events and health talks, a look at where NADZ shows up across Dubai.",
     topicsEyebrow: "Highlights",
     topicsTitle: "What you'll find here",
     topics: [

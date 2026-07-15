@@ -64,7 +64,7 @@ const CONDITIONS: { icon: LucideIcon; title: string; desc: string }[] = [
 ];
 
 const INCLUDED: string[] = [
-  "Same-day and urgent visits — 24/7, including evenings and weekends",
+  "Same-day and urgent visits, 24/7, including evenings and weekends",
   "Detailed examination and medical history review",
   "Clear diagnosis and treatment plan",
   "Prescriptions and medication guidance",
@@ -112,7 +112,7 @@ export default function DoctorOnCall() {
           <p className="mx-auto mt-5 max-w-2xl text-[16px] leading-relaxed text-black/60">
             Get a visit from Dubai Health Authority (DHA) certified doctors and
             nurses anytime. Hospital-level medical care, brought to your doorstep
-            anywhere in Dubai — 24/7.
+            anywhere in Dubai, 24/7.
           </p>
         </div>
 
@@ -182,7 +182,7 @@ export default function DoctorOnCall() {
         </div>
       </section>
 
-      {/* what's included — split panel */}
+      {/* what's included, split panel */}
       <section className="px-4 pb-4 sm:px-6">
         <div className="mx-auto grid max-w-[1180px] gap-5 lg:grid-cols-[1fr_1.1fr]">
           {/* maroon lead */}
@@ -198,7 +198,7 @@ export default function DoctorOnCall() {
               Every Visit Includes
             </p>
             <p className="mt-3 text-[21px] font-semibold leading-[1.35] sm:text-[24px]">
-              A complete consultation — not a rushed house call.
+              A complete consultation, not a rushed house call.
             </p>
             <p className="mt-4 text-[14px] leading-relaxed text-white/70">
               From examination to prescription to onward care, everything is
@@ -262,11 +262,11 @@ export default function DoctorOnCall() {
         </div>
       </section>
 
-      {/* the art of living — Dr. Nadia video */}
+      {/* the art of living, Dr. Nadia video */}
       <section className="px-4 pt-16 sm:px-6 sm:pt-20">
         <div className="mx-auto max-w-[1180px]">
           <SectionTitle className="text-center text-[2rem] leading-[1.1] text-[color:var(--maroon)] sm:text-[2.7rem]">
-            The Art of Living — Guided by Dr. Nadia
+            The Art of Living, Guided by Dr. Nadia
           </SectionTitle>
 
           <div className="mt-10 grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
@@ -275,7 +275,7 @@ export default function DoctorOnCall() {
               <div className="relative aspect-video">
                 <iframe
                   src="https://www.youtube-nocookie.com/embed/G4umn6nzFnc?autoplay=1&mute=1&loop=1&playlist=G4umn6nzFnc&rel=0&modestbranding=1&playsinline=1"
-                  title="The Art of Living — Dr. Nadia Choudhry"
+                  title="The Art of Living, Dr. Nadia Choudhry"
                   allow="autoplay; encrypted-media; picture-in-picture; web-share"
                   allowFullScreen
                   className="absolute inset-0 h-full w-full"
@@ -324,7 +324,7 @@ export default function DoctorOnCall() {
         </div>
       </section>
 
-      {/* how it works — animated */}
+      {/* how it works, animated */}
       <HowItWorks />
 
       {/* closing CTA band */}
@@ -338,7 +338,7 @@ export default function DoctorOnCall() {
             A doctor at your door, day or night.
           </p>
           <p className="max-w-md text-[15px] leading-relaxed text-white/65">
-            Message or call us with your symptoms and location — we&apos;ll have a
+            Message or call us with your symptoms and location, we&apos;ll have a
             DHA-certified doctor on the way.
           </p>
           <div className="flex flex-col gap-3 sm:flex-row">
@@ -347,7 +347,7 @@ export default function DoctorOnCall() {
               className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-[15px] font-semibold text-[color:var(--maroon)] transition-transform hover:-translate-y-0.5"
             >
               <MessageCircle className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
-              WhatsApp us — 24/7
+              WhatsApp us, 24/7
             </Link>
             <Link
               href="tel:8004NADZ"

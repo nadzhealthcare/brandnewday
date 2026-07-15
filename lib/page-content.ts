@@ -7,7 +7,7 @@ const EXTRA_META: Record<string, PageMeta> = {
   "/contact": {
     title: "Contact Us",
     description:
-      "Reach the NADZ care team — we're here around the clock, every day of the week.",
+      "Reach the NADZ care team, we're here around the clock, every day of the week.",
   },
   "/book": {
     title: "Book an Appointment",
@@ -44,7 +44,7 @@ export const PAGE_META = buildMeta();
 
 /* -------------------------------------------------------------------------
  * HERO IMAGE SLIDERS
- * Each page has its OWN array of image links — replace any path with your
+ * Each page has its OWN array of image links, replace any path with your
  * own image (drop the file in /public/assets and point to it here).
  * Any route not listed falls back to DEFAULT_HERO_IMAGES.
  * ---------------------------------------------------------------------- */

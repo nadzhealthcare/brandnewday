@@ -23,14 +23,14 @@ const CARDS: { label: string; cx: number; cy: number }[] = [
   { label: "GENETIC & EPIGENETIC TESTING", cx: 1460, cy: 483 },
   { label: "FOOD INTOLERANCE & ALLERGIES", cx: 1460, cy: 571 },
   { label: "NIPT / WOMEN'S HEALTH PANELS", cx: 1460, cy: 659 },
-  { label: "NAD++V THERAPY", cx: 1460, cy: 763 },
+  { label: "NAD⁺V THERAPY", cx: 1460, cy: 763 },
   { label: "MEDICAL TOURISM", cx: 1460, cy: 857 },
   { label: "VACCINATIONS", cx: 1460, cy: 945 },
   { label: "STD TESTING & SEXUAL HEALTH", cx: 1840, cy: 396 },
   { label: "COVID PCR", cx: 1840, cy: 483 },
   { label: "PEPTIDE THERAPY", cx: 1840, cy: 763 },
   { label: "FUNCTIONAL & INTEGRATIVE MEDICINE", cx: 1840, cy: 865 },
-  { label: "IV NAD+", cx: 1056, cy: 169 },
+  { label: "IV NAD⁺", cx: 1056, cy: 169 },
   { label: "IV GLUTATHIONE RADIANCE DRIP", cx: 762, cy: 269 },
   { label: "IV VITAMIN THERAPY", cx: 1048, cy: 269 },
   { label: "IV HYDRATION", cx: 1335, cy: 269 },
@@ -388,7 +388,7 @@ export default function ServicesSection() {
           Our Services
         </SectionTitle>
         <p className="mx-auto mb-8 max-w-xl text-center text-[15px] text-black/55">
-          One connected ecosystem of care — every NADZ service, from the doctor
+          One connected ecosystem of care, every NADZ service, from the doctor
           on call to longevity medicine.
         </p>
         <div className="overflow-x-auto">

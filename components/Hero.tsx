@@ -240,7 +240,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* booking bar — sits at the base of the hero (sm+); on phones the
+      {/* booking bar, sits at the base of the hero (sm+); on phones the
           booking flow is a floating button handled by <StickyBooking/> */}
       <div className="relative z-20 mx-auto mt-4 hidden max-w-[1180px] px-2 sm:block">
         <BookingBar />

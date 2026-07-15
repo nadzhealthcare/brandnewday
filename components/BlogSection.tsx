@@ -36,7 +36,7 @@ const SLOTS: Post[] = [
     read: "6 min read",
     title: "How At-Home IV Drips Speed Up Recovery and Rehydration",
     excerpt:
-      "Whether it's dehydration, fatigue or recovering from illness, a doctor-supervised IV drip at home can restore your energy fast — without the wait of a clinic visit.",
+      "Whether it's dehydration, fatigue or recovering from illness, a doctor-supervised IV drip at home can restore your energy fast, without the wait of a clinic visit.",
     img: "/assets/featured-placeholder.jpg",
     href: "/media/blogs",
     cta: "Read Article",
@@ -86,7 +86,7 @@ function ReadButton({ post, onDark }: { post: Post; onDark?: boolean }) {
   );
 }
 
-/* full-bleed card — either a photo or an animated maroon abstract background */
+/* full-bleed card, either a photo or an animated maroon abstract background */
 function ImageCard({ post }: { post: Post }) {
   return (
     <article className="group relative flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[24px] shadow-[0_18px_44px_-26px_rgba(20,10,16,0.6)]">

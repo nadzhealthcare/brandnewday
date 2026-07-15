@@ -114,17 +114,17 @@ const LOCATIONS: IconItem[] = [
 
 /* shared NADZ Autonomic Control™ pathway used by the condition sub-pages */
 const ANS_INCLUDED_TITLE = "Your Care Pathway";
-const ANS_INCLUDED_LEAD = "NADZ Autonomic Control™ — sub-sensory, needle-free.";
+const ANS_INCLUDED_LEAD = "NADZ Autonomic Control™, sub-sensory, needle-free.";
 const ANS_PATHWAY: string[] = [
   "A private initial assessment of your symptoms and goals",
   "A baseline HRV snapshot (2–5 minutes)",
   "Sub-sensory microcurrent neuromodulation via wrist & ankle electrodes",
-  "Monitoring and adaptation — typically three sessions weekly at first",
+  "Monitoring and adaptation, typically three sessions weekly at first",
   "Integration with medication review, lifestyle and other care",
-  "No pain, no needles — sessions you barely feel",
+  "No pain, no needles, sessions you barely feel",
 ];
 const ANS_WHO: IconItem[] = [
-  { icon: House, title: "Discreet home care", desc: "Private evaluation wherever you are — home, hotel or office." },
+  { icon: House, title: "Discreet home care", desc: "Private evaluation wherever you are, home, hotel or office." },
   { icon: Timer, title: "No waiting rooms", desc: "Rapid, actionable plans without clinic delays." },
   { icon: Stethoscope, title: "Structured follow-up", desc: "Ongoing support after any prior treatment." },
 ];
@@ -135,7 +135,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     eyebrow: "Home Nursing · Dubai",
     title: "Hospital-grade clinical care at home",
     intro:
-      "Receive compassionate, DHA-licensed nursing care in the comfort of your home, hotel or office in Dubai — from wound care and post-surgical recovery to injections, IV therapy, elderly support and mother & baby care.",
+      "Receive compassionate, DHA-licensed nursing care in the comfort of your home, hotel or office in Dubai, from wound care and post-surgical recovery to injections, IV therapy, elderly support and mother & baby care.",
     highlights: [
       { icon: ShieldCheck, big: "DHA", small: "licensed nurses" },
       { icon: Clock, big: "24/7", small: "day, night & weekends" },
@@ -153,7 +153,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
       { icon: HeartHandshake, title: "Palliative & end-of-life", desc: "Gentle comfort care with dignity and reassurance." },
     ],
     includedTitle: "Every Visit Includes",
-    includedLead: "Complete clinical care — coordinated end to end.",
+    includedLead: "Complete clinical care, coordinated end to end.",
     included: [
       "Same-day or planned visits, including evenings, nights and weekends",
       "A DHA-licensed nurse reviewing your condition and discharge notes",
@@ -167,7 +167,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     who: LOCATIONS,
     closingTitle: "Hospital-level care in a familiar environment.",
     closingDesc:
-      "Message or call us with the patient's condition and location — we'll have a DHA-licensed nurse on the way.",
+      "Message or call us with the patient's condition and location, we'll have a DHA-licensed nurse on the way.",
   },
 
   /* ---------------------------------------------------------------- */
@@ -175,7 +175,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     eyebrow: "Elderly Care · Dubai",
     title: "Elderly home care with condition-based support",
     intro:
-      "24/7 elderly care at home anywhere in Dubai from DHA-licensed nurses and trained caregivers — supporting chronic disease management, post-hospital recovery, dementia care and safe mobility in the comfort of home.",
+      "24/7 elderly care at home anywhere in Dubai from DHA-licensed nurses and trained caregivers, supporting chronic disease management, post-hospital recovery, dementia care and safe mobility in the comfort of home.",
     highlights: [
       { icon: Clock, big: "24/7", small: "round-the-clock support" },
       { icon: ShieldCheck, big: "DHA", small: "licensed nurses & caregivers" },
@@ -195,7 +195,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     includedTitle: "Our Elderly Care Covers",
     includedLead: "Geriatric-focused support, built around the person.",
     included: [
-      "Personal care — bathing, dressing, grooming and mobility",
+      "Personal care, bathing, dressing, grooming and mobility",
       "Skilled nursing for chronic conditions",
       "Post-hospitalisation and rehabilitation support",
       "Dementia, Alzheimer's and palliative care",
@@ -207,7 +207,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     who: LOCATIONS,
     closingTitle: "Dignified care, in the comfort of home.",
     closingDesc:
-      "Call or WhatsApp NADZ — our 24/7 team is ready to build the right care plan for your loved one.",
+      "Call or WhatsApp NADZ, our 24/7 team is ready to build the right care plan for your loved one.",
   },
 
   /* ---------------------------------------------------------------- */
@@ -215,7 +215,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     eyebrow: "Mother & Baby · Dubai",
     title: "Specialised postnatal & newborn nursing",
     intro:
-      "Compassionate, DHA-licensed mother and baby care at your home or private residence. NADZ brings postnatal nursing, newborn care and lactation support safely to your doorstep — led by Dr. Nadia, a physician and mother of three.",
+      "Compassionate, DHA-licensed mother and baby care at your home or private residence. NADZ brings postnatal nursing, newborn care and lactation support safely to your doorstep, led by Dr. Nadia, a physician and mother of three.",
     highlights: [
       { icon: ShieldCheck, big: "DHA", small: "maternity & newborn nurses" },
       { icon: Clock, big: "24/7", small: "day, night or live-in" },
@@ -247,11 +247,11 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     who: [
       { icon: HeartPulse, title: "New mothers", desc: "Hands-on recovery care and reassurance after childbirth." },
       { icon: Sparkles, title: "First-time parents", desc: "Guidance, education and confidence for your new arrival." },
-      { icon: Baby, title: "Newborns", desc: "Gentle, expert care — including premature babies." },
+      { icon: Baby, title: "Newborns", desc: "Gentle, expert care, including premature babies." },
     ],
     closingTitle: "Doctor-led care for you and your baby.",
     closingDesc:
-      "Message or call us — we'll match you with a DHA-licensed maternity nurse and tailor the support you need.",
+      "Message or call us, we'll match you with a DHA-licensed maternity nurse and tailor the support you need.",
   },
 
   /* ---------------------------------------------------------------- */
@@ -259,7 +259,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     eyebrow: "Babysitting · Dubai",
     title: "Trained caregivers & personalised care",
     intro:
-      "Safe, loving babysitting at home with DHA-licensed nurses or trained, background-checked caregivers for newborns and toddlers — with flexible scheduling across Dubai, 24/7.",
+      "Safe, loving babysitting at home with DHA-licensed nurses or trained, background-checked caregivers for newborns and toddlers, with flexible scheduling across Dubai, 24/7.",
     highlights: [
       { icon: ShieldCheck, big: "Vetted", small: "background-checked caregivers" },
       { icon: Clock, big: "Flexible", small: "hourly, nightly or long-term" },
@@ -269,7 +269,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     featuresEyebrow: "What We Provide",
     featuresTitle: "Care built around your child",
     features: [
-      { icon: Milk, title: "Feeding routines", desc: "Bottle, expressed milk or solids — following your schedule." },
+      { icon: Milk, title: "Feeding routines", desc: "Bottle, expressed milk or solids, following your schedule." },
       { icon: Droplets, title: "Hygiene & bathing", desc: "Diaper changes, bathing, dressing and hygiene routines." },
       { icon: Moon, title: "Nap & bedtime", desc: "Nap and bedtime support with preferred soothing techniques." },
       { icon: Puzzle, title: "Play & development", desc: "Playtime, storytelling, songs and developmental activities." },
@@ -277,9 +277,9 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
       { icon: Smile, title: "Loving attention", desc: "Warm, attentive care your little one feels safe with." },
     ],
     includedTitle: "Every Booking Includes",
-    includedLead: "Reliable, documented care — for total peace of mind.",
+    includedLead: "Reliable, documented care, for total peace of mind.",
     included: [
-      "Feeding on your schedule — bottle, expressed milk or solids",
+      "Feeding on your schedule, bottle, expressed milk or solids",
       "Diaper changes, bathing, dressing and hygiene routines",
       "Nap and bedtime support with your preferred soothing",
       "Playtime, storytelling and developmental activities",
@@ -293,9 +293,9 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
       { icon: Hotel, title: "At your hotel", desc: "Care during conferences, weddings and events." },
       { icon: Building2, title: "Office & events", desc: "Supervision during work or social functions." },
     ],
-    closingTitle: "Safe, loving care — whenever you need it.",
+    closingTitle: "Safe, loving care, whenever you need it.",
     closingDesc:
-      "Share your child's age, routine and timing — we'll match a trusted caregiver and confirm your booking.",
+      "Share your child's age, routine and timing, we'll match a trusted caregiver and confirm your booking.",
   },
 
   /* ---------------------------------------------------------------- */
@@ -303,7 +303,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     eyebrow: "Palliative Care · Dubai",
     title: "Comfort, symptom control & end-of-life care",
     intro:
-      "Compassionate, DHA-licensed palliative nursing care at home in Dubai, delivered within 30 minutes — because healing is not only about treatment, it's about comfort in the place you feel safest.",
+      "Compassionate, DHA-licensed palliative nursing care at home in Dubai, delivered within 30 minutes, because healing is not only about treatment, it's about comfort in the place you feel safest.",
     highlights: [
       { icon: ShieldCheck, big: "DHA", small: "experienced nurses" },
       { icon: Clock, big: "24/7", small: "always available" },
@@ -333,9 +333,9 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     whoEyebrow: "Care Wherever You Are",
     whoTitle: "Comfort in familiar surroundings",
     who: LOCATIONS,
-    closingTitle: "Healing isn't only treatment — it's comfort.",
+    closingTitle: "Healing isn't only treatment, it's comfort.",
     closingDesc:
-      "Call or WhatsApp us — a DHA-licensed palliative nurse can be with you, typically within 30 minutes in Dubai.",
+      "Call or WhatsApp us, a DHA-licensed palliative nurse can be with you, typically within 30 minutes in Dubai.",
   },
 
   /* ---------------------------------------------------------------- */
@@ -343,7 +343,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     eyebrow: "Physiotherapy · Dubai",
     title: "DHA-licensed physiotherapists, in 30 minutes",
     intro:
-      "24/7 access to DHA-licensed physiotherapists for post-surgical rehabilitation, sports injuries, chronic pain, neurological and elderly physiotherapy — personalised, one-on-one, in the comfort of home.",
+      "24/7 access to DHA-licensed physiotherapists for post-surgical rehabilitation, sports injuries, chronic pain, neurological and elderly physiotherapy, personalised, one-on-one, in the comfort of home.",
     highlights: [
       { icon: ShieldCheck, big: "DHA", small: "licensed physiotherapists" },
       { icon: Clock, big: "24/7", small: "evenings & weekends too" },
@@ -361,7 +361,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
       { icon: Baby, title: "Women's & postnatal", desc: "Pre- and post-natal physiotherapy support." },
     ],
     includedTitle: "Every Session Includes",
-    includedLead: "A complete, progressive plan — not a one-off visit.",
+    includedLead: "A complete, progressive plan, not a one-off visit.",
     included: [
       "Same-day or scheduled visits, including evenings and weekends",
       "A DHA-licensed assessment reviewing your medical history",
@@ -375,7 +375,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     who: LOCATIONS,
     closingTitle: "Because you deserve more than a waiting room.",
     closingDesc:
-      "Message or call us with your condition and location — a DHA-licensed physiotherapist can be with you, typically within 30 minutes.",
+      "Message or call us with your condition and location, a DHA-licensed physiotherapist can be with you, typically within 30 minutes.",
   },
 
   /* ---------------------------------------------------------------- */
@@ -383,7 +383,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     eyebrow: "IV Therapy · Dubai",
     title: "Complete IV therapy, at your doorstep",
     intro:
-      "Medical-grade hydration, vitamins, minerals and antioxidants delivered straight into the bloodstream — administered by DHA-certified clinicians at your home, hotel or office, with medical supervision throughout.",
+      "Medical-grade hydration, vitamins, minerals and antioxidants delivered straight into the bloodstream, administered by DHA-certified clinicians at your home, hotel or office, with medical supervision throughout.",
     highlights: [
       { icon: ShieldCheck, big: "DHA", small: "certified clinicians" },
       { icon: Clock, big: "24/7", small: "same-day availability" },
@@ -419,15 +419,15 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     ],
     closingTitle: "Feel more like yourself again.",
     closingDesc:
-      "Message or call us with your goals — a DHA-certified nurse will recommend the right protocol and come to you.",
+      "Message or call us with your goals, a DHA-certified nurse will recommend the right protocol and come to you.",
   },
 
   /* ---------------------------------------------------------------- */
   "/services/labs-at-home": {
     eyebrow: "Lab Testing · Dubai",
-    title: "Lab tests at home — discreet, private, accurate",
+    title: "Lab tests at home, discreet, private, accurate",
     intro:
-      "DHA-licensed nurses collect your samples at home, hotel or office across Dubai, processed in DHA & JCI-accredited laboratories, with results shared securely — no queues, no exposure, no commute on an empty stomach.",
+      "DHA-licensed nurses collect your samples at home, hotel or office across Dubai, processed in DHA & JCI-accredited laboratories, with results shared securely, no queues, no exposure, no commute on an empty stomach.",
     highlights: [
       { icon: ShieldCheck, big: "DHA", small: "licensed nurses" },
       { icon: FlaskConical, big: "JCI", small: "accredited laboratories" },
@@ -459,7 +459,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     who: LOCATIONS,
     closingTitle: "Your results, without the waiting room.",
     closingDesc:
-      "Message or call us with what you need tested — a DHA-licensed nurse will collect your samples at a time that suits you.",
+      "Message or call us with what you need tested, a DHA-licensed nurse will collect your samples at a time that suits you.",
   },
 
   /* ---------------------------------------------------------------- */
@@ -467,7 +467,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     eyebrow: "Vaccination · Dubai",
     title: "Adult & travel vaccines, with post-care",
     intro:
-      "DHA-compliant vaccinations at home, hotel or office in Dubai — flu shots, adult immunisations and travel vaccines, with strict cold-chain management and post-vaccination monitoring. Please note: NADZ provides vaccinations for adults only.",
+      "DHA-compliant vaccinations at home, hotel or office in Dubai, flu shots, adult immunisations and travel vaccines, with strict cold-chain management and post-vaccination monitoring. Please note: NADZ provides vaccinations for adults only.",
     highlights: [
       { icon: ShieldCheck, big: "DHA", small: "licensed nurses" },
       { icon: Snowflake, big: "Cold-chain", small: "temperature-controlled" },
@@ -503,7 +503,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     ],
     closingTitle: "Protection that comes to you.",
     closingDesc:
-      "Message or call us — a DHA-licensed nurse will handle your assessment, vaccination and follow-up at home.",
+      "Message or call us, a DHA-licensed nurse will handle your assessment, vaccination and follow-up at home.",
   },
 
   /* ---------------------------------------------------------------- */
@@ -511,7 +511,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     eyebrow: "Medical Tourism · Dubai",
     title: "Care coordination from arrival to recovery",
     intro:
-      "Your on-ground care coordinator in Dubai — planning appointments, navigating hospitals, managing logistics and organising recovery, so your care is planned, coordinated and looked after end-to-end.",
+      "Your on-ground care coordinator in Dubai, planning appointments, navigating hospitals, managing logistics and organising recovery, so your care is planned, coordinated and looked after end-to-end.",
     highlights: [
       { icon: Hospital, big: "End-to-end", small: "arrival to recovery" },
       { icon: Ambulance, big: "24/7", small: "air ambulance transfers" },
@@ -545,24 +545,24 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
       { icon: Users, title: "Patients & families", desc: "Support for everyone travelling with you." },
       { icon: HeartPulse, title: "Complex cases", desc: "Coordinated, continuous care throughout." },
     ],
-    closingTitle: "Your care in Dubai — planned, coordinated, looked after.",
+    closingTitle: "Your care in Dubai, planned, coordinated, looked after.",
     closingDesc:
-      "Message or call us — our multilingual team will coordinate your appointments, travel and recovery end to end.",
+      "Message or call us, our multilingual team will coordinate your appointments, travel and recovery end to end.",
   },
 
   /* ================= IV DRIP SUB-PAGES ============================ */
   "/services/iv-drips/iv-nad-plus": {
-    eyebrow: "IV NAD+ · Dubai",
+    eyebrow: "IV NAD⁺ · Dubai",
     title: "Medically supervised cellular energy therapy",
     intro:
-      "Restore energy, repair cells and slow the effects of ageing — all in the comfort of your home. NAD+ is delivered straight into the bloodstream for 100% absorption, administered by DHA-licensed doctors and nurses.",
+      "Restore energy, repair cells and slow the effects of ageing, all in the comfort of your home. NAD⁺ is delivered straight into the bloodstream for 100% absorption, administered by DHA-licensed doctors and nurses.",
     highlights: [
       { icon: ShieldCheck, big: "DHA", small: "doctors & nurses" },
       { icon: Droplet, big: "100%", small: "direct absorption" },
       { icon: Clock, big: "24/7", small: "at home, office or hotel" },
       { icon: HeartPulse, big: "Monitored", small: "supervised throughout" },
     ],
-    featuresEyebrow: "What NAD+ Supports",
+    featuresEyebrow: "What NAD⁺ Supports",
     featuresTitle: "Renewal at the cellular level",
     features: [
       { icon: Battery, title: "Energy & mitochondria", desc: "Boosts energy production and mitochondrial function." },
@@ -577,7 +577,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     included: [
       "A clinician review of your suitability and goals",
       "A protocol formulated for your needs",
-      "NAD+ administered by a DHA-licensed nurse",
+      "NAD⁺ administered by a DHA-licensed nurse",
       "Medical monitoring throughout the infusion",
       "Aftercare guidance",
       "24/7 availability at home, office or hotel",
@@ -587,14 +587,14 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     who: LOCATIONS,
     closingTitle: "Restore energy, repair cells, slow ageing.",
     closingDesc:
-      "Message or call us — a DHA-licensed clinician will confirm your protocol and bring NAD+ therapy to you.",
+      "Message or call us, a DHA-licensed clinician will confirm your protocol and bring NAD⁺ therapy to you.",
   },
 
   "/services/iv-drips/iv-glutathione-radiance": {
     eyebrow: "IV Glutathione · Dubai",
     title: "Detox & skin glow, at home",
     intro:
-      "Rehydrate, refresh and recover with medically supervised glutathione IV therapy at home in Dubai — the master antioxidant for radiant skin, detoxification and anti-aging, administered by DHA-certified clinicians.",
+      "Rehydrate, refresh and recover with medically supervised glutathione IV therapy at home in Dubai, the master antioxidant for radiant skin, detoxification and anti-aging, administered by DHA-certified clinicians.",
     highlights: [
       { icon: ShieldCheck, big: "DHA", small: "certified clinicians" },
       { icon: Sun, big: "Radiance", small: "brighter, even skin" },
@@ -630,14 +630,14 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     ],
     closingTitle: "Detox, refresh, glow.",
     closingDesc:
-      "Message or call us — a DHA-certified nurse will bring glutathione IV therapy to your door.",
+      "Message or call us, a DHA-certified nurse will bring glutathione IV therapy to your door.",
   },
 
   "/services/iv-drips/iv-vitamin-therapy": {
     eyebrow: "IV Vitamin Therapy · Dubai",
     title: "Targeted drips matched to your goal",
     intro:
-      "Restore your energy with medically supervised IV vitamin therapy at home in Dubai — hydration, vitamins, minerals and antioxidants matched to your wellness goal, administered by DHA-certified clinicians.",
+      "Restore your energy with medically supervised IV vitamin therapy at home in Dubai, hydration, vitamins, minerals and antioxidants matched to your wellness goal, administered by DHA-certified clinicians.",
     highlights: [
       { icon: ShieldCheck, big: "DHA", small: "certified clinicians" },
       { icon: Clock, big: "24/7", small: "home, hotel or office" },
@@ -669,14 +669,14 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     who: LOCATIONS,
     closingTitle: "Restore your energy, your way.",
     closingDesc:
-      "Message or call us — a DHA-certified nurse will match the right drip to your goal and come to you.",
+      "Message or call us, a DHA-certified nurse will match the right drip to your goal and come to you.",
   },
 
   "/services/iv-drips/iv-hydration": {
     eyebrow: "IV Hydration · Dubai",
     title: "Instant rehydration at home",
     intro:
-      "Revive your body and restore your radiance, right where you are. NADZ delivers medically supervised IV hydration — also known as a hangover drip — to your home, hotel or office in Dubai within 30 minutes, via DHA-certified nurses.",
+      "Revive your body and restore your radiance, right where you are. NADZ delivers medically supervised IV hydration, also known as a hangover drip, to your home, hotel or office in Dubai within 30 minutes, via DHA-certified nurses.",
     highlights: [
       { icon: ShieldCheck, big: "DHA", small: "certified nurses" },
       { icon: Zap, big: "30 min", small: "delivery in Dubai" },
@@ -712,7 +712,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     ],
     closingTitle: "Revive your body. Restore your radiance.",
     closingDesc:
-      "Message or call us — a DHA-certified nurse can be with you, typically within 30 minutes in Dubai.",
+      "Message or call us, a DHA-certified nurse can be with you, typically within 30 minutes in Dubai.",
   },
 
   /* ================= LABS SUB-PAGES ============================== */
@@ -756,14 +756,14 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     ],
     closingTitle: "Discover your DNA.",
     closingDesc:
-      "Message or call us — a DHA-licensed nurse will collect your sample at home and a doctor will guide you through the results.",
+      "Message or call us, a DHA-licensed nurse will collect your sample at home and a doctor will guide you through the results.",
   },
 
   "/services/labs-at-home/food-intolerance-allergies": {
     eyebrow: "Food Intolerance · Dubai",
     title: "Advanced blood screening & diet plan",
     intro:
-      "At-home food intolerance testing in Dubai with DHA-licensed doctors and nurses. Identify the foods behind bloating, fatigue, headaches or skin issues with a private blood test at your doorstep — results explained by a doctor.",
+      "At-home food intolerance testing in Dubai with DHA-licensed doctors and nurses. Identify the foods behind bloating, fatigue, headaches or skin issues with a private blood test at your doorstep, results explained by a doctor.",
     highlights: [
       { icon: ShieldCheck, big: "DHA", small: "licensed staff" },
       { icon: FlaskConical, big: "DHA lab", small: "approved analysis" },
@@ -799,14 +799,14 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     ],
     closingTitle: "Understand your body, improve your health.",
     closingDesc:
-      "Message or call us — a DHA-licensed nurse will collect your sample at home and a doctor will explain your results.",
+      "Message or call us, a DHA-licensed nurse will collect your sample at home and a doctor will explain your results.",
   },
 
   "/services/labs-at-home/nipt-womens-health": {
     eyebrow: "NIPT · Dubai",
-    title: "Non-invasive prenatal testing — zero risk to your baby",
+    title: "Non-invasive prenatal testing, zero risk to your baby",
     intro:
-      "NIPT testing at home in Dubai — a safe and highly accurate way to screen for chromosomal conditions during pregnancy. It requires only a maternal blood sample, making it completely safe for both mother and baby.",
+      "NIPT testing at home in Dubai, a safe and highly accurate way to screen for chromosomal conditions during pregnancy. It requires only a maternal blood sample, making it completely safe for both mother and baby.",
     highlights: [
       { icon: ShieldCheck, big: "Zero risk", small: "maternal blood only" },
       { icon: Gauge, big: "> 99%", small: "sensitivity for trisomies" },
@@ -842,14 +842,14 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     ],
     closingTitle: "Safe, accurate, non-invasive.",
     closingDesc:
-      "Message or call us — a DHA-licensed nurse will collect your sample at home, with expert support throughout.",
+      "Message or call us, a DHA-licensed nurse will collect your sample at home, with expert support throughout.",
   },
 
   "/services/labs-at-home/std-sexual-health": {
     eyebrow: "STD Testing · Dubai",
     title: "Discreet, DHA-licensed home collection",
     intro:
-      "Discreet and accurate STD testing at home in Dubai, with complete privacy and comfort. DHA-licensed professionals collect your samples at home, processed in DHA-approved laboratories — early detection is key to effective treatment.",
+      "Discreet and accurate STD testing at home in Dubai, with complete privacy and comfort. DHA-licensed professionals collect your samples at home, processed in DHA-approved laboratories, early detection is key to effective treatment.",
     highlights: [
       { icon: ShieldCheck, big: "DHA", small: "licensed professionals" },
       { icon: Lock, big: "100%", small: "confidential & discreet" },
@@ -885,14 +885,14 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     ],
     closingTitle: "Confidential, reliable, hassle-free.",
     closingDesc:
-      "Message or call us — a DHA-licensed nurse will handle your collection discreetly, with secure results.",
+      "Message or call us, a DHA-licensed nurse will handle your collection discreetly, with secure results.",
   },
 
   "/services/labs-at-home/covid-pcr": {
     eyebrow: "PCR Testing · Dubai",
     title: "COVID-19 & infectious disease PCR at home",
     intro:
-      "Fast, accurate and hassle-free PCR testing at home in Dubai. DHA-licensed nurses deliver professional COVID-19 and infectious disease testing to your doorstep — the gold standard for detecting viral genetic material.",
+      "Fast, accurate and hassle-free PCR testing at home in Dubai. DHA-licensed nurses deliver professional COVID-19 and infectious disease testing to your doorstep, the gold standard for detecting viral genetic material.",
     highlights: [
       { icon: ShieldCheck, big: "DHA", small: "licensed nurses" },
       { icon: Timer, big: "24–48h", small: "typical result time" },
@@ -928,7 +928,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     ],
     closingTitle: "Fast, accurate, hassle-free.",
     closingDesc:
-      "Message or call us — a DHA-licensed nurse will collect your PCR sample at home, with travel-ready results.",
+      "Message or call us, a DHA-licensed nurse will collect your PCR sample at home, with travel-ready results.",
   },
 
   /* ================= NADZ EXCLUSIVE ============================== */
@@ -936,7 +936,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     eyebrow: "NADZ Vital Brain™ · Dubai",
     title: "Brain mapping at home with AI insights",
     intro:
-      "Clinical-grade brain insights at home in Dubai. NADZ Vital Brain uses non-invasive QEEG brain mapping with AI analysis, and every case is reviewed by a 2,000-doctor panel — for those managing symptoms or optimising performance.",
+      "Clinical-grade brain insights at home in Dubai. NADZ Vital Brain uses non-invasive QEEG brain mapping with AI analysis, and every case is reviewed by a 2,000-doctor panel, for those managing symptoms or optimising performance.",
     highlights: [
       { icon: AudioWaveform, big: "QEEG", small: "brain-activity mapping" },
       { icon: Users, big: "2,000", small: "doctor review panel" },
@@ -953,12 +953,12 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
       { icon: Moon, title: "Sleep disturbances", desc: "Restless, disrupted sleep." },
       { icon: Gauge, title: "Peak performance", desc: "Optimise an already-healthy brain." },
     ],
-    includedTitle: "Three Plans — Basic, Premium, Elite",
+    includedTitle: "Three Plans, Basic, Premium, Elite",
     includedLead: "Clinical-grade insight, tailored to you.",
     included: [
-      "Basic — memory/attention assessment, QEEG screening, basic blood & vitamin profile",
-      "Premium — full cognitive testing, 21+ channel QEEG, comprehensive health check",
-      "Elite — advanced QEEG, 50+ blood parameters, autonomic analysis, DNA methylation",
+      "Basic, memory/attention assessment, QEEG screening, basic blood & vitamin profile",
+      "Premium, full cognitive testing, 21+ channel QEEG, comprehensive health check",
+      "Elite, advanced QEEG, 50+ blood parameters, autonomic analysis, DNA methylation",
       "Non-invasive QEEG recorded in the comfort of home",
       "Every case reviewed by a 2,000-doctor panel",
       "Results reviewed with clear, personal guidance",
@@ -972,14 +972,14 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     ],
     closingTitle: "Understand your brain. Optimise your performance.",
     closingDesc:
-      "Message or call us — we'll confirm the right plan and bring NADZ Vital Brain to your home.",
+      "Message or call us, we'll confirm the right plan and bring NADZ Vital Brain to your home.",
   },
 
   "/exclusive/nadz-autonomic-control": {
     eyebrow: "NADZ Autonomic Control™ · Dubai",
     title: "Non-invasive ANS regulation at home",
     intro:
-      "A premium neuromodulation therapy at home in Dubai, using the patented NESA® XSIGNAL® microcurrent system to gently rebalance the autonomic nervous system — supporting sleep, stress, pain, pelvic health and sexual function.",
+      "A premium neuromodulation therapy at home in Dubai, using the patented NESA® XSIGNAL® microcurrent system to gently rebalance the autonomic nervous system, supporting sleep, stress, pain, pelvic health and sexual function.",
     highlights: [
       { icon: ShieldCheck, big: "Exclusive", small: "NESA® provider in the UAE" },
       { icon: AudioWaveform, big: "Non-invasive", small: "sub-sensory microcurrent" },
@@ -1015,14 +1015,14 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     ],
     closingTitle: "Rebalance the system that runs you.",
     closingDesc:
-      "Message or call us — a certified NESA® clinician will assess your suitability and deliver sessions at home.",
+      "Message or call us, a certified NESA® clinician will assess your suitability and deliver sessions at home.",
   },
 
   "/exclusive/nadz-autonomic-control/sleeping-disorder": {
     eyebrow: "Sleep Disorders · Dubai",
-    title: "Sleep disorders care — at home, hotel or office",
+    title: "Sleep disorders care, at home, hotel or office",
     intro:
-      "When sleep struggles drain your energy, focus and mood, NADZ brings a DHA-licensed doctor to you for a confidential assessment — supported by NADZ Autonomic Control™ to help restore balance in the nervous system that governs sleep.",
+      "When sleep struggles drain your energy, focus and mood, NADZ brings a DHA-licensed doctor to you for a confidential assessment, supported by NADZ Autonomic Control™ to help restore balance in the nervous system that governs sleep.",
     highlights: [
       { icon: ShieldCheck, big: "DHA", small: "licensed doctor" },
       { icon: HeartPulse, big: "HRV", small: "baseline snapshot" },
@@ -1047,12 +1047,12 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     who: ANS_WHO,
     closingTitle: "Restore balance. Sleep well again.",
     closingDesc:
-      "Message or call us for a discreet doctor consultation — private support, 24/7.",
+      "Message or call us for a discreet doctor consultation, private support, 24/7.",
   },
 
   "/exclusive/nadz-autonomic-control/anxiety-stress": {
     eyebrow: "Anxiety & Stress · Dubai",
-    title: "Anxiety & stress care — at home, hotel or office",
+    title: "Anxiety & stress care, at home, hotel or office",
     intro:
       "Persistent stress and anxiety can disrupt focus, mood and sleep. NADZ brings a DHA-licensed doctor to your location for a confidential assessment and a personalised plan, supported by NADZ Autonomic Control™.",
     highlights: [
@@ -1079,12 +1079,12 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     who: ANS_WHO,
     closingTitle: "Feeling calm drives health, sleep & performance.",
     closingDesc:
-      "Message or call us for a discreet doctor consultation — private support, 24/7.",
+      "Message or call us for a discreet doctor consultation, private support, 24/7.",
   },
 
   "/exclusive/nadz-autonomic-control/chronic-pain": {
     eyebrow: "Chronic Pain · Dubai",
-    title: "Chronic pain care — at home, hotel or office",
+    title: "Chronic pain care, at home, hotel or office",
     intro:
       "Because living with pain shouldn't define your day. NADZ sends a DHA-licensed doctor to your location for a private assessment and a customised plan, supported by NADZ Autonomic Control™ to help modulate pain at its source.",
     highlights: [
@@ -1111,14 +1111,14 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     who: ANS_WHO,
     closingTitle: "Because living with pain shouldn't define your day.",
     closingDesc:
-      "Message or call us for a discreet doctor consultation — private support, 24/7.",
+      "Message or call us for a discreet doctor consultation, private support, 24/7.",
   },
 
   "/exclusive/nadz-autonomic-control/erectile-dysfunction": {
     eyebrow: "ED & PE · Dubai",
-    title: "ED & PE treatment — at home, hotel or office",
+    title: "ED & PE treatment, at home, hotel or office",
     intro:
-      "Because your intimate health deserves privacy and real solutions. NADZ offers confidential ED and PE care through a DHA-licensed doctor at your private location, supported by NADZ Autonomic Control™ — complete discretion throughout.",
+      "Because your intimate health deserves privacy and real solutions. NADZ offers confidential ED and PE care through a DHA-licensed doctor at your private location, supported by NADZ Autonomic Control™, complete discretion throughout.",
     highlights: [
       { icon: ShieldCheck, big: "DHA", small: "licensed doctor" },
       { icon: HeartPulse, big: "HRV", small: "baseline snapshot" },
@@ -1143,12 +1143,12 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     who: ANS_WHO,
     closingTitle: "Your intimate health deserves privacy & real solutions.",
     closingDesc:
-      "Message or call us for a discreet doctor visit — private support, 24/7.",
+      "Message or call us for a discreet doctor visit, private support, 24/7.",
   },
 
   "/exclusive/nadz-autonomic-control/overreacting-bladder": {
     eyebrow: "Overactive Bladder · Dubai",
-    title: "Overactive bladder care — at home, hotel or office",
+    title: "Overactive bladder care, at home, hotel or office",
     intro:
       "Because urgency and frequency shouldn't control your day. NADZ brings a DHA-licensed doctor to your private location for a confidential assessment and a personalised plan, supported by NADZ Autonomic Control™.",
     highlights: [
@@ -1175,14 +1175,14 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     who: ANS_WHO,
     closingTitle: "Because urgency shouldn't control your day.",
     closingDesc:
-      "Message or call us for a discreet doctor consultation — private support, 24/7.",
+      "Message or call us for a discreet doctor consultation, private support, 24/7.",
   },
 
   "/exclusive/poc-testing": {
     eyebrow: "POC Testing · Dubai",
     title: "Point-of-care testing at home in minutes",
     intro:
-      "Point-of-care testing delivered to your home, hotel or office in Dubai — DHA-licensed nurses with MOHAP-certified devices bring rapid results in minutes, without a clinic visit or the wait for a lab report.",
+      "Point-of-care testing delivered to your home, hotel or office in Dubai, DHA-licensed nurses with MOHAP-certified devices bring rapid results in minutes, without a clinic visit or the wait for a lab report.",
     highlights: [
       { icon: ShieldCheck, big: "DHA", small: "licensed nurses" },
       { icon: ScanLine, big: "MOHAP", small: "certified devices" },
@@ -1216,24 +1216,24 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
       { icon: Plane, title: "Travellers & professionals", desc: "Quick screens on the go." },
       { icon: Building2, title: "Workplace wellness", desc: "Employee screening on-site." },
     ],
-    closingTitle: "Rapid, reliable results — in minutes.",
+    closingTitle: "Rapid, reliable results, in minutes.",
     closingDesc:
-      "Message or call us — our 24/7 team will bring point-of-care testing to your door.",
+      "Message or call us, our 24/7 team will bring point-of-care testing to your door.",
   },
 
   /* ================= WELLNESS & LONGEVITY ======================= */
   "/wellness/nad-plus-iv-therapy": {
-    eyebrow: "NAD++ IV Therapy · Dubai",
+    eyebrow: "NAD⁺ IV Therapy · Dubai",
     title: "Cellular energy, mental clarity, longevity",
     intro:
-      "NAD+ is a vital molecule found in every cell — powering energy, DNA repair, brain performance and metabolism. Age, stress and illness deplete it. NADZ restores it with doctor-designed IV therapy, directly to your doorstep.",
+      "NAD⁺ is a vital molecule found in every cell, powering energy, DNA repair, brain performance and metabolism. Age, stress and illness deplete it. NADZ restores it with doctor-designed IV therapy, directly to your doorstep.",
     highlights: [
       { icon: ShieldCheck, big: "DHA", small: "licensed professionals" },
       { icon: Battery, big: "Energy", small: "cellular fuel restored" },
       { icon: Sparkles, big: "Longevity", small: "anti-aging support" },
       { icon: House, big: "At home", small: "premium experience" },
     ],
-    featuresEyebrow: "What NAD+ Supports",
+    featuresEyebrow: "What NAD⁺ Supports",
     featuresTitle: "Renewal from the inside out",
     features: [
       { icon: Battery, title: "Cellular energy", desc: "Boost energy and reduce fatigue." },
@@ -1243,7 +1243,7 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
       { icon: Shield, title: "Detox & immunity", desc: "Reduce inflammation, support immunity." },
       { icon: Dumbbell, title: "Performance", desc: "Athletic performance and recovery." },
     ],
-    includedTitle: "Your NAD+ Journey",
+    includedTitle: "Your NAD⁺ Journey",
     includedLead: "Doctor-designed, personally dosed.",
     included: [
       "Consultation and medical screening",
@@ -1262,14 +1262,14 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     ],
     closingTitle: "Cellular renewal, directly to your doorstep.",
     closingDesc:
-      "Message or call us — a DHA-licensed clinician will design your dose and bring NAD+ therapy to you.",
+      "Message or call us, a DHA-licensed clinician will design your dose and bring NAD⁺ therapy to you.",
   },
 
   "/wellness/peptide-therapy": {
     eyebrow: "Peptide Therapy · Dubai",
     title: "Cellular regeneration & performance optimisation",
     intro:
-      "Peptides are short chains of amino acids that act as messengers — activating repair, regulating hormones, modulating inflammation and supporting tissue regeneration. Highly bioavailable and fast-acting, medically supervised by NADZ.",
+      "Peptides are short chains of amino acids that act as messengers, activating repair, regulating hormones, modulating inflammation and supporting tissue regeneration. Highly bioavailable and fast-acting, medically supervised by NADZ.",
     highlights: [
       { icon: ShieldCheck, big: "Supervised", small: "medically managed protocols" },
       { icon: Dna, big: "Biomarker", small: "personalised plans" },
@@ -1305,14 +1305,14 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     ],
     closingTitle: "Repair, regenerate, optimise.",
     closingDesc:
-      "Message or call us — a NADZ clinician will design a biomarker-based peptide protocol for you.",
+      "Message or call us, a NADZ clinician will design a biomarker-based peptide protocol for you.",
   },
 
   "/wellness/functional-integrative-medicine": {
     eyebrow: "Functional Medicine · Dubai",
     title: "Root-cause healing & lifelong wellness",
     intro:
-      "A systems-biology approach that treats the body as one interconnected ecosystem — not isolated symptoms. NADZ examines how your gut, brain, hormones, immunity and lifestyle shape your health, and what your body needs to truly heal.",
+      "A systems-biology approach that treats the body as one interconnected ecosystem, not isolated symptoms. NADZ examines how your gut, brain, hormones, immunity and lifestyle shape your health, and what your body needs to truly heal.",
     highlights: [
       { icon: ShieldCheck, big: "Doctor-led", small: "holistic care" },
       { icon: Microscope, big: "Advanced", small: "functional diagnostics" },
@@ -1348,6 +1348,6 @@ export const SERVICE_BODIES: Record<string, ServiceBodyData> = {
     ],
     closingTitle: "Your personalised pathway to root-cause healing.",
     closingDesc:
-      "Message or call us — a NADZ doctor will map your systems and build a whole-person plan for lasting wellness.",
+      "Message or call us, a NADZ doctor will map your systems and build a whole-person plan for lasting wellness.",
   },
 };

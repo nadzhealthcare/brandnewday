@@ -7,7 +7,7 @@ import { getEvents, mediaUrl } from "@/lib/strapi";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Events & Highlights — NADZ Healthcare",
+  title: "Events & Highlights, NADZ Healthcare",
   description: "Where NADZ Healthcare has been and what's next.",
 };
 
@@ -44,7 +44,7 @@ export default async function EventsPage() {
             Events &amp; Highlights
           </SectionTitle>
           <p className="mx-auto mt-4 max-w-2xl text-[15.5px] leading-relaxed text-white/65">
-            Where NADZ shows up across Dubai — community moments, wellness events
+            Where NADZ shows up across Dubai, community moments, wellness events
             and health talks.
           </p>
         </div>
@@ -54,7 +54,7 @@ export default async function EventsPage() {
         <div className="mx-auto max-w-[1180px]">
           {items.length === 0 ? (
             <p className="py-16 text-center text-[15px] text-black/45">
-              Upcoming events will appear here — stay tuned.
+              Upcoming events will appear here, stay tuned.
             </p>
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

@@ -21,12 +21,12 @@ const FAQS: Faq[] = [
   {
     cat: "General",
     q: "What is NADZ Healthcare?",
-    a: "NADZ is a premium home-healthcare provider in Dubai. We bring doctors, nurses and specialists directly to your home, hotel or office — delivering personalised medical care with clinical precision and the warmth of a family doctor.",
+    a: "NADZ is a premium home-healthcare provider in Dubai. We bring doctors, nurses and specialists directly to your home, hotel or office, delivering personalised medical care with clinical precision and the warmth of a family doctor.",
   },
   {
     cat: "General",
     q: "Where do you provide services?",
-    a: "We serve patients across Dubai, wherever you are — at home, in your hotel suite or at the office. Our teams travel to you so you never have to sit in a waiting room.",
+    a: "We serve patients across Dubai, wherever you are, at home, in your hotel suite or at the office. Our teams travel to you so you never have to sit in a waiting room.",
   },
   {
     cat: "General",
@@ -42,7 +42,7 @@ const FAQS: Faq[] = [
   {
     cat: "Booking & Coverage",
     q: "How do I book a visit?",
-    a: "Book in just a few minutes — tap “Book a Home Visit”, message us on WhatsApp, or call our 24/7 line. Tell us what you need and we’ll arrange the right clinician for you.",
+    a: "Book in just a few minutes, tap “Book a Home Visit”, message us on WhatsApp, or call our 24/7 line. Tell us what you need and we’ll arrange the right clinician for you.",
   },
   {
     cat: "Booking & Coverage",
@@ -52,7 +52,7 @@ const FAQS: Faq[] = [
   {
     cat: "Booking & Coverage",
     q: "Can I book for a family member?",
-    a: "Absolutely. You can arrange a visit on behalf of a parent, child or anyone in your care — just share their details and requirements when you book.",
+    a: "Absolutely. You can arrange a visit on behalf of a parent, child or anyone in your care, just share their details and requirements when you book.",
   },
   {
     cat: "Booking & Coverage",
@@ -63,12 +63,12 @@ const FAQS: Faq[] = [
   {
     cat: "Doctor & Nursing",
     q: "What does a Doctor on Call visit include?",
-    a: "A DHA-certified doctor comes to you for consultation, examination, diagnosis and treatment — including prescriptions and referrals where needed — with the same standard you’d expect in a clinic.",
+    a: "A DHA-certified doctor comes to you for consultation, examination, diagnosis and treatment, including prescriptions and referrals where needed, with the same standard you’d expect in a clinic.",
   },
   {
     cat: "Doctor & Nursing",
     q: "What nursing services do you offer at home?",
-    a: "Our nurses provide elderly care, mother-and-baby care, babysitting, palliative care, wound care, injections, IV administration and post-operative support — all delivered in the comfort of your home.",
+    a: "Our nurses provide elderly care, mother-and-baby care, babysitting, palliative care, wound care, injections, IV administration and post-operative support, all delivered in the comfort of your home.",
   },
   {
     cat: "Doctor & Nursing",
@@ -79,7 +79,7 @@ const FAQS: Faq[] = [
   {
     cat: "IV Drips & Wellness",
     q: "Which IV drips do you offer?",
-    a: "Our menu includes NAD+ therapy, glutathione radiance, vitamin therapy and hydration drips, plus hangover recovery — each administered by a qualified nurse or doctor in your own space.",
+    a: "Our menu includes NAD⁺ therapy, glutathione radiance, vitamin therapy and hydration drips, plus hangover recovery, each administered by a qualified nurse or doctor in your own space.",
   },
   {
     cat: "IV Drips & Wellness",
@@ -89,18 +89,18 @@ const FAQS: Faq[] = [
   {
     cat: "IV Drips & Wellness",
     q: "What wellness and longevity services are available?",
-    a: "Beyond IV therapy we offer peptide therapy, functional and integrative medicine, and our NADZ Vital Brain and Autonomic Control programmes — designed around long-term health and performance.",
+    a: "Beyond IV therapy we offer peptide therapy, functional and integrative medicine, and our NADZ Vital Brain and Autonomic Control programmes, designed around long-term health and performance.",
   },
   // Labs & Testing
   {
     cat: "Labs & Testing",
     q: "Can I get lab tests done at home?",
-    a: "Yes. Our team collects samples at your home for a wide range of tests, and results are delivered securely — no lab visit required.",
+    a: "Yes. Our team collects samples at your home for a wide range of tests, and results are delivered securely, no lab visit required.",
   },
   {
     cat: "Labs & Testing",
     q: "What kinds of tests can be done at home?",
-    a: "We cover genetic and epigenetic testing, food-intolerance and allergy panels, NIPT and women’s health, STD and sexual-health screening, PCR and more — all with home sample collection.",
+    a: "We cover genetic and epigenetic testing, food-intolerance and allergy panels, NIPT and women’s health, STD and sexual-health screening, PCR and more, all with home sample collection.",
   },
   {
     cat: "Labs & Testing",
@@ -116,7 +116,7 @@ const FAQS: Faq[] = [
   {
     cat: "Payments",
     q: "Do you accept insurance?",
-    a: "For insurance coverage and reimbursement, please contact our care team with your provider details — we’ll advise on what applies to your specific visit.",
+    a: "For insurance coverage and reimbursement, please contact our care team with your provider details, we’ll advise on what applies to your specific visit.",
   },
   {
     cat: "Payments",
@@ -150,7 +150,7 @@ export default function FaqPage() {
 
   return (
     <div className="bg-white">
-      {/* 1 — hero band */}
+      {/* 1, hero band */}
       <section
         className="relative overflow-hidden px-4 pb-16 pt-28 text-center sm:px-6 sm:pb-20 sm:pt-36"
         style={{ backgroundImage: "linear-gradient(135deg,#3d1622,#611f2e)" }}
@@ -169,7 +169,7 @@ export default function FaqPage() {
           </SectionTitle>
           <p className="mx-auto mt-5 max-w-2xl text-[15.5px] leading-relaxed text-white/65">
             Answers to your questions about NADZ home-healthcare services in
-            Dubai — your complete guide to care that comes to you.
+            Dubai, your complete guide to care that comes to you.
           </p>
 
           {/* search */}
@@ -185,7 +185,7 @@ export default function FaqPage() {
         </div>
       </section>
 
-      {/* 2 — category chips + accordion */}
+      {/* 2, category chips + accordion */}
       <section className="px-4 py-16 sm:px-6 sm:py-20">
         <div className="mx-auto max-w-[860px]">
           {/* chips */}
@@ -271,7 +271,7 @@ export default function FaqPage() {
         </div>
       </section>
 
-      {/* 3 — still have questions */}
+      {/* 3, still have questions */}
       <section className="px-4 pb-20 sm:px-6">
         <div
           className="mx-auto flex max-w-[1180px] flex-col items-center gap-6 rounded-[30px] px-6 py-14 text-center sm:py-20"

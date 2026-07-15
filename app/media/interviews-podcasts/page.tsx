@@ -7,7 +7,7 @@ import { getInterviews, youtubeId } from "@/lib/strapi";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Interviews & Podcasts — NADZ Healthcare",
+  title: "Interviews & Podcasts, NADZ Healthcare",
   description:
     "Watch our interviews, podcast episodes, and media appearances.",
 };
@@ -57,7 +57,7 @@ export default async function InterviewsPage() {
         <div className="mx-auto flex max-w-[1000px] flex-col gap-6">
           {items.length === 0 ? (
             <p className="py-16 text-center text-[15px] text-black/45">
-              New episodes are on their way — please check back soon.
+              New episodes are on their way, please check back soon.
             </p>
           ) : (
             items.map((v) => {

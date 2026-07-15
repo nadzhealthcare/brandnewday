@@ -10,7 +10,7 @@ export default function Logo({
   return (
     <Link
       href="/"
-      aria-label="NADZ Healthcare — home"
+      aria-label="NADZ Healthcare, home"
       className={`flex items-center ${className}`}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -28,7 +28,7 @@ const VALUES: { icon: LucideIcon; title: string; desc: string }[] = [
   {
     icon: Rocket,
     title: "Innovation",
-    desc: "We reimagine home healthcare for Dubai — pairing clinical precision with a genuinely modern patient experience.",
+    desc: "We reimagine home healthcare for Dubai, pairing clinical precision with a genuinely modern patient experience.",
   },
   {
     icon: HeartHandshake,
@@ -51,7 +51,7 @@ const BENEFITS: { icon: LucideIcon; title: string; desc: string }[] = [
   {
     icon: TrendingUp,
     title: "Real growth",
-    desc: "Clear pathways for professional development — your impact and your career grow together.",
+    desc: "Clear pathways for professional development, your impact and your career grow together.",
   },
   {
     icon: Users,
@@ -61,7 +61,7 @@ const BENEFITS: { icon: LucideIcon; title: string; desc: string }[] = [
   {
     icon: Stethoscope,
     title: "Meaningful work",
-    desc: "You change lives at the doorstep — dignified, personal care that patients remember and thank you for.",
+    desc: "You change lives at the doorstep, dignified, personal care that patients remember and thank you for.",
   },
   {
     icon: ShieldCheck,
@@ -71,14 +71,14 @@ const BENEFITS: { icon: LucideIcon; title: string; desc: string }[] = [
   {
     icon: Compass,
     title: "Purpose-led culture",
-    desc: "A mission you can believe in — restoring the family-doctor relationship modern medicine forgot.",
+    desc: "A mission you can believe in, restoring the family-doctor relationship modern medicine forgot.",
   },
 ];
 
 export default function Careers() {
   return (
     <div className="bg-white">
-      {/* 1 — hero band */}
+      {/* 1, hero band */}
       <section
         className="relative overflow-hidden px-4 pb-16 pt-28 text-center sm:px-6 sm:pb-20 sm:pt-36"
         style={{ backgroundImage: "linear-gradient(135deg,#3d1622,#611f2e)" }}
@@ -101,13 +101,13 @@ export default function Careers() {
           </p>
           <p className="mx-auto mt-5 max-w-2xl text-[15.5px] leading-relaxed text-white/65">
             We&apos;re committed to a culture of innovation, compassion and
-            excellence — where every team member has the opportunity to grow and
+            excellence, where every team member has the opportunity to grow and
             make a meaningful impact on the lives of our patients.
           </p>
         </div>
       </section>
 
-      {/* 2 — culture / values */}
+      {/* 2, culture / values */}
       <section className="px-4 py-16 sm:px-6 sm:py-20">
         <div className="mx-auto max-w-[1180px]">
           <p className="text-center text-[12px] font-semibold uppercase tracking-[0.22em] text-black/40">
@@ -153,7 +153,7 @@ export default function Careers() {
         </div>
       </section>
 
-      {/* 3 — why work with us / benefits */}
+      {/* 3, why work with us / benefits */}
       <section className="px-4 pb-4 sm:px-6">
         <div className="mx-auto max-w-[1180px]">
           <p className="text-center text-[12px] font-semibold uppercase tracking-[0.22em] text-black/40">
@@ -188,7 +188,7 @@ export default function Careers() {
         </div>
       </section>
 
-      {/* 4 — open positions */}
+      {/* 4, open positions */}
       <section className="px-4 py-16 sm:px-6 sm:py-20">
         <div className="mx-auto max-w-[1180px]">
           <p className="text-center text-[12px] font-semibold uppercase tracking-[0.22em] text-black/40">
@@ -206,7 +206,7 @@ export default function Careers() {
               No open roles right now
             </h3>
             <p className="mx-auto mt-3 max-w-md text-[14.5px] leading-relaxed text-black/55">
-              We&apos;re not actively hiring at the moment — but we&apos;re always
+              We&apos;re not actively hiring at the moment, but we&apos;re always
               glad to hear from exceptional doctors, nurses and specialists.
               Introduce yourself and we&apos;ll reach out when the right role
               opens.
@@ -223,7 +223,7 @@ export default function Careers() {
         </div>
       </section>
 
-      {/* 5 — closing band */}
+      {/* 5, closing band */}
       <section className="px-4 pb-20 sm:px-6">
         <div
           className="mx-auto flex max-w-[1180px] flex-col items-center gap-6 rounded-[30px] px-6 py-14 text-center sm:py-20"

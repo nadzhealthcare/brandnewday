@@ -22,7 +22,7 @@ export default function FooterLogo() {
     <Link
       ref={ref}
       href="/"
-      aria-label="NADZ Healthcare — home"
+      aria-label="NADZ Healthcare, home"
       className={`footer-logo relative inline-block ${inView ? "is-in" : ""}`}
     >
       <span className="footer-logo-glow" aria-hidden="true" />

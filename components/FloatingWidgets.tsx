@@ -28,15 +28,15 @@ const QUICK = ["Book a visit", "Pricing", "Talk to a doctor"];
 function botReply(text: string): string {
   const t = text.toLowerCase();
   if (/book|appointment|visit|schedule/.test(t))
-    return "Great — I can help you book a home visit. Which area of Dubai are you in, and do you need a doctor, nurse, IV drip or lab test?";
+    return "Great, I can help you book a home visit. Which area of Dubai are you in, and do you need a doctor, nurse, IV drip or lab test?";
   if (/pric|cost|fee|how much|charge/.test(t))
-    return "Home doctor visits start from AED 350. Final pricing depends on the service — would you like a detailed quote?";
+    return "Home doctor visits start from AED 350. Final pricing depends on the service, would you like a detailed quote?";
   if (/doctor|urgent|emergency|sick|pain|fever/.test(t))
     return "A NADZ doctor can reach you within ~30 minutes. Shall I arrange a callback right away?";
   if (/hi|hello|hey|salam|assalam/.test(t))
     return "Hello! 👋 How can we assist you with your home healthcare today?";
   if (/nurse|iv|drip|lab|blood|test|vaccin/.test(t))
-    return "We offer nursing care, IV drips, home lab tests and vaccinations — all at your doorstep. What would you like to arrange?";
+    return "We offer nursing care, IV drips, home lab tests and vaccinations, all at your doorstep. What would you like to arrange?";
   return "Thanks for reaching out! A NADZ care coordinator will follow up shortly. Could you share a little more about what you need?";
 }
 
@@ -195,7 +195,7 @@ export default function FloatingWidgets() {
           </span>
         </a>
 
-        {/* Live chat — opens the in-page chatbox */}
+        {/* Live chat, opens the in-page chatbox */}
         <button
           onClick={() => setOpen((o) => !o)}
           aria-label="Live chat"

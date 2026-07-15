@@ -85,7 +85,7 @@ export default function DoorbellClip() {
 
       {/* doctor (front-facing, reaching toward the bell) */}
       <g>
-        {/* legs + shoes — drawn first so the torso overlaps their tops */}
+        {/* legs + shoes, drawn first so the torso overlaps their tops */}
         <rect x="125" y="154" width="9" height="42" rx="3" fill="#3a3f4a" />
         <rect x="140" y="154" width="9" height="42" rx="3" fill="#3a3f4a" />
         <ellipse cx="129" cy="197" rx="8" ry="3.5" fill="#26262e" />
@@ -97,10 +97,10 @@ export default function DoorbellClip() {
         <rect x="88" y="158" width="22" height="17" rx="3" fill="#5b3a2a" />
         <rect x="95" y="154" width="8" height="6" rx="2" fill="#4a2e20" />
 
-        {/* neck — overlaps the torso top so there's no gap under the head */}
+        {/* neck, overlaps the torso top so there's no gap under the head */}
         <rect x="129" y="102" width="8" height="20" fill="#eebfa0" />
 
-        {/* torso (scrubs) — overlaps neck top and leg tops */}
+        {/* torso (scrubs), overlaps neck top and leg tops */}
         <rect x="116" y="116" width="38" height="48" rx="9" fill="#7a2f3d" />
         {/* v-neck */}
         <path d="M128 116 l5 9 l5 -9 Z" fill="#eebfa0" />
@@ -112,7 +112,7 @@ export default function DoorbellClip() {
         <circle cx="133" cy="95" r="12" fill="#eebfa0" />
         <path d="M121 93 a12 12 0 0 1 24 0 q-4 -6 -12 -6 q-8 0 -12 6 Z" fill="#3a2a22" />
 
-        {/* reaching arm — pivots at the right shoulder (147,124) */}
+        {/* reaching arm, pivots at the right shoulder (147,124) */}
         <g>
           <animateTransform attributeName="transform" type="rotate" values={armVals} keyTimes={armKeys} dur={DUR} repeatCount="indefinite" />
           {/* upper arm (sleeve) */}

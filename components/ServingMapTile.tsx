@@ -61,7 +61,7 @@ export default function ServingMapTile() {
       {/* maroon vignette so the title + caption stay legible */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#2e1922]/80 via-[#2e1922]/15 to-[#3a1c28]/80" />
 
-      {/* pins — keyed by cycle so the drop animation replays every 5s */}
+      {/* pins, keyed by cycle so the drop animation replays every 5s */}
       {PINS.map((p, i) => (
         <div
           key={`${cycle}-${i}`}

@@ -5,7 +5,7 @@ import { getStripe } from "@/lib/stripe";
 import { getTabbyPayment, captureTabbyPayment } from "@/lib/tabby";
 
 export const metadata: Metadata = {
-  title: "Payment Received — NADZ Healthcare",
+  title: "Payment Received, NADZ Healthcare",
   robots: { index: false },
 };
 

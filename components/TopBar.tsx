@@ -69,7 +69,7 @@ export default function TopBar() {
         </div>
       </div>
 
-      {/* Social icons — pinned right */}
+      {/* Social icons, pinned right */}
       <div className="hidden shrink-0 items-center gap-3 bg-[color:var(--maroon)] pl-6 pr-4 sm:pr-6 md:flex">
         {socials.map((s) => (
           <a

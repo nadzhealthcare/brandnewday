@@ -85,7 +85,7 @@ export default function Footer() {
             <div>
               <p className="max-w-xs text-[14px] leading-relaxed text-white/70">
                 At NADZ Home Healthcare, your needs guide our care. We deliver
-                personalized health support precisely where you need it — your
+                personalized health support precisely where you need it, your
                 home, office, or hotel.
               </p>
               <p className="mt-6 font-title text-[15px] italic text-white/80">

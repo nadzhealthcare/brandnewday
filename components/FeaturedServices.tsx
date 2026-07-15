@@ -31,7 +31,7 @@ const SERVICES: Service[] = [
   {
     title: "IV Drips",
     badge: "Wellness Infusions",
-    desc: "Hydration, vitamins, NAD+ and radiance drips delivered to you.",
+    desc: "Hydration, vitamins, NAD⁺ and radiance drips delivered to you.",
     href: "/services/iv-drips",
     img: "/assets/ivdrips.png",
   },
@@ -194,7 +194,7 @@ export default function FeaturedServices() {
       for (let i = 0; i < N; i++) {
         const el = cardRefs.current[i];
         if (!el) continue;
-        const o = i - ac; // linear (no looping) — scrub through all 7 once
+        const o = i - ac; // linear (no looping), scrub through all 7 once
         const order = clamp((o + 3) / 6, 0, 1);
         const p = clamp((reveal - order * 0.5) / 0.5, 0, 1);
         const disp = o - (1 - p) * ENTRY_SLOTS;
@@ -260,7 +260,7 @@ export default function FeaturedServices() {
           Featured Services
         </SectionTitle>
         <p className="mx-auto mb-8 max-w-xl text-center text-[15px] text-black/55">
-          The care our families reach for most — brought straight to your home.
+          The care our families reach for most, brought straight to your home.
         </p>
 
         <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-3 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -288,7 +288,7 @@ export default function FeaturedServices() {
           Featured Services
         </SectionTitle>
         <p className="mx-auto mb-6 max-w-xl text-center text-[15px] text-black/55">
-          The care our families reach for most — brought straight to your home.
+          The care our families reach for most, brought straight to your home.
         </p>
 
         <div

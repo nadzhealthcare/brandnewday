@@ -136,10 +136,10 @@ export async function captureTabbyPayment(
 export function tabbyRejectionMessage(reason: string): string {
   switch (reason) {
     case "order_amount_too_high":
-      return "This amount is above Tabby's limit for your account — please pay by card.";
+      return "This amount is above Tabby's limit for your account, please pay by card.";
     case "order_amount_too_low":
-      return "This amount is below Tabby's minimum — please pay by card.";
+      return "This amount is below Tabby's minimum, please pay by card.";
     default:
-      return "Tabby isn't available for this order — please pay by card.";
+      return "Tabby isn't available for this order, please pay by card.";
   }
 }

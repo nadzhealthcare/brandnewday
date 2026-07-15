@@ -38,7 +38,7 @@ const GOALS: { icon: LucideIcon; title: string; desc: string }[] = [
 export default function MissionVision() {
   return (
     <div className="bg-white">
-      {/* 1 — hero band */}
+      {/* 1, hero band */}
       <section
         className="relative overflow-hidden px-4 pb-16 pt-28 text-center sm:px-6 sm:pb-20 sm:pt-36"
         style={{ backgroundImage: "linear-gradient(135deg,#3d1622,#611f2e)" }}
@@ -59,16 +59,16 @@ export default function MissionVision() {
           </p>
           <p className="mx-auto mt-5 max-w-2xl text-[15.5px] leading-relaxed text-white/65">
             NADZ redefines home healthcare in Dubai as a sanctuary of trust,
-            healing and grace — every service blending clinical precision with
+            healing and grace, every service blending clinical precision with
             family warmth.
           </p>
         </div>
       </section>
 
-      {/* 2 — vision & mission cards */}
+      {/* 2, vision & mission cards */}
       <section className="px-4 py-16 sm:px-6 sm:py-20">
         <div className="mx-auto grid max-w-[1180px] gap-5 lg:grid-cols-2">
-          {/* Vision — light card */}
+          {/* Vision, light card */}
           <article className="group relative overflow-hidden rounded-[28px] bg-[#faf7f2] p-8 ring-1 ring-black/5 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_34px_60px_-30px_rgba(43,26,23,0.5)] hover:ring-[color:var(--gold)]/30 sm:p-10">
             <span className="absolute left-0 top-0 h-1 w-0 bg-[color:var(--gold)] transition-all duration-500 group-hover:w-full" />
             <span className="grid h-14 w-14 place-items-center rounded-2xl bg-white text-[color:var(--maroon)] ring-1 ring-black/5 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110">
@@ -78,20 +78,20 @@ export default function MissionVision() {
               Our Vision
             </p>
             <p className="mt-3 text-[20px] font-semibold leading-[1.35] text-[#2b1a17] sm:text-[23px]">
-              To become a sanctuary of healing where excellence meets elegance —
+              To become a sanctuary of healing where excellence meets elegance, 
               healthcare redefined as a bespoke, in-home experience delivered with
               grace, discretion and devotion.
             </p>
             <p className="mt-4 text-[14px] leading-relaxed text-black/55">
               We envision every home as a haven for dignified care, where the
-              family doctor arrives with both expertise and empathy — admired for
+              family doctor arrives with both expertise and empathy, admired for
               sincerity, known for quality, and remembered for making patients feel
               like family.
             </p>
             <Glare />
           </article>
 
-          {/* Mission — maroon card */}
+          {/* Mission, maroon card */}
           <article
             className="group relative overflow-hidden rounded-[28px] p-8 text-white ring-1 ring-white/10 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_34px_60px_-26px_rgba(43,15,20,0.7)] sm:p-10"
             style={{ backgroundImage: "linear-gradient(150deg,#4a1c20,#6C2A37)" }}
@@ -108,8 +108,8 @@ export default function MissionVision() {
               deserves.
             </p>
             <p className="mt-4 text-[14px] leading-relaxed text-white/70">
-              We deliver personalized medical care in privacy and comfort — at
-              home, hotel or office — with unwavering clinical precision. Our
+              We deliver personalized medical care in privacy and comfort, at
+              home, hotel or office, with unwavering clinical precision. Our
               DHA-certified doctors and nurses enter every home with reverence and
               leave behind trust, calm and comfort.
             </p>
@@ -118,19 +118,19 @@ export default function MissionVision() {
         </div>
       </section>
 
-      {/* 3 — core principle */}
+      {/* 3, core principle */}
       <section className="px-4 pb-4 sm:px-6">
         <div className="group relative mx-auto max-w-[1180px] overflow-hidden rounded-[28px] border border-[color:var(--gold)]/25 bg-[#fbf8f0] px-6 py-12 text-center transition-shadow duration-500 hover:shadow-[0_30px_60px_-34px_rgba(169,127,46,0.6)] sm:py-16">
           <Sparkles className="mx-auto h-7 w-7 text-[color:var(--gold-dark)] transition-transform duration-500 group-hover:scale-110" />
           <p className="mx-auto mt-5 max-w-3xl font-title text-[1.5rem] uppercase leading-[1.3] text-[color:var(--maroon)] sm:text-[2rem]">
-            Each service bespoke, tuned to your pace — a harmony of healing, woven
+            Each service bespoke, tuned to your pace, a harmony of healing, woven
             with grace.
           </p>
           <Glare />
         </div>
       </section>
 
-      {/* 4 — why it matters / goals */}
+      {/* 4, why it matters / goals */}
       <section className="px-4 py-16 sm:px-6 sm:py-20">
         <div className="mx-auto max-w-[1180px]">
           <p className="text-center text-[12px] font-semibold uppercase tracking-[0.22em] text-black/40">
@@ -170,7 +170,7 @@ export default function MissionVision() {
         </div>
       </section>
 
-      {/* 5 — closing band */}
+      {/* 5, closing band */}
       <section className="px-4 pb-20 sm:px-6">
         <div
           className="mx-auto flex max-w-[1180px] flex-col items-center gap-6 rounded-[30px] px-6 py-14 text-center sm:py-20"

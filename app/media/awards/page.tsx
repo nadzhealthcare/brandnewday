@@ -9,7 +9,7 @@ import { getAwards, mediaUrl } from "@/lib/strapi";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Awards & Achievements — NADZ Healthcare",
+  title: "Awards & Achievements, NADZ Healthcare",
   description: "Milestones and recognition from the NADZ journey.",
 };
 

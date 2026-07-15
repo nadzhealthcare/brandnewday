@@ -19,9 +19,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const a = await getPressReleaseBySlug(slug);
-  if (!a) return { title: "Press Release — NADZ Healthcare" };
+  if (!a) return { title: "Press Release, NADZ Healthcare" };
   return {
-    title: `${a.seoTitle || a.title} — NADZ Healthcare`,
+    title: `${a.seoTitle || a.title}, NADZ Healthcare`,
     description: a.seoDescription || a.excerpt || undefined,
   };
 }

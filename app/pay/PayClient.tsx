@@ -37,11 +37,11 @@ function TamaraMark() {
 function rejectionMessage(reason: string): string {
   switch (reason) {
     case "order_amount_too_high":
-      return "This amount is above Tabby's limit — please pay by card.";
+      return "This amount is above Tabby's limit, please pay by card.";
     case "order_amount_too_low":
-      return "This amount is below Tabby's minimum — please pay by card.";
+      return "This amount is below Tabby's minimum, please pay by card.";
     default:
-      return "Tabby isn't available for this order — please pay by card.";
+      return "Tabby isn't available for this order, please pay by card.";
   }
 }
 
@@ -111,7 +111,7 @@ export default function PayClient({
           : json.error || "Could not start Tabby checkout",
       );
     } catch {
-      setTabbyMsg("Something went wrong — please try card.");
+      setTabbyMsg("Something went wrong, please try card.");
     }
     setTabbyLoading(false);
   };
@@ -274,7 +274,7 @@ export default function PayClient({
                   </button>
                 )}
 
-                {/* Tamara — enabled once its keys land */}
+                {/* Tamara, enabled once its keys land */}
                 <button
                   type="button"
                   disabled

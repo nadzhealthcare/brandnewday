@@ -3,7 +3,7 @@ import Link from "next/link";
 import { XCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Payment Cancelled — NADZ Healthcare",
+  title: "Payment Cancelled, NADZ Healthcare",
   robots: { index: false },
 };
 

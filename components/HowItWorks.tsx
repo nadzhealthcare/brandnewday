@@ -156,7 +156,7 @@ export default function HowItWorks() {
             How NADZ Homecare Works
           </SectionTitle>
           <p className="mx-auto mb-8 max-w-xl text-center text-[15px] text-white/60 sm:mb-12">
-            From your first call to follow-up — care in three simple steps.
+            From your first call to follow-up, care in three simple steps.
           </p>
 
           {/* capsule pipe filling with liquid */}
@@ -188,7 +188,7 @@ export default function HowItWorks() {
             ))}
           </div>
 
-          {/* steps — desktop grid (revealed left→right) */}
+          {/* steps, desktop grid (revealed left→right) */}
           <div className="hidden gap-6 md:grid md:grid-cols-3">
             {STEPS.map((s, j) => (
               <div
@@ -210,7 +210,7 @@ export default function HowItWorks() {
             ))}
           </div>
 
-          {/* steps — mobile stack (each step slides in over the previous) */}
+          {/* steps, mobile stack (each step slides in over the previous) */}
           <div className="relative min-h-[370px] md:hidden">
             {STEPS.map((s, j) => (
               <div

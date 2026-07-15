@@ -9,7 +9,7 @@ import { waLink } from "@/lib/contact";
  * Latest-offer popup.
  *  - Opens shortly after the page first loads.
  *  - Re-opens after 30s of user inactivity (if currently closed).
- *  - The cover image is a single editable path — swap it (or wire it to
+ *  - The cover image is a single editable path, swap it (or wire it to
  *    a backend) without touching the rest of the component.
  * ------------------------------------------------------------------ */
 
@@ -113,7 +113,7 @@ export default function OfferPopup() {
           <X className="h-5 w-5" />
         </button>
 
-        {/* cover image — the whole poster claims the offer on WhatsApp */}
+        {/* cover image, the whole poster claims the offer on WhatsApp */}
         <button
           type="button"
           onClick={claim}

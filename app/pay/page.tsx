@@ -4,7 +4,7 @@ import { tabbyReady } from "@/lib/tabby";
 import PayClient from "./PayClient";
 
 export const metadata: Metadata = {
-  title: "Secure Payment — NADZ Healthcare",
+  title: "Secure Payment, NADZ Healthcare",
   robots: { index: false },
 };
 

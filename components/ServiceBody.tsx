@@ -93,7 +93,7 @@ export default function ServiceBody({ data }: { data: ServiceBodyData }) {
         </div>
       </section>
 
-      {/* what's included — split panel */}
+      {/* what's included, split panel */}
       <section className="px-4 pb-4 sm:px-6">
         <div className="mx-auto grid max-w-[1180px] gap-5 lg:grid-cols-[1fr_1.1fr]">
           <div
@@ -167,7 +167,7 @@ export default function ServiceBody({ data }: { data: ServiceBodyData }) {
         </div>
       </section>
 
-      {/* how it works — animated (before the contact CTA) */}
+      {/* how it works, animated (before the contact CTA) */}
       <HowItWorks />
 
       {/* closing CTA band */}
@@ -189,7 +189,7 @@ export default function ServiceBody({ data }: { data: ServiceBodyData }) {
               className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-[15px] font-semibold text-[color:var(--maroon)] transition-transform hover:-translate-y-0.5"
             >
               <MessageCircle className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
-              WhatsApp us — 24/7
+              WhatsApp us, 24/7
             </Link>
             <Link
               href="tel:8004NADZ"

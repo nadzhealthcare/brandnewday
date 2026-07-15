@@ -19,9 +19,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const a = await getArticleBySlug(slug);
-  if (!a) return { title: "Article — NADZ Healthcare" };
+  if (!a) return { title: "Article, NADZ Healthcare" };
   return {
-    title: `${a.seoTitle || a.title} — NADZ Healthcare`,
+    title: `${a.seoTitle || a.title}, NADZ Healthcare`,
     description: a.seoDescription || a.excerpt || undefined,
     openGraph: {
       title: a.seoTitle || a.title,

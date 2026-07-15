@@ -15,7 +15,7 @@ const inter = Inter({
   weight: ["300", "400", "500", "600", "700"],
 });
 
-// Mona Sans variable font — carries both weight (200–900) and width (75–125%) axes,
+// Mona Sans variable font, carries both weight (200–900) and width (75–125%) axes,
 // so the title can render as "Expanded SemiBold" via font-stretch:125% + weight:600.
 const monaSans = localFont({
   src: "./fonts/MonaSans-wdth.woff2",
@@ -25,9 +25,9 @@ const monaSans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "NADZ Healthcare — Your Family Doctor",
+  title: "NADZ Healthcare, Your Family Doctor",
   description:
-    "NADZ Healthcare brings the clinic to your home — doctor on call, nursing care, IV drips, labs at home, vaccination, and longevity medicine.",
+    "NADZ Healthcare brings the clinic to your home, doctor on call, nursing care, IV drips, labs at home, vaccination, and longevity medicine.",
   icons: {
     icon: [
       { url: "/assets/32.png", sizes: "32x32", type: "image/png" },

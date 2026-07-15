@@ -129,7 +129,7 @@ function PackageCard({ pkg, active }: { pkg: Pkg; active: boolean }) {
     <button
       type="button"
       onClick={() => setFlipped((f) => !f)}
-      aria-label={`${pkg.title} — reveal annual price`}
+      aria-label={`${pkg.title}, reveal annual price`}
       className={`h-[172px] w-full text-left transition-transform duration-700 ease-out hover:scale-[1.04] [perspective:1200px] ${
         active ? "z-10 scale-[1.04]" : "scale-100"
       }`}

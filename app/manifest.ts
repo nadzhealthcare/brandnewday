@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "NADZ Healthcare",
     short_name: "NADZ",
     description:
-      "NADZ Healthcare — your family doctor at home in Dubai. Doctor on call, nursing, IV drips, labs and more.",
+      "NADZ Healthcare, your family doctor at home in Dubai. Doctor on call, nursing, IV drips, labs and more.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",
