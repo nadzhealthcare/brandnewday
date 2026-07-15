@@ -82,7 +82,7 @@ export const HERO_IMAGES: Record<string, string[]> = {
   "/services/doctor-on-call": [
     "/assets/doc-slider.png",
     "/assets/doctor-on-call.mp4",
-    "/assets/doct.jpg",
+    "/assets/doc-car.jpg",
   ],
   "/services/nursing-care": [
     "/assets/nurse-on-call.png",
