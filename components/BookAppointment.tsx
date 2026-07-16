@@ -19,7 +19,6 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import SectionTitle from "./SectionTitle";
-import HowItWorks from "./HowItWorks";
 import { SERVICES, bookingLink, detectLocation } from "@/lib/booking";
 
 function WhatsAppIcon({ className = "" }: { className?: string }) {
@@ -97,22 +96,32 @@ export default function BookAppointment() {
 
   return (
     <div className="bg-white">
-      <section className="px-4 py-14 sm:px-6 sm:py-20">
-        <div className="mx-auto max-w-[1180px]">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-black/40">
-              Book a home visit
-            </p>
-            <SectionTitle className="mt-3 text-[2rem] text-[color:var(--maroon)] sm:text-[2.5rem]">
-              Tell us what you need
-            </SectionTitle>
-            <p className="mt-4 text-[15px] leading-relaxed text-black/55">
-              Fill in a few details and we&apos;ll continue on WhatsApp to
-              confirm your visit, usually within minutes.
-            </p>
-          </div>
+      {/* header band, also gives the navbar something dark to sit on */}
+      <section
+        className="relative overflow-hidden px-4 pb-14 pt-28 text-center sm:px-6 sm:pb-16 sm:pt-36"
+        style={{ backgroundImage: "linear-gradient(135deg,#3d1622,#611f2e)" }}
+      >
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_70%_at_50%_0%,rgba(160,26,38,0.35),transparent_60%)]" />
+        <div className="relative">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-white/50">
+            Book a home visit
+          </p>
+          <SectionTitle
+            as="h1"
+            className="mt-4 text-[2.2rem] leading-[1.05] text-white sm:text-[3.2rem]"
+          >
+            Book an Appointment
+          </SectionTitle>
+          <p className="mx-auto mt-4 max-w-2xl text-[15.5px] leading-relaxed text-white/65">
+            Fill in a few details and we&apos;ll continue on WhatsApp to confirm
+            your visit, usually within minutes.
+          </p>
+        </div>
+      </section>
 
-          <div className="mt-12 grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
+      <section className="px-4 py-14 sm:px-6 sm:py-16">
+        <div className="mx-auto max-w-[1180px]">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
             {/* form */}
             <form
               onSubmit={submit}
@@ -335,8 +344,6 @@ export default function BookAppointment() {
           </div>
         </div>
       </section>
-
-      <HowItWorks />
     </div>
   );
 }

@@ -29,12 +29,12 @@ const CUSTOM_PAGES: Record<string, React.ComponentType> = {
   "/about/careers": Careers,
   "/about/faqs": FaqPage,
   "/contact": ContactPage,
+  "/book": BookAppointment,
 };
 
 // routes that keep the default slider hero, then render a custom body below it
 const CUSTOM_BODIES: Record<string, React.ComponentType> = {
   "/services/doctor-on-call": DoctorOnCall,
-  "/book": BookAppointment,
 };
 
 // only pre-generate the known menu routes; anything else 404s
