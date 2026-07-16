@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import SectionTitle from "./SectionTitle";
 
 const SVGNS = "http://www.w3.org/2000/svg";
 
+type CardDef = { label: string; cx: number; cy: number };
+
 // label + card center (matches the rect centers in services.svg)
-const CARDS: { label: string; cx: number; cy: number }[] = [
+const DESKTOP_CARDS: CardDef[] = [
   { label: "DOCTOR ON CALL", cx: 640, cy: 392 },
   { label: "NURSING CARE", cx: 640, cy: 483 },
   { label: "ELDERLY CARE", cx: 640, cy: 574 },
@@ -40,6 +42,77 @@ const CARDS: { label: string; cx: number; cy: number }[] = [
   { label: "OVERREACTING BLADDER", cx: 254, cy: 918 },
 ];
 
+/* Portrait layout for phones: the same 31 services re-columned around the
+   emblem, matching the rect centres in services-mobile.svg. */
+const MOBILE_CARDS: CardDef[] = [
+  { label: "IV NAD\u207A", cx: 169, cy: 201 },
+  { label: "IV HYDRATION", cx: 273, cy: 193 },
+  { label: "IV GLUTATHIONE RADIANCE DRIP", cx: 55, cy: 251 },
+  { label: "IV VITAMIN THERAPY", cx: 170, cy: 251 },
+  { label: "IV DRIPS", cx: 181, cy: 296 },
+  { label: "DOCTOR ON CALL", cx: 297, cy: 261 },
+  { label: "LABS", cx: 337, cy: 297 },
+  { label: "NURSING CARE", cx: 61.5, cy: 330 },
+  { label: "GENETIC & EPIGENETIC TESTING", cx: 337, cy: 341 },
+  { label: "MOTHER & BABY", cx: 61.5, cy: 378 },
+  { label: "FOOD INTOLERANCE & ALLERGIES", cx: 337, cy: 390 },
+  { label: "CARE BABYSITTING", cx: 61.5, cy: 430 },
+  { label: "NIPT / WOMEN'S HEALTH PANELS", cx: 337, cy: 439 },
+  { label: "ELDERLY CARE", cx: 61.5, cy: 472 },
+  { label: "STD TESTING & SEXUAL HEALTH", cx: 337, cy: 488 },
+  { label: "PALLIATIVE CARE", cx: 61.5, cy: 515 },
+  { label: "COVID PCR", cx: 337, cy: 536 },
+  { label: "PHYSIOTHERAPY", cx: 208, cy: 540 },
+  { label: "NADZ VITAL BRAIN", cx: 61.5, cy: 560 },
+  { label: "MEDICAL TOURISM", cx: 208, cy: 576 },
+  { label: "NAD\u207AV THERAPY", cx: 337, cy: 584 },
+  { label: "VACCINATIONS", cx: 208, cy: 609 },
+  { label: "POC TESTING", cx: 62, cy: 611 },
+  { label: "PEPTIDE THERAPY", cx: 337, cy: 628 },
+  { label: "NADZ AUTONOMIC CONTROL", cx: 62.5, cy: 668 },
+  { label: "SLEEPING DISORDER", cx: 201, cy: 667 },
+  { label: "FUNCTIONAL & INTEGRATIVE MEDICINE", cx: 337, cy: 672 },
+  { label: "ANXIETY & STRESS", cx: 201, cy: 712 },
+  { label: "ERECTILE DYSFUNCTION", cx: 62.5, cy: 731 },
+  { label: "CHRONIC PAIN", cx: 201, cy: 757 },
+  { label: "OVERREACTING BLADDER", cx: 62.5, cy: 792 },
+];
+
+type Variant = {
+  src: string;
+  cards: CardDef[];
+  /** rect width window that identifies a card box in this artwork */
+  rectW: [number, number];
+  /** bounding box of the central emblem, used to group it for hover-zoom */
+  emblem: { x0: number; x1: number; y0: number; y1: number; max: number };
+  font: { wide: number; narrow: number; wideAt: number; chars: [number, number] };
+  dotR: number;
+  routeLen: [number, number];
+  tol: number;
+};
+
+const DESKTOP: Variant = {
+  src: "/assets/services.svg",
+  cards: DESKTOP_CARDS,
+  rectW: [200, 4000],
+  emblem: { x0: 948, x1: 1128, y0: 455, y1: 640, max: 270 },
+  font: { wide: 15.5, narrow: 14, wideAt: 300, chars: [22, 18] },
+  dotR: 6,
+  routeLen: [8, 1400],
+  tol: 12,
+};
+
+const MOBILE: Variant = {
+  src: "/assets/services-mobile.svg",
+  cards: MOBILE_CARDS,
+  rectW: [60, 130],
+  emblem: { x0: 150, x1: 252, y0: 386, y1: 484, max: 110 },
+  font: { wide: 6.4, narrow: 5.6, wideAt: 100, chars: [17, 13] },
+  dotR: 2.6,
+  routeLen: [4, 320],
+  tol: 9,
+};
+
 function wrap(label: string, max: number): string[] {
   const words = label.split(" ");
   const lines: string[] = [];
@@ -68,7 +141,7 @@ type Card = {
   h: number;
 };
 
-function enhance(svg: SVGSVGElement): () => void {
+function enhance(svg: SVGSVGElement, v: Variant): () => void {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // ---- style ----
@@ -95,15 +168,15 @@ function enhance(svg: SVGSVGElement): () => void {
   const allRects = Array.from(svg.querySelectorAll("rect"));
   const cards: Card[] = [];
 
-  for (const c of CARDS) {
+  for (const c of v.cards) {
     const rects = allRects.filter((r) => {
       const x = parseFloat(r.getAttribute("x") || "0");
       const y = parseFloat(r.getAttribute("y") || "0");
       const w = parseFloat(r.getAttribute("width") || "0");
       const h = parseFloat(r.getAttribute("height") || "0");
-      if (w < 200) return false;
+      if (w < v.rectW[0] || w > v.rectW[1]) return false;
       return (
-        Math.abs(x + w / 2 - c.cx) < 12 && Math.abs(y + h / 2 - c.cy) < 12
+        Math.abs(x + w / 2 - c.cx) < v.tol && Math.abs(y + h / 2 - c.cy) < v.tol
       );
     });
     if (!rects.length) continue;
@@ -120,10 +193,10 @@ function enhance(svg: SVGSVGElement): () => void {
     rects.forEach((r) => g.appendChild(r));
 
     // text
-    const maxChars = w > 300 ? 22 : 18;
+    const maxChars = w > v.font.wideAt ? v.font.chars[0] : v.font.chars[1];
     const lines = wrap(c.label, maxChars);
-    const fontSize = lines.length > 2 ? 14 : 15.5;
-    const lineH = fontSize + 3;
+    const fontSize = lines.length > 2 ? v.font.narrow : v.font.wide;
+    const lineH = fontSize * 1.22;
     const text = document.createElementNS(SVGNS, "text");
     text.setAttribute("class", "nadz-label");
     text.setAttribute("x", String(c.cx));
@@ -168,7 +241,14 @@ function enhance(svg: SVGSVGElement): () => void {
     }
     const bx = bb.x + bb.width / 2;
     const by = bb.y + bb.height / 2;
-    if (bx > 948 && bx < 1128 && by > 455 && by < 640 && bb.width < 270 && bb.height < 230)
+    if (
+      bx > v.emblem.x0 &&
+      bx < v.emblem.x1 &&
+      by > v.emblem.y0 &&
+      by < v.emblem.y1 &&
+      bb.width < v.emblem.max &&
+      bb.height < v.emblem.max
+    )
       emblemG.appendChild(el);
   });
   svg.appendChild(emblemG);
@@ -229,14 +309,14 @@ function enhance(svg: SVGSVGElement): () => void {
     } catch {
       continue;
     }
-    if (len < 8 || len > 1400) continue;
+    if (len < v.routeLen[0] || len > v.routeLen[1]) continue;
     const p0 = el.getPointAtLength(0);
     const p1 = el.getPointAtLength(len);
     const n0 = nearest(p0.x, p0.y);
     const n1 = nearest(p1.x, p1.y);
-    if (n1.dist <= n0.dist && n1.dist < 18)
+    if (n1.dist <= n0.dist && n1.dist < v.tol * 1.5)
       routes.push({ el, len, reverse: false, cardIndex: n1.index });
-    else if (n0.dist < 18)
+    else if (n0.dist < v.tol * 1.5)
       routes.push({ el, len, reverse: true, cardIndex: n0.index });
   }
 
@@ -290,7 +370,7 @@ function enhance(svg: SVGSVGElement): () => void {
       inFlightTargets.delete(route.cardIndex);
     };
     const dot = document.createElementNS(SVGNS, "circle");
-    dot.setAttribute("r", "6");
+    dot.setAttribute("r", String(v.dotR));
     dot.setAttribute("class", "nadz-dot");
     svg.appendChild(dot);
     const dur = 2400 + Math.random() * 1000; // slower + varied so arrivals spread out
@@ -355,11 +435,24 @@ function enhance(svg: SVGSVGElement): () => void {
 
 export default function ServicesSection() {
   const hostRef = useRef<HTMLDivElement>(null);
+  // Phones get the portrait artwork; the wide diagram can't reflow, and
+  // side-scrolling a 2099px canvas on a 390px screen isn't usable.
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
   useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const sync = () => setIsMobile(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile === null) return;
+    const v = isMobile ? MOBILE : DESKTOP;
     let cancelled = false;
     let cleanup = () => {};
-    fetch("/assets/services.svg")
+    fetch(v.src)
       .then((r) => r.text())
       .then((txt) => {
         if (cancelled || !hostRef.current) return;
@@ -372,14 +465,14 @@ export default function ServicesSection() {
         (svg as SVGSVGElement).style.width = "100%";
         (svg as SVGSVGElement).style.height = "auto";
         (svg as SVGSVGElement).style.display = "block";
-        cleanup = enhance(svg as SVGSVGElement);
+        cleanup = enhance(svg as SVGSVGElement, v);
       })
       .catch(() => {});
     return () => {
       cancelled = true;
       cleanup();
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <section className="bg-white px-4 py-16 sm:px-6 sm:py-20 lg:py-24">
@@ -391,10 +484,10 @@ export default function ServicesSection() {
           One connected ecosystem of care, every NADZ service, from the doctor
           on call to longevity medicine.
         </p>
-        <div className="overflow-x-auto">
+        <div className="md:overflow-x-auto">
           <div
             ref={hostRef}
-            className="mx-auto min-w-[820px] max-w-[1200px]"
+            className="mx-auto w-full max-w-[420px] md:min-w-[820px] md:max-w-[1200px]"
             aria-label="NADZ services overview diagram"
           />
         </div>
