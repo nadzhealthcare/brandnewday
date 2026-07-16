@@ -42,37 +42,37 @@ const CONDITIONS: {
     icon: Thermometer,
     title: "Fever & infections",
     desc: "Fever, flu, throat and chest infections assessed and treated at home.",
-    img: "/assets/fam.jpg",
+    img: "/assets/cond-fever.jpg",
   },
   {
     icon: Activity,
     title: "Digestive & pain",
     desc: "Stomach issues, food poisoning, headaches and body pain.",
-    img: "/assets/lifestyle.jpg",
+    img: "/assets/cond-digestive.jpg",
   },
   {
     icon: HeartPulse,
     title: "Chronic conditions",
     desc: "Diabetes, hypertension and thyroid disorder management.",
-    img: "/assets/nurse-on-call.png",
+    img: "/assets/cond-chronic.jpg",
   },
   {
     icon: Bandage,
     title: "Minor injuries",
     desc: "Sprains, cuts, burns and allergic reactions handled on-site.",
-    img: "/assets/doctorled.jpg",
+    img: "/assets/cond-injuries.jpg",
   },
   {
     icon: Stethoscope,
     title: "Post-hospital care",
     desc: "Post-hospital and surgical follow-up in the comfort of home.",
-    img: "/assets/realistic-scene-with-health-worker-taking-care-elderly-patient 1.jpg",
+    img: "/assets/cond-posthospital.jpg",
   },
   {
     icon: ClipboardList,
     title: "Medication reviews",
     desc: "Chronic disease reviews and medication adjustments.",
-    img: "/assets/trusted-care.jpg",
+    img: "/assets/cond-medication.jpg",
   },
 ];
 
