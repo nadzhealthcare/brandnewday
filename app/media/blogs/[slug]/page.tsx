@@ -9,6 +9,7 @@ import { ArrowLeft, Clock } from "lucide-react";
 import { getArticleBySlug, mediaUrl } from "@/lib/strapi";
 import { extractFaqs } from "@/lib/faq";
 import FaqAccordion from "@/components/FaqAccordion";
+import ShareButtons from "@/components/ShareButtons";
 
 export const revalidate = 300;
 
@@ -104,6 +105,8 @@ export default async function ArticlePage({
         </div>
 
         <FaqAccordion items={faqs} title="FAQs" />
+
+        <ShareButtons title={a.title} />
 
         <div className="mt-12 border-t border-black/5 pt-8 text-center">
           <Link
