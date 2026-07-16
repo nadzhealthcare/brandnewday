@@ -126,6 +126,18 @@ export default function PageHero({
 }) {
   const slides = images.length ? images : ["/assets/doctorled.jpg"];
   const [index, setIndex] = useState(0);
+  // Slides cleared to load their media. Held back briefly so a video slide
+  // fetches after the first paint, but well before it rotates into view.
+  const [seen, setSeen] = useState<Set<number>>(() => new Set([0]));
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setSeen((prev) =>
+        new Set(prev).add(index).add((index + 1) % slides.length),
+      );
+    }, 600);
+    return () => clearTimeout(t);
+  }, [index, slides.length]);
 
   useEffect(() => {
     if (slides.length <= 1) return;
@@ -148,13 +160,15 @@ export default function PageHero({
             return /\.(mp4|webm)$/i.test(src) ? (
               <video
                 key={`${src}-${i}`}
-                src={src}
+                // Only fetch once this slide is the one being shown, a video
+                // slide shouldn't compete with the first paint.
+                src={seen.has(i) ? src : undefined}
                 aria-hidden={i !== index}
                 autoPlay
                 loop
                 muted
                 playsInline
-                preload="auto"
+                preload="none"
                 className={cls}
                 style={style}
               />

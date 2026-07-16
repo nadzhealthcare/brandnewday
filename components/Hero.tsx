@@ -88,6 +88,8 @@ function EightHundred() {
       <img
         src="/assets/nadz-800.svg"
         alt="Call 800 4 NADZ"
+        width={247}
+        height={47}
         className="h-11 w-auto sm:h-12"
       />
     </Link>
@@ -117,6 +119,8 @@ function BestCard() {
       <img
         src="/assets/best-award.png"
         alt="Best Home Healthcare Award 2025"
+        width={51}
+        height={72}
         className="h-14 w-auto"
       />
       <div className="flex flex-col pr-1">

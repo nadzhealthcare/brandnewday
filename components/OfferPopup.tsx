@@ -126,6 +126,8 @@ export default function OfferPopup() {
           <img
             src={OFFER_IMAGE}
             alt={OFFER_ALT}
+            width={891}
+            height={1074}
             className="block h-auto w-full"
           />
         </button>

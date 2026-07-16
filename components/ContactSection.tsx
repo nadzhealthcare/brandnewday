@@ -91,6 +91,8 @@ export default function ContactSection() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/assets/dna1.webp"
+        width={1672}
+        height={941}
         alt=""
         aria-hidden="true"
         className="absolute inset-0 h-full w-full object-cover"
@@ -99,6 +101,8 @@ export default function ContactSection() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/assets/dna2.webp"
+        width={1672}
+        height={941}
         alt=""
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-25"
@@ -108,6 +112,8 @@ export default function ContactSection() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/assets/dna2.webp"
+        width={1672}
+        height={941}
           alt=""
           aria-hidden="true"
           className="h-full w-full object-cover"
