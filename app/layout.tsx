@@ -8,6 +8,7 @@ import StickyBooking from "@/components/StickyBooking";
 import OfferPopup from "@/components/OfferPopup";
 import CookieConsent from "@/components/CookieConsent";
 import Footer from "@/components/Footer";
+import { SITE_URL, ALLOW_INDEX } from "@/lib/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -25,15 +26,10 @@ const monaSans = localFont({
   weight: "200 900",
 });
 
-// Resolves relative OG/Twitter image paths (CMS media served from /api/media)
-// into the absolute URLs social crawlers require. Trimmed, as the env value has
-// carried a stray newline before.
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
-  "https://brandnewday-eight.vercel.app";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  // Resolves relative OG/Twitter image paths (CMS media served from /api/media)
+  // into the absolute URLs social crawlers require.
+  metadataBase: new URL(SITE_URL),
   title: "NADZ Healthcare, Your Family Doctor",
   description:
     "NADZ Healthcare brings the clinic to your home, doctor on call, nursing care, IV drips, labs at home, vaccination, and longevity medicine.",
@@ -50,10 +46,7 @@ export const metadata: Metadata = {
   // Protective noindex while the old domain is still live (prevents duplicate
   // content). At cutover, set NEXT_PUBLIC_ALLOW_INDEX=true in Vercel to allow
   // search engines to index this site.
-  robots:
-    process.env.NEXT_PUBLIC_ALLOW_INDEX === "true"
-      ? undefined
-      : { index: false, follow: false },
+  robots: ALLOW_INDEX ? undefined : { index: false, follow: false },
 };
 
 export default function RootLayout({
