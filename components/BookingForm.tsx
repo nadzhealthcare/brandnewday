@@ -10,24 +10,7 @@ import {
   LoaderCircle,
   ChevronDown,
 } from "lucide-react";
-import { waLink } from "@/lib/contact";
-
-const SERVICES: string[] = [
-  "Doctor on Call",
-  "Nursing Care",
-  "Elderly Care",
-  "Mother & Baby Care",
-  "Physiotherapy at Home",
-  "IV Drips",
-  "Labs at Home",
-  "Vaccination at Home",
-  "Medical Tourism",
-  "NADZ Vital Brain",
-  "Autonomic Control",
-  "NAD⁺ IV Therapy",
-  "Peptide Therapy",
-  "Other / Not sure",
-];
+import { SERVICES, bookingLink, detectLocation } from "@/lib/booking";
 
 export default function BookingForm() {
   const [service, setService] = useState("");
@@ -36,42 +19,19 @@ export default function BookingForm() {
   const [location, setLocation] = useState("");
   const [locating, setLocating] = useState(false);
 
-  const detectLocation = () => {
-    if (!("geolocation" in navigator)) return;
+  const locate = async () => {
     setLocating(true);
-    navigator.geolocation.getCurrentPosition(
-      async (pos) => {
-        const { latitude, longitude } = pos.coords;
-        try {
-          const res = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=16&addressdetails=1`,
-            { headers: { Accept: "application/json" } },
-          );
-          const data = await res.json();
-          setLocation(
-            data?.display_name ??
-              `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`,
-          );
-        } catch {
-          setLocation(`${latitude.toFixed(5)}, ${longitude.toFixed(5)}`);
-        } finally {
-          setLocating(false);
-        }
-      },
-      () => setLocating(false),
-      { enableHighAccuracy: true, timeout: 10000 },
-    );
+    const found = await detectLocation();
+    if (found) setLocation(found);
+    setLocating(false);
   };
 
   const submit = () => {
-    const lines = [
-      "Hi NADZ, I'd like to book a home healthcare visit.",
-      service ? `Service: ${service}` : null,
-      name ? `Name: ${name}` : null,
-      phone ? `Phone: +971 ${phone}` : null,
-      location ? `Location: ${location}` : null,
-    ].filter(Boolean);
-    window.open(waLink(lines.join("\n")), "_blank", "noopener,noreferrer");
+    window.open(
+      bookingLink({ service, name, phone, location }),
+      "_blank",
+      "noopener,noreferrer",
+    );
   };
 
   return (
@@ -140,7 +100,7 @@ export default function BookingForm() {
         />
         <button
           type="button"
-          onClick={detectLocation}
+          onClick={locate}
           title="Detect my location"
           aria-label="Detect my location"
           className="shrink-0 rounded-full p-1.5 text-[color:var(--maroon)] transition-colors hover:bg-[color:var(--maroon)]/10"
