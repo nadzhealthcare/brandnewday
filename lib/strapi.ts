@@ -52,8 +52,10 @@ async function strapiFetch<T>(
   }
 }
 
-/** Absolute URL for a Strapi media object, preferring a generated format so we
-    don't ship the multi-megapixel original. `url` is host-relative. */
+/** URL for a Strapi media object, preferring a generated format so we don't
+    ship the multi-megapixel original. Strapi's `url` is host-relative, and the
+    CMS only speaks http, so uploads go through /api/media on this origin to
+    reach the browser over https (see app/api/media/[...path]/route.ts). */
 export function mediaUrl(
   media: StrapiMedia | undefined,
   size?: MediaSize,
@@ -61,7 +63,11 @@ export function mediaUrl(
   if (!media?.url) return null;
   let path = media.url;
   if (size && media.formats?.[size]) path = media.formats[size].url;
-  return path.startsWith("http") ? path : `${STRAPI_URL}${path}`;
+  if (path.startsWith("http")) return path;
+  const uploads = "/uploads/";
+  return path.startsWith(uploads)
+    ? `/api/media/${path.slice(uploads.length)}`
+    : `${STRAPI_URL}${path}`;
 }
 
 const LIST_FIELDS =

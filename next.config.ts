@@ -6,9 +6,13 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.join(__dirname),
   },
-  // Strapi CMS media (served over http on the droplet) — next/image optimises
-  // and re-serves these over https, avoiding mixed-content in the browser.
   images: {
+    // Vercel's image optimiser is quota-capped on this plan and starts serving
+    // 402s once it's exhausted, which silently breaks every image. CMS media is
+    // already sized by Strapi (we request its `medium`/`large` formats) and is
+    // proxied over https by /api/media, so we serve images as-is instead.
+    // Flip this back to false if the plan is upgraded.
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "http",

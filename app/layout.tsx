@@ -25,7 +25,15 @@ const monaSans = localFont({
   weight: "200 900",
 });
 
+// Resolves relative OG/Twitter image paths (CMS media served from /api/media)
+// into the absolute URLs social crawlers require. Trimmed, as the env value has
+// carried a stray newline before.
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
+  "https://brandnewday-eight.vercel.app";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "NADZ Healthcare, Your Family Doctor",
   description:
     "NADZ Healthcare brings the clinic to your home, doctor on call, nursing care, IV drips, labs at home, vaccination, and longevity medicine.",
