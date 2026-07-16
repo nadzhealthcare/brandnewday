@@ -30,36 +30,49 @@ function Glare() {
   );
 }
 
-const CONDITIONS: { icon: LucideIcon; title: string; desc: string }[] = [
+/* Each card is a photo with the copy set over it. Swap `img` to re-shoot a
+   card, drop the file in /public/assets and point to it here. */
+const CONDITIONS: {
+  icon: LucideIcon;
+  title: string;
+  desc: string;
+  img: string;
+}[] = [
   {
     icon: Thermometer,
     title: "Fever & infections",
     desc: "Fever, flu, throat and chest infections assessed and treated at home.",
+    img: "/assets/fam.jpg",
   },
   {
     icon: Activity,
     title: "Digestive & pain",
     desc: "Stomach issues, food poisoning, headaches and body pain.",
+    img: "/assets/lifestyle.jpg",
   },
   {
     icon: HeartPulse,
     title: "Chronic conditions",
     desc: "Diabetes, hypertension and thyroid disorder management.",
+    img: "/assets/nurse-on-call.png",
   },
   {
     icon: Bandage,
     title: "Minor injuries",
     desc: "Sprains, cuts, burns and allergic reactions handled on-site.",
+    img: "/assets/doctorled.jpg",
   },
   {
     icon: Stethoscope,
     title: "Post-hospital care",
     desc: "Post-hospital and surgical follow-up in the comfort of home.",
+    img: "/assets/realistic-scene-with-health-worker-taking-care-elderly-patient 1.jpg",
   },
   {
     icon: ClipboardList,
     title: "Medication reviews",
     desc: "Chronic disease reviews and medication adjustments.",
+    img: "/assets/trusted-care.jpg",
   },
 ];
 
@@ -157,23 +170,32 @@ export default function DoctorOnCall() {
               return (
                 <article
                   key={c.title}
-                  className="group relative overflow-hidden rounded-[22px] bg-[#f5f4f2] p-6 ring-1 ring-black/5 transition-all duration-500 hover:-translate-y-1.5 hover:bg-white hover:shadow-[0_30px_56px_-30px_rgba(43,26,23,0.5)] hover:ring-[color:var(--gold)]/30"
+                  className="group relative flex min-h-[290px] flex-col justify-end overflow-hidden rounded-[18px] bg-[#3a1518] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_30px_56px_-30px_rgba(43,26,23,0.6)]"
                 >
-                  <span className="absolute left-0 top-0 h-1 w-0 bg-[color:var(--gold)] transition-all duration-500 group-hover:w-full" />
-                  <div className="flex items-center justify-between">
-                    <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-[color:var(--maroon)] ring-1 ring-black/5 transition-all duration-500 group-hover:-rotate-6 group-hover:scale-110 group-hover:bg-[color:var(--maroon)] group-hover:text-white">
-                      <Icon className="h-6 w-6" strokeWidth={1.6} />
-                    </span>
-                    <span className="font-title text-[24px] leading-none text-black/10 transition-colors duration-500 group-hover:text-[color:var(--gold)]/40">
-                      0{i + 1}
-                    </span>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={c.img}
+                    alt=""
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
+                  />
+                  {/* maroon wash, keeps the copy legible over any photo */}
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#3a1518] via-[#3a1518]/80 to-[#3a1518]/15" />
+
+                  <span className="absolute left-4 top-4 grid h-11 w-11 place-items-center rounded-[13px] bg-white text-[color:var(--maroon)] shadow-[0_6px_18px_-6px_rgba(0,0,0,0.5)] transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110">
+                    <Icon className="h-[22px] w-[22px]" strokeWidth={1.6} />
+                  </span>
+                  <span className="absolute right-4 top-4 font-title text-[22px] leading-none text-white/85">
+                    0{i + 1}
+                  </span>
+
+                  <div className="relative p-5">
+                    <h3 className="text-[18px] font-semibold text-white">
+                      {c.title}
+                    </h3>
+                    <p className="mt-1.5 text-[13.5px] leading-relaxed text-white/75">
+                      {c.desc}
+                    </p>
                   </div>
-                  <h3 className="mt-5 text-[16px] font-semibold text-[#1c1c1c]">
-                    {c.title}
-                  </h3>
-                  <p className="mt-2 text-[13.5px] leading-relaxed text-black/55">
-                    {c.desc}
-                  </p>
                   <Glare />
                 </article>
               );
