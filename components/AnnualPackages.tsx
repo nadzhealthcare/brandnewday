@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   Dna,
   Brain,
@@ -12,125 +13,38 @@ import {
   Droplets,
   HandHelping,
   Lightbulb,
+  ArrowRight,
   type LucideIcon,
 } from "lucide-react";
 import SectionTitle from "./SectionTitle";
+import { PACKAGES, type Package } from "@/lib/packages";
 
-type Pkg = {
-  n: string;
-  icon: LucideIcon;
-  title: string;
-  desc?: string;
-  phd?: boolean;
-  price: number;
+/* Icons live here rather than in the catalogue, so the catalogue stays
+   importable from the server-side pay route. */
+const ICONS: Record<string, LucideIcon> = {
+  "a-z-mapping": Dna,
+  "dna-life-geno": Dna,
+  "dna-methylation": Dna,
+  "gut-microbiome": Droplets,
+  "brain-mapping": Brain,
+  hrv: HeartPulse,
+  "biological-age": Hourglass,
+  "fox-food-intolerance": Apple,
+  "food-allergy": Wheat,
+  "doctor-consultations": House,
+  "iv-therapies": Droplets,
+  "physiotherapy-sessions": HandHelping,
+  "red-light-therapy": Lightbulb,
 };
 
-const PACKAGES: Pkg[] = [
-  {
-    n: "01",
-    icon: Dna,
-    title: "A-Z Mapping",
-    desc: "Complete genetic blueprint of your health",
-    price: 5000,
-  },
-  {
-    n: "02",
-    icon: Dna,
-    title: "DNA Life Geno",
-    desc: "Genetic insights for lifestyle & nutrition",
-    price: 3600,
-  },
-  {
-    n: "03",
-    icon: Dna,
-    title: "DNA Methylation",
-    desc: "Reveal your true biological ageing markers",
-    price: 3600,
-  },
-  {
-    n: "04",
-    icon: Droplets,
-    title: "GUT Microbiome",
-    desc: "Gut health analysis with Zonulin",
-    price: 4400,
-  },
-  {
-    n: "05",
-    icon: Brain,
-    title: "Brain Mapping",
-    desc: "Cognitive & neural performance profile",
-    price: 5000,
-  },
-  {
-    n: "06",
-    icon: HeartPulse,
-    title: "HRV",
-    desc: "Heart-rate variability & stress resilience",
-    price: 0,
-  },
-  {
-    n: "07",
-    icon: Hourglass,
-    title: "Determination of Biological Age",
-    desc: "Using Telomeric Length Studies",
-    price: 2400,
-  },
-  {
-    n: "08",
-    icon: Apple,
-    title: "Fox Food Intolerance",
-    desc: "Identify foods that don't agree with you",
-    phd: true,
-    price: 1300,
-  },
-  {
-    n: "09",
-    icon: Wheat,
-    title: "Food Allergy",
-    desc: "Full allergy screening – Alex",
-    phd: true,
-    price: 1300,
-  },
-  {
-    n: "10",
-    icon: House,
-    title: "6 Doctor consultations",
-    desc: "At home to keep your care plan updated",
-    price: 3600,
-  },
-  {
-    n: "11",
-    icon: Droplets,
-    title: "6 IV therapies",
-    desc: "Per year, a combination of your choice",
-    price: 3600,
-  },
-  {
-    n: "12",
-    icon: HandHelping,
-    title: "12 physiotherapy sessions at Home",
-    desc: "Cupping, hijama and dry needling",
-    price: 2400,
-  },
-  {
-    n: "13",
-    icon: Lightbulb,
-    title: "6 Red Light Therapy",
-    desc: "Recovery & cellular energy boost",
-    price: 2400,
-  },
-];
-
-function PackageCard({ pkg, active }: { pkg: Pkg; active: boolean }) {
+function PackageCard({ pkg, active }: { pkg: Package; active: boolean }) {
   const [flipped, setFlipped] = useState(false);
-  const Icon = pkg.icon;
+  const Icon = ICONS[pkg.slug] ?? Dna;
+  const buyable = pkg.price > 0;
 
   return (
-    <button
-      type="button"
-      onClick={() => setFlipped((f) => !f)}
-      aria-label={`${pkg.title}, reveal annual price`}
-      className={`h-[172px] w-full text-left transition-transform duration-700 ease-out hover:scale-[1.04] [perspective:1200px] ${
+    <div
+      className={`h-[172px] w-full transition-transform duration-700 ease-out hover:scale-[1.04] [perspective:1200px] ${
         active ? "z-10 scale-[1.04]" : "scale-100"
       }`}
     >
@@ -138,8 +52,13 @@ function PackageCard({ pkg, active }: { pkg: Pkg; active: boolean }) {
         className="relative h-full w-full transition-transform duration-[600ms] [transform-style:preserve-3d]"
         style={{ transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)" }}
       >
-        {/* front */}
-        <div className="absolute inset-0 flex flex-col rounded-[22px] bg-white p-5 shadow-[0_12px_30px_-22px_rgba(20,10,16,0.5)] ring-1 ring-black/5 [backface-visibility:hidden]">
+        {/* front, the whole face flips the card */}
+        <button
+          type="button"
+          onClick={() => setFlipped(true)}
+          aria-label={`${pkg.title}, reveal annual price`}
+          className="absolute inset-0 flex flex-col rounded-[22px] bg-white p-5 text-left shadow-[0_12px_30px_-22px_rgba(20,10,16,0.5)] ring-1 ring-black/5 [backface-visibility:hidden]"
+        >
           <span className="absolute right-4 top-4 grid h-8 w-8 place-items-center rounded-full bg-[color:var(--maroon)] text-[12px] font-semibold text-white">
             {pkg.n}
           </span>
@@ -166,36 +85,58 @@ function PackageCard({ pkg, active }: { pkg: Pkg; active: boolean }) {
           <span className="mt-auto text-[11.5px] font-medium text-black/30">
             Tap to reveal annual price →
           </span>
-        </div>
+        </button>
 
-        {/* back */}
+        {/* back, price + subscribe. Kept as separate controls so the checkout
+            link isn't nested inside the flip button. */}
         <div
-          className="absolute inset-0 flex flex-col items-center justify-center gap-1 rounded-[22px] p-5 text-center [backface-visibility:hidden] [transform:rotateY(180deg)]"
+          className="absolute inset-0 flex flex-col items-center justify-center gap-1 rounded-[22px] p-4 text-center [backface-visibility:hidden] [transform:rotateY(180deg)]"
           style={{
             backgroundImage: "linear-gradient(150deg, #4a1c20 0%, #6C2A37 100%)",
           }}
         >
-          <span className="text-[12px] uppercase tracking-wide text-white/55">
+          <span className="text-[11.5px] uppercase tracking-wide text-white/55">
             {pkg.title}
           </span>
-          {pkg.price > 0 ? (
-            <span className="text-[34px] font-bold leading-none text-[color:var(--gold-light)]">
-              <span className="align-top text-[15px] font-semibold text-white/70">
-                AED{" "}
+
+          {buyable ? (
+            <>
+              <span className="text-[30px] font-bold leading-none text-[color:var(--gold-light)]">
+                <span className="align-top text-[14px] font-semibold text-white/70">
+                  AED{" "}
+                </span>
+                {pkg.price.toLocaleString()}
               </span>
-              {pkg.price.toLocaleString()}
-            </span>
+              <span className="text-[10.5px] text-white/45">per year</span>
+              <Link
+                href={`/pay?plan=${pkg.slug}`}
+                className="group mt-1.5 inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#b8892f] via-[#f4dd97] to-[#b8892f] px-4 py-1.5 text-[12.5px] font-bold text-[#3a1518] transition-transform hover:-translate-y-0.5"
+              >
+                Subscribe
+                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+              </Link>
+            </>
           ) : (
-            <span className="text-[28px] font-bold leading-none text-[color:var(--gold-light)]">
-              Included
-            </span>
+            <>
+              <span className="text-[26px] font-bold leading-none text-[color:var(--gold-light)]">
+                Included
+              </span>
+              <span className="text-[10.5px] text-white/45">
+                with your membership
+              </span>
+            </>
           )}
-          <span className="mt-1 text-[11.5px] text-white/45">
-            per year · tap to flip back
-          </span>
+
+          <button
+            type="button"
+            onClick={() => setFlipped(false)}
+            className="mt-1 text-[10.5px] text-white/45 underline-offset-2 transition-colors hover:text-white/80 hover:underline"
+          >
+            tap to flip back
+          </button>
         </div>
       </div>
-    </button>
+    </div>
   );
 }
 
