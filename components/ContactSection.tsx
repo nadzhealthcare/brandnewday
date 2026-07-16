@@ -90,7 +90,7 @@ export default function ContactSection() {
       {/* base DNA (muted) */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/assets/dna1.png"
+        src="/assets/dna1.webp"
         alt=""
         aria-hidden="true"
         className="absolute inset-0 h-full w-full object-cover"
@@ -98,7 +98,7 @@ export default function ContactSection() {
       {/* energized DNA, faint everywhere so it always reads a little */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/assets/dna2.png"
+        src="/assets/dna2.webp"
         alt=""
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-25"
@@ -107,7 +107,7 @@ export default function ContactSection() {
       <div ref={revealRef} className="pointer-events-none absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/assets/dna2.png"
+          src="/assets/dna2.webp"
           alt=""
           aria-hidden="true"
           className="h-full w-full object-cover"

@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Star, Globe } from "lucide-react";
 import SectionTitle from "./SectionTitle";
 
-const FALLBACK = "/assets/featured-placeholder.jpg";
+const FALLBACK = "/assets/featured-placeholder.webp";
 
 type Member = {
   name: string;

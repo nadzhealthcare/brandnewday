@@ -6,7 +6,7 @@ const CARDS: { title: string; img: string }[] = [
 ];
 
 // falls back to the shared placeholder photo, then a maroon gradient
-const FALLBACK = "/assets/featured-placeholder.jpg";
+const FALLBACK = "/assets/featured-placeholder.webp";
 
 export default function StackCards() {
   return (

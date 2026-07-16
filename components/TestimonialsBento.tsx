@@ -1,6 +1,7 @@
 import { ThumbsUp, Activity } from "lucide-react";
 import SectionTitle from "./SectionTitle";
 import ReviewsTile, { type Review } from "./ReviewsTile";
+import LazyVideo from "./LazyVideo";
 import ServingMapTile from "./ServingMapTile";
 import { getTestimonials } from "@/lib/strapi";
 
@@ -39,15 +40,10 @@ export default async function TestimonialsBento() {
 
           {/* B, testimonial video (tall) */}
           <div className="group relative overflow-hidden rounded-[26px] md:col-span-1 md:row-span-2">
-            <video
+            <LazyVideo
               className="absolute inset-0 h-full w-full object-cover"
               src="/assets/testimonial.mp4"
-              poster="/assets/featured-placeholder.jpg"
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
+              poster="/assets/featured-placeholder.webp"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/25" />
             <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-[#14b8a6] px-3 py-1.5 text-[12px] font-medium text-white shadow">

@@ -122,7 +122,7 @@ export default function PhoneBookingClip() {
                   </p>
                   <div
                     className="mt-1.5 h-8 w-full rounded-md bg-cover bg-center ring-1 ring-black/5"
-                    style={{ backgroundImage: "url(/assets/doctor-on-call.png)" }}
+                    style={{ backgroundImage: "url(/assets/doctor-on-call.webp)" }}
                   />
                   <button
                     className={`mt-auto w-full rounded-full py-1.5 text-center text-[7px] font-semibold text-white transition-all duration-200 ${

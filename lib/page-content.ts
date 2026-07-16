@@ -69,7 +69,7 @@ export const HERO_IMAGES: Record<string, string[]> = {
   ],
   "/about/careers": [
     "/assets/doct.jpg",
-    "/assets/nurse-on-call.png",
+    "/assets/nurse-on-call.webp",
     "/assets/doctorled.jpg",
   ],
   "/about/faqs": [
@@ -85,97 +85,97 @@ export const HERO_IMAGES: Record<string, string[]> = {
     "/assets/doc-car.jpg",
   ],
   "/services/nursing-care": [
-    "/assets/nurse-on-call.png",
+    "/assets/nurse-on-call.webp",
     "/assets/fam.jpg",
     "/assets/doct.jpg",
   ],
   "/services/nursing-care/elderly-care": [
-    "/assets/nurse-on-call.png",
+    "/assets/nurse-on-call.webp",
     "/assets/fam.jpg",
     "/assets/lifestyle.jpg",
   ],
   "/services/nursing-care/mother-baby-care": [
-    "/assets/nurse-on-call.png",
+    "/assets/nurse-on-call.webp",
     "/assets/fam.jpg",
     "/assets/drnadia.jpg",
   ],
   "/services/nursing-care/babysitting": [
     "/assets/fam.jpg",
-    "/assets/nurse-on-call.png",
+    "/assets/nurse-on-call.webp",
     "/assets/lifestyle.jpg",
   ],
   "/services/nursing-care/palliative-care": [
-    "/assets/nurse-on-call.png",
+    "/assets/nurse-on-call.webp",
     "/assets/fam.jpg",
     "/assets/doctorled.jpg",
   ],
   "/services/physiotherapy-at-home": [
-    "/assets/physio.png",
+    "/assets/physio.webp",
     "/assets/advanced.jpg",
     "/assets/doct.jpg",
   ],
   "/services/iv-drips": [
-    "/assets/ivdrips.png",
+    "/assets/ivdrips.webp",
     "/assets/drnadia.jpg",
     "/assets/doct.jpg",
   ],
   "/services/iv-drips/iv-nad-plus": [
-    "/assets/ivdrips.png",
+    "/assets/ivdrips.webp",
     "/assets/advanced.jpg",
     "/assets/drnadia.jpg",
   ],
   "/services/iv-drips/iv-glutathione-radiance": [
-    "/assets/ivdrips.png",
+    "/assets/ivdrips.webp",
     "/assets/lifestyle.jpg",
     "/assets/drnadia.jpg",
   ],
   "/services/iv-drips/iv-vitamin-therapy": [
-    "/assets/ivdrips.png",
+    "/assets/ivdrips.webp",
     "/assets/fam.jpg",
     "/assets/drnadia.jpg",
   ],
   "/services/iv-drips/iv-hydration": [
-    "/assets/ivdrips.png",
+    "/assets/ivdrips.webp",
     "/assets/advanced.jpg",
     "/assets/doct.jpg",
   ],
   "/services/labs-at-home": [
-    "/assets/labs-at-home.png",
+    "/assets/labs-at-home.webp",
     "/assets/advanced.jpg",
     "/assets/doct.jpg",
   ],
   "/services/labs-at-home/genetic-epigenetic-testing": [
-    "/assets/labs-at-home.png",
+    "/assets/labs-at-home.webp",
     "/assets/advanced.jpg",
     "/assets/drnadia.jpg",
   ],
   "/services/labs-at-home/food-intolerance-allergies": [
-    "/assets/labs-at-home.png",
+    "/assets/labs-at-home.webp",
     "/assets/advanced.jpg",
     "/assets/fam.jpg",
   ],
   "/services/labs-at-home/nipt-womens-health": [
-    "/assets/labs-at-home.png",
+    "/assets/labs-at-home.webp",
     "/assets/drnadia.jpg",
     "/assets/fam.jpg",
   ],
   "/services/labs-at-home/std-sexual-health": [
-    "/assets/labs-at-home.png",
+    "/assets/labs-at-home.webp",
     "/assets/advanced.jpg",
     "/assets/doct.jpg",
   ],
   "/services/labs-at-home/covid-pcr": [
-    "/assets/labs-at-home.png",
+    "/assets/labs-at-home.webp",
     "/assets/advanced.jpg",
     "/assets/doct.jpg",
   ],
   "/services/vaccination-at-home": [
-    "/assets/vaccination.png",
+    "/assets/vaccination.webp",
     "/assets/drnadia.jpg",
     "/assets/fam.jpg",
   ],
   "/services/medical-tourism": [
-    "/assets/medical-tour.png",
+    "/assets/medical-tour.webp",
     "/assets/partner.jpg",
     "/assets/advanced.jpg",
   ],
@@ -203,7 +203,7 @@ export const HERO_IMAGES: Record<string, string[]> = {
   ],
   "/exclusive/nadz-autonomic-control/chronic-pain": [
     "/assets/advanced.jpg",
-    "/assets/physio.png",
+    "/assets/physio.webp",
     "/assets/drnadia.jpg",
   ],
   "/exclusive/nadz-autonomic-control/erectile-dysfunction": [
@@ -217,14 +217,14 @@ export const HERO_IMAGES: Record<string, string[]> = {
     "/assets/doct.jpg",
   ],
   "/exclusive/poc-testing": [
-    "/assets/labs-at-home.png",
+    "/assets/labs-at-home.webp",
     "/assets/advanced.jpg",
     "/assets/doct.jpg",
   ],
 
   // Wellness & Longevity
   "/wellness/nad-plus-iv-therapy": [
-    "/assets/ivdrips.png",
+    "/assets/ivdrips.webp",
     "/assets/lifestyle.jpg",
     "/assets/drnadia.jpg",
   ],

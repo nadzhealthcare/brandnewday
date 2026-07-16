@@ -37,7 +37,7 @@ const SLOTS: Post[] = [
     title: "How At-Home IV Drips Speed Up Recovery and Rehydration",
     excerpt:
       "Whether it's dehydration, fatigue or recovering from illness, a doctor-supervised IV drip at home can restore your energy fast, without the wait of a clinic visit.",
-    img: "/assets/featured-placeholder.jpg",
+    img: "/assets/featured-placeholder.webp",
     href: "/media/blogs",
     cta: "Read Article",
     tint: "bg-[#0d9488]/10 text-[#0d9488]",
