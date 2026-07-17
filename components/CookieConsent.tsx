@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Cookie } from "lucide-react";
-
-const KEY = "nadz-cookie-consent";
+import { CONSENT_KEY, CONSENT_EVENT, readConsent } from "@/lib/consent";
 
 // Google Consent Mode v2 hook — a no-op until a gtag/GA tag is added later.
 function applyConsent(granted: boolean) {
@@ -25,22 +24,20 @@ export default function CookieConsent() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    try {
-      const v = localStorage.getItem(KEY);
-      if (!v) setShow(true);
-      else applyConsent(v === "accepted");
-    } catch {
-      setShow(true);
-    }
+    const v = readConsent();
+    if (!v) setShow(true);
+    else applyConsent(v === "accepted");
   }, []);
 
   const choose = (accepted: boolean) => {
     try {
-      localStorage.setItem(KEY, accepted ? "accepted" : "rejected");
+      localStorage.setItem(CONSENT_KEY, accepted ? "accepted" : "rejected");
     } catch {
       /* ignore */
     }
     applyConsent(accepted);
+    // Let consent-gated scripts (Clarity) react immediately.
+    window.dispatchEvent(new Event(CONSENT_EVENT));
     setShow(false);
   };
 

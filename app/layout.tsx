@@ -7,6 +7,7 @@ import FloatingWidgets from "@/components/FloatingWidgets";
 import StickyBooking from "@/components/StickyBooking";
 import OfferPopup from "@/components/OfferPopup";
 import CookieConsent from "@/components/CookieConsent";
+import Clarity from "@/components/Clarity";
 import Footer from "@/components/Footer";
 import { SITE_URL, ALLOW_INDEX } from "@/lib/site";
 import "./globals.css";
@@ -67,6 +68,7 @@ export default function RootLayout({
         <StickyBooking />
         <OfferPopup />
         <CookieConsent />
+        <Clarity />
         <FloatingWidgets />
       </body>
     </html>
