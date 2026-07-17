@@ -189,6 +189,19 @@ export default function Footer() {
           </p>
           <p>All Rights Reserved © Copyright 2026 · NADZ Healthcare</p>
         </div>
+
+        {/* developer credit */}
+        <div className="mt-4 text-center text-[12.5px] text-black/40">
+          Developed by{" "}
+          <a
+            href="https://hasaka.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-[color:var(--maroon)] transition-colors hover:text-[color:var(--maroon)]/70"
+          >
+            hasaka.io
+          </a>
+        </div>
       </div>
     </footer>
   );
