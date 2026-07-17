@@ -3,37 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Star } from "lucide-react";
 import { GOOGLE_REVIEWS_URL, truncate } from "@/lib/contact";
-import { FEATURED_GOOGLE_REVIEW } from "@/lib/reviews";
+import { GOOGLE_REVIEWS } from "@/lib/reviews";
 
 /* ---------- Google reviews shown in the vertical carousel ---------- */
 export type Review = { name: string; initials: string; text: string; time: string };
-
-const FALLBACK_REVIEWS: Review[] = [
-  {
-    name: "Анастасия Гурская",
-    initials: "АГ",
-    text: FEATURED_GOOGLE_REVIEW.text,
-    time: "Verified patient",
-  },
-  {
-    name: "Ruwan Ranjith Fernando",
-    initials: "RF",
-    text: "Overall service was superb. Contact person was very supportive and nursing staff also very experienced.",
-    time: "6 months ago",
-  },
-  {
-    name: "VA Refurbished",
-    initials: "VA",
-    text: "Amazed by Dr. Jerusalem and her team, they took our baby's illness very seriously and kept checking in.",
-    time: "8 months ago",
-  },
-  {
-    name: "Aisha K.",
-    initials: "AK",
-    text: "The doctor arrived within half an hour and treated my father with such care. Felt like family.",
-    time: "3 months ago",
-  },
-];
 
 /** Roughly two lines in a card, so the cut lands where the text stops. */
 const CARD_CHARS = 92;
@@ -95,20 +68,16 @@ const CARD_H = 116;
 const STEP = 132;
 
 export default function ReviewsTile({ reviews }: { reviews?: Review[] }) {
-  // The CMS currently carries very few testimonials, and a carousel looping a
-  // single card looks broken, so top up from the curated Google reviews.
+  // Anything in the CMS shows first, then the curated Google reviews fill in
+  // behind it (deduped by name). The carousel loops, so every review gets a
+  // turn rather than being capped.
   const supplied = reviews ?? [];
   const same = (a: string, b: string) =>
     a.trim().toLowerCase() === b.trim().toLowerCase();
-  const REVIEWS =
-    supplied.length >= 4
-      ? supplied
-      : [
-          ...supplied,
-          ...FALLBACK_REVIEWS.filter(
-            (f) => !supplied.some((s) => same(s.name, f.name)),
-          ),
-        ].slice(0, 4);
+  const REVIEWS = [
+    ...supplied,
+    ...GOOGLE_REVIEWS.filter((g) => !supplied.some((s) => same(s.name, g.name))),
+  ];
   const rootRef = useRef<HTMLDivElement>(null);
   const vpRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
