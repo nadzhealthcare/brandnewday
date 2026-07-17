@@ -139,6 +139,9 @@ export default function FeaturedServices() {
   const dimsRef = useRef(dims);
   const activeCur = useRef(0);
   const revealStart = useRef<number | null>(null);
+  // While a pointer is pressed, freeze the scrub so cards can't drift between
+  // mousedown and mouseup, otherwise a click on a card button never lands.
+  const pressed = useRef(false);
 
   useEffect(() => {
     dimsRef.current = dims;
@@ -176,7 +179,8 @@ export default function FeaturedServices() {
     const frame = (now: number) => {
       const root = rootRef.current;
       const d = dimsRef.current;
-      if (root) {
+      // Hold the cards still while the user is pressing one, so the click lands.
+      if (root && !pressed.current) {
         const rect = root.getBoundingClientRect();
         const total = Math.max(1, rect.height - window.innerHeight);
         const progress = clamp(-rect.top / total, 0, 1);
@@ -191,6 +195,10 @@ export default function FeaturedServices() {
         reveal = clamp((now - revealStart.current) / REVEAL_DUR, 0, 1);
 
       const ac = activeCur.current;
+      // Only the front-most card takes clicks; the fanned side cards overlap it,
+      // so letting them capture pointer events made their buttons hit the wrong
+      // card. Bring a card to the front (scroll or dots) to use its button.
+      const front = ((Math.round(ac) % N) + N) % N;
       for (let i = 0; i < N; i++) {
         const el = cardRefs.current[i];
         if (!el) continue;
@@ -209,7 +217,7 @@ export default function FeaturedServices() {
         el.style.transform = `translate(-50%,0) translate(${x}px,${y}px) scale(${scale})`;
         el.style.opacity = String(op);
         el.style.zIndex = String(Math.round(200 - ad * 12));
-        el.style.pointerEvents = op > 0.35 ? "auto" : "none";
+        el.style.pointerEvents = i === front && op > 0.5 ? "auto" : "none";
       }
 
       const idx = ((Math.round(ac) % N) + N) % N;
@@ -234,9 +242,24 @@ export default function FeaturedServices() {
     );
     if (rootRef.current) io.observe(rootRef.current);
 
+    const hold = () => {
+      pressed.current = true;
+    };
+    const release = () => {
+      pressed.current = false;
+    };
+    const stage = stageRef.current;
+    stage?.addEventListener("pointerdown", hold);
+    // release on window so it clears even if the pointer leaves the stage
+    window.addEventListener("pointerup", release);
+    window.addEventListener("pointercancel", release);
+
     return () => {
       cancelAnimationFrame(raf);
       io.disconnect();
+      stage?.removeEventListener("pointerdown", hold);
+      window.removeEventListener("pointerup", release);
+      window.removeEventListener("pointercancel", release);
     };
   }, [isDesktop]);
 
