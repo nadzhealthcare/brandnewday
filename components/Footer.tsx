@@ -42,10 +42,10 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
   {
     title: "Quick Links",
     links: [
-      { label: "About Us", href: "/about" },
+      { label: "About Us", href: "/about/who-we-are" },
       { label: "Contact Us", href: "/contact" },
-      { label: "Blog", href: "/blog" },
-      { label: "FAQs", href: "/#faq" },
+      { label: "Blog", href: "/media/blogs" },
+      { label: "FAQs", href: "/about/faqs" },
     ],
   },
   {
@@ -53,10 +53,10 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
     links: [
       { label: "Doctor on call", href: "/services/doctor-on-call" },
       { label: "Nursing care", href: "/services/nursing-care" },
-      { label: "Elderly care", href: "/services/elderly-care" },
+      { label: "Elderly care", href: "/services/nursing-care/elderly-care" },
       { label: "IV Drips", href: "/services/iv-drips" },
-      { label: "NADZ Vital Brain", href: "/services/vital-brain" },
-      { label: "Lab Testing at Home", href: "/services/lab-testing" },
+      { label: "NADZ Vital Brain", href: "/exclusive/nadz-vital-brain" },
+      { label: "Lab Testing at Home", href: "/services/labs-at-home" },
     ],
   },
   {
