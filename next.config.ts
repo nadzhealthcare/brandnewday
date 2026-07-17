@@ -19,6 +19,8 @@ const CANONICAL_HOST = (() => {
 const LEGACY_REDIRECTS: [string, string][] = [
   // About
   ["/home-care/who-we-are", "/about/who-we-are"],
+  // Our own footer pointed here until recently, so it has link history
+  ["/about", "/about/who-we-are"],
   ["/home-care/vision-mission", "/about/mission-vision"],
   ["/home-care/careers", "/about/careers"],
   ["/faq", "/about/faqs"],
@@ -34,6 +36,8 @@ const LEGACY_REDIRECTS: [string, string][] = [
 
   // Physio
   ["/home-care/physiotherapy-at-home", "/services/physiotherapy-at-home"],
+  // Predates the sitemap we migrated from, still has inbound links
+  ["/physiotherapy-at-home-services", "/services/physiotherapy-at-home"],
 
   // IV drips
   ["/home-care/iv-drips", "/services/iv-drips"],
