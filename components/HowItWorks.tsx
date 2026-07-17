@@ -55,9 +55,9 @@ function StepInner({ s, j }: { s: (typeof STEPS)[number]; j: number }) {
           <s.Icon className="h-5 w-5" />
         </div>
         <div>
-          <h4 className="text-[15px] font-semibold text-white">
+          <h3 className="text-[15px] font-semibold text-white">
             {s.num} – {s.title}
-          </h4>
+          </h3>
           <p className="mt-1.5 text-[13.5px] leading-snug text-white/60">
             {s.desc}
           </p>

@@ -7,6 +7,7 @@ import { getInterviews, youtubeId } from "@/lib/strapi";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/media/interviews-podcasts" },
   title: "Interviews & Podcasts, NADZ Healthcare",
   description:
     "Watch our interviews, podcast episodes, and media appearances.",

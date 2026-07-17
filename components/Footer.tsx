@@ -137,9 +137,9 @@ export default function Footer() {
             <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
               {COLUMNS.map((col) => (
                 <div key={col.title}>
-                  <h4 className="text-[12px] font-semibold uppercase tracking-wide text-black/40">
+                  <h2 className="text-[12px] font-semibold uppercase tracking-wide text-black/40">
                     {col.title}
-                  </h4>
+                  </h2>
                   <ul className="mt-4 flex flex-col gap-2.5">
                     {col.links.map((l) => (
                       <li key={l.label}>

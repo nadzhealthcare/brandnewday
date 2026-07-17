@@ -89,14 +89,14 @@ function GlassCarousel() {
   );
 }
 
+/* Rendered once and positioned with responsive classes. It used to be
+   rendered in both the desktop and mobile blocks, which shipped two <h1>s. */
 function TitleBlock({
   title,
   description,
-  showCta = true,
 }: {
   title: string;
   description: string;
-  showCta?: boolean;
 }) {
   return (
     <div className="max-w-xl">
@@ -106,11 +106,10 @@ function TitleBlock({
       <p className="blur-in mt-5 max-w-md text-[15px] leading-relaxed text-white/70" style={{ animationDelay: "0.28s" }}>
         {description}
       </p>
-      {showCta && (
-        <div className="blur-in mt-8" style={{ animationDelay: "0.5s" }}>
-          <CtaButtons />
-        </div>
-      )}
+      {/* CTAs are desktop-only, phones get the sticky booking + call widgets */}
+      <div className="blur-in mt-8 hidden lg:block" style={{ animationDelay: "0.5s" }}>
+        <CtaButtons />
+      </div>
     </div>
   );
 }
@@ -190,22 +189,20 @@ export default function PageHero({
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(65%_75%_at_72%_45%,rgba(160,26,38,0.18),transparent_62%)] mix-blend-screen" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/80 via-black/45 to-black/10 lg:via-black/35 lg:to-black/10" />
 
-        {/* ---- Desktop layout ---- */}
-        <div className="pointer-events-none absolute inset-0 z-10 hidden lg:block">
-          <div className="pointer-events-auto absolute left-14 top-1/2 -translate-y-1/2">
-            <TitleBlock title={title} description={description} />
-          </div>
-          <div className="pointer-events-auto absolute bottom-8 right-8">
-            <Badges />
-          </div>
+        {/* Title, one instance for both layouts: on phones it sits just above
+            the glass-card carousel, on desktop it centres on the left. */}
+        <div className="pointer-events-auto absolute inset-x-0 bottom-[112px] z-10 px-6 sm:px-9 lg:inset-x-auto lg:bottom-auto lg:left-14 lg:top-1/2 lg:-translate-y-1/2 lg:px-0">
+          <TitleBlock title={title} description={description} />
         </div>
 
-        {/* ---- Mobile / tablet layout ---- */}
-        {/* title + description sit right above the glass-card carousel, the
-            whole group pinned to the bottom (mirrors the home hero). */}
-        <div className="relative z-10 flex min-h-[560px] flex-col justify-end gap-5 p-6 pt-24 sm:p-9 lg:hidden">
-          <TitleBlock title={title} description={description} showCta={false} />
+        {/* ---- Mobile / tablet: carousel pinned to the bottom ---- */}
+        <div className="absolute inset-x-0 bottom-0 z-10 p-6 sm:p-9 lg:hidden">
           <GlassCarousel />
+        </div>
+
+        {/* ---- Desktop: badges bottom-right ---- */}
+        <div className="pointer-events-auto absolute bottom-8 right-8 z-10 hidden lg:block">
+          <Badges />
         </div>
 
         {/* slider dots */}

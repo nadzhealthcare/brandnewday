@@ -8,6 +8,7 @@ import { getPressReleases, mediaUrl } from "@/lib/strapi";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/media/press-releases" },
   title: "Press Releases, NADZ Healthcare",
   description: "Official announcements and news from NADZ Healthcare.",
 };

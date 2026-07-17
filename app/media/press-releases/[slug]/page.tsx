@@ -21,6 +21,7 @@ export async function generateMetadata({
   const a = await getPressReleaseBySlug(slug);
   if (!a) return { title: "Press Release, NADZ Healthcare" };
   return {
+    alternates: { canonical: `/media/press-releases/${slug}` },
     title: `${a.seoTitle || a.title}, NADZ Healthcare`,
     description: a.seoDescription || a.excerpt || undefined,
   };

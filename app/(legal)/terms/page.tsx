@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import LegalShell from "@/components/LegalShell";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/terms" },
   title: "Terms & Conditions — NADZ Healthcare",
   description: "The terms governing your use of the NADZ Healthcare website.",
 };

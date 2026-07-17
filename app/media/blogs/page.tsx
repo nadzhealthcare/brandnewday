@@ -8,6 +8,7 @@ import { getArticles, mediaUrl } from "@/lib/strapi";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/media/blogs" },
   title: "Blogs, NADZ Healthcare",
   description:
     "Insights and guides from the NADZ care team, home healthcare, longevity, family health and preventive care.",

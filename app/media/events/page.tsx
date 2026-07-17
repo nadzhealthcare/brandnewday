@@ -7,6 +7,7 @@ import { getEvents, mediaUrl } from "@/lib/strapi";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/media/events" },
   title: "Events & Highlights, NADZ Healthcare",
   description: "Where NADZ Healthcare has been and what's next.",
 };

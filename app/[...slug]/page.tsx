@@ -61,8 +61,10 @@ export async function generateMetadata({
   params: Promise<{ slug: string[] }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const meta = PAGE_META["/" + slug.join("/")];
+  const path = "/" + slug.join("/");
+  const meta = PAGE_META[path];
   return {
+    alternates: { canonical: path },
     title: meta ? `${meta.title}, NADZ Healthcare` : "NADZ Healthcare",
     description: meta?.description,
   };

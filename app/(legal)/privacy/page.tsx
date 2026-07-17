@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import LegalShell from "@/components/LegalShell";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/privacy" },
   title: "Privacy Policy — NADZ Healthcare",
   description:
     "How NADZ Healthcare collects, uses and protects your personal data.",

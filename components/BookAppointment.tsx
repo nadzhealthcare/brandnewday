@@ -311,9 +311,9 @@ export default function BookAppointment() {
                       <Icon className="h-[22px] w-[22px]" strokeWidth={1.6} />
                     </span>
                     <div>
-                      <h3 className="text-[15px] font-semibold text-[#1c1c1c]">
+                      <h2 className="text-[15px] font-semibold text-[#1c1c1c]">
                         {a.title}
-                      </h3>
+                      </h2>
                       <p className="mt-1 text-[13px] leading-relaxed text-black/55">
                         {a.desc}
                       </p>

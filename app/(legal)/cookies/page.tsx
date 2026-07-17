@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import LegalShell from "@/components/LegalShell";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/cookies" },
   title: "Cookie Policy — NADZ Healthcare",
   description: "How NADZ Healthcare uses cookies on this website.",
 };

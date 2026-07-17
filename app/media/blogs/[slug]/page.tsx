@@ -22,6 +22,7 @@ export async function generateMetadata({
   const a = await getArticleBySlug(slug);
   if (!a) return { title: "Article, NADZ Healthcare" };
   return {
+    alternates: { canonical: `/media/blogs/${slug}` },
     title: `${a.seoTitle || a.title}, NADZ Healthcare`,
     description: a.seoDescription || a.excerpt || undefined,
     openGraph: {

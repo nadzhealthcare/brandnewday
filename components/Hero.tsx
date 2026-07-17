@@ -44,15 +44,12 @@ function CtaButtons() {
   );
 }
 
-function TitleBlock({
-  showCta = true,
-  centered = false,
-}: {
-  showCta?: boolean;
-  centered?: boolean;
-}) {
+/* Rendered once and positioned with responsive classes: centred on phones,
+   left-aligned on desktop. It used to be rendered in both layout blocks,
+   which put two <h1>s in the markup. */
+function TitleBlock() {
   return (
-    <div className={`max-w-xl ${centered ? "mx-auto text-center" : ""}`}>
+    <div className="mx-auto max-w-xl text-center lg:mx-0 lg:text-left">
       <h1
         className="blur-in font-title text-[1.9rem] uppercase leading-[1] text-white sm:text-[2.6rem] lg:text-[48px]"
         style={{ animationDelay: "0.05s" }}
@@ -61,22 +58,16 @@ function TitleBlock({
         <br /> With Innovation
       </h1>
       <p
-        className={`blur-in mt-5 max-w-md text-[15px] leading-relaxed text-white/70 ${
-          centered ? "mx-auto" : ""
-        }`}
+        className="blur-in mx-auto mt-5 max-w-md text-[15px] leading-relaxed text-white/70 lg:mx-0"
         style={{ animationDelay: "0.28s" }}
       >
         Redefining the standards of modern healthcare through continuous
         innovation and human connection.
       </p>
-      {showCta && (
-        <div
-          className={`blur-in mt-8 ${centered ? "flex justify-center" : ""}`}
-          style={{ animationDelay: "0.5s" }}
-        >
-          <CtaButtons />
-        </div>
-      )}
+      {/* CTAs are desktop-only, phones get the 800 number + sticky booking */}
+      <div className="blur-in mt-8 hidden lg:block" style={{ animationDelay: "0.5s" }}>
+        <CtaButtons />
+      </div>
     </div>
   );
 }
@@ -214,11 +205,13 @@ export default function Hero() {
         {/* Legibility overlay */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/80 via-black/45 to-black/10 lg:via-black/30 lg:to-transparent" />
 
+        {/* title, one instance for both layouts */}
+        <div className="pointer-events-auto absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 px-6 sm:px-9 lg:inset-x-auto lg:left-14 lg:px-0">
+          <TitleBlock />
+        </div>
+
         {/* ---- Desktop layout (absolute) ---- */}
         <div className="pointer-events-none absolute inset-0 z-10 hidden lg:block">
-          <div className="pointer-events-auto absolute left-14 top-1/2 -translate-y-1/2">
-            <TitleBlock />
-          </div>
           <div className="pointer-events-auto absolute bottom-10 left-14">
             <EightHundred />
           </div>
@@ -232,10 +225,6 @@ export default function Hero() {
 
         {/* ---- Mobile / tablet layout ---- */}
         <div className="relative z-10 min-h-[100svh] sm:min-h-[640px] lg:hidden">
-          {/* title + description, centered in the middle of the hero */}
-          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 px-6 sm:px-9">
-            <TitleBlock showCta={false} centered />
-          </div>
           {/* 800 number + glass carousel pinned to the bottom */}
           <div className="absolute inset-x-0 bottom-0 flex flex-col gap-4 p-6 sm:p-9">
             <EightHundred />
