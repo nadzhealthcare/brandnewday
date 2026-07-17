@@ -21,6 +21,7 @@ import {
   DEFAULT_HERO_IMAGES,
   ALL_PATHS,
 } from "@/lib/page-content";
+import { SEO_OVERRIDES } from "@/lib/seo";
 
 // routes with a fully custom page instead of the default slider hero
 const CUSTOM_PAGES: Record<string, React.ComponentType> = {
@@ -63,10 +64,17 @@ export async function generateMetadata({
   const { slug } = await params;
   const path = "/" + slug.join("/");
   const meta = PAGE_META[path];
+  // Restored original title/description wins, used verbatim. Otherwise the
+  // page name runs through the "{label}, NADZ Healthcare" template.
+  const seo = SEO_OVERRIDES[path];
   return {
     alternates: { canonical: path },
-    title: meta ? `${meta.title}, NADZ Healthcare` : "NADZ Healthcare",
-    description: meta?.description,
+    title: seo
+      ? seo.title
+      : meta
+        ? `${meta.title}, NADZ Healthcare`
+        : "NADZ Healthcare",
+    description: seo?.description ?? meta?.description,
   };
 }
 

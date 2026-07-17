@@ -15,8 +15,12 @@ import FaqSection from "@/components/FaqSection";
 import BlogSection from "@/components/BlogSection";
 import ContactSection from "@/components/ContactSection";
 
+import { SEO_OVERRIDES } from "@/lib/seo";
+
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
+  title: SEO_OVERRIDES["/"].title,
+  description: SEO_OVERRIDES["/"].description,
 };
 
 export default function Home() {
