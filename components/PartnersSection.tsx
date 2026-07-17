@@ -3,19 +3,23 @@ import { ArrowRight } from "lucide-react";
 import SectionTitle from "./SectionTitle";
 import PartnersGrid from "./PartnersGrid";
 
-const LEFT_IMAGE = "/assets/partner.jpg";
+const LEFT_VIDEO = "/assets/partner.mp4";
 
 export default function PartnersSection() {
   return (
     <section className="bg-[#f7f8fa] px-4 py-16 sm:px-6 sm:py-24">
       <div className="mx-auto grid max-w-[1180px] items-stretch gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-        {/* left image */}
+        {/* left video */}
         <div className="relative min-h-[280px] overflow-hidden rounded-[28px] shadow-sm ring-1 ring-black/5 lg:min-h-full">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={LEFT_IMAGE}
-            alt="NADZ partnerships in healthcare"
-            className="h-full w-full object-cover"
+          <video
+            src={LEFT_VIDEO}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            aria-label="NADZ partnerships in healthcare"
+            className="absolute inset-0 h-full w-full object-cover"
           />
         </div>
 
