@@ -100,6 +100,7 @@ export type Testimonial = {
   review: string;
   rating?: number | null;
   serviceLabel?: string | null;
+  featured?: boolean | null;
 };
 
 export async function getTestimonials(): Promise<Testimonial[]> {

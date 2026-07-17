@@ -4,6 +4,8 @@ import ReviewsTile, { type Review } from "./ReviewsTile";
 import LazyVideo from "./LazyVideo";
 import ServingMapTile from "./ServingMapTile";
 import { getTestimonials } from "@/lib/strapi";
+import { FEATURED_GOOGLE_REVIEW } from "@/lib/reviews";
+import { truncate } from "@/lib/contact";
 
 function initials(name: string): string {
   return name
@@ -22,7 +24,9 @@ export default async function TestimonialsBento() {
     text: t.review,
     time: t.serviceLabel || "Verified patient",
   }));
-  const featured = testimonials[0];
+  // A testimonial ticked `featured` in Strapi wins; otherwise show the
+  // curated Google review rather than whatever happens to sort first.
+  const featured = testimonials.find((t) => t.featured);
 
   return (
     <section className="bg-white px-4 py-16 sm:px-6 sm:py-24">
@@ -84,20 +88,21 @@ export default async function TestimonialsBento() {
           <div className="flex flex-col justify-between rounded-[26px] bg-[#faf7f2] p-6 ring-1 ring-black/5 md:col-span-2">
             <p className="text-[16px] leading-relaxed text-[#3a2a26] sm:text-[18px]">
               &ldquo;
-              {featured?.review ||
-                "The doctor arrived within half an hour and treated my father with such care, it felt like family looking after us."}
+              {truncate(featured?.review ?? FEATURED_GOOGLE_REVIEW.text, 240)}
               &rdquo;
             </p>
             <div className="mt-4 flex items-center gap-3">
               <span className="grid h-9 w-9 place-items-center rounded-full bg-[color:var(--maroon)] text-[13px] font-semibold text-white">
-                {featured ? initials(featured.patientName) : "AK"}
+                {featured
+                  ? initials(featured.patientName)
+                  : FEATURED_GOOGLE_REVIEW.initials}
               </span>
               <div className="leading-tight">
                 <p className="text-[14px] font-semibold text-[color:var(--maroon)]">
-                  {featured?.patientName || "Aisha K."}
+                  {featured?.patientName ?? FEATURED_GOOGLE_REVIEW.name}
                 </p>
                 <p className="text-[12.5px] text-black/50">
-                  {featured?.serviceLabel || "NADZ patient"}
+                  {featured?.serviceLabel ?? FEATURED_GOOGLE_REVIEW.label}
                 </p>
               </div>
             </div>

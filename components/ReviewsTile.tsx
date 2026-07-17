@@ -2,11 +2,19 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Star } from "lucide-react";
+import { GOOGLE_REVIEWS_URL, truncate } from "@/lib/contact";
+import { FEATURED_GOOGLE_REVIEW } from "@/lib/reviews";
 
 /* ---------- Google reviews shown in the vertical carousel ---------- */
 export type Review = { name: string; initials: string; text: string; time: string };
 
 const FALLBACK_REVIEWS: Review[] = [
+  {
+    name: "Анастасия Гурская",
+    initials: "АГ",
+    text: FEATURED_GOOGLE_REVIEW.text,
+    time: "Verified patient",
+  },
   {
     name: "Ruwan Ranjith Fernando",
     initials: "RF",
@@ -25,13 +33,10 @@ const FALLBACK_REVIEWS: Review[] = [
     text: "The doctor arrived within half an hour and treated my father with such care. Felt like family.",
     time: "3 months ago",
   },
-  {
-    name: "Mohammed A.",
-    initials: "MA",
-    text: "Professional, punctual and kind. Highly recommend NADZ home doctor visits to every family.",
-    time: "1 month ago",
-  },
 ];
+
+/** Roughly two lines in a card, so the cut lands where the text stops. */
+const CARD_CHARS = 92;
 
 /* ---------- USPs with count-up ---------- */
 const USPS = [
@@ -90,7 +95,20 @@ const CARD_H = 116;
 const STEP = 132;
 
 export default function ReviewsTile({ reviews }: { reviews?: Review[] }) {
-  const REVIEWS = reviews && reviews.length ? reviews : FALLBACK_REVIEWS;
+  // The CMS currently carries very few testimonials, and a carousel looping a
+  // single card looks broken, so top up from the curated Google reviews.
+  const supplied = reviews ?? [];
+  const same = (a: string, b: string) =>
+    a.trim().toLowerCase() === b.trim().toLowerCase();
+  const REVIEWS =
+    supplied.length >= 4
+      ? supplied
+      : [
+          ...supplied,
+          ...FALLBACK_REVIEWS.filter(
+            (f) => !supplied.some((s) => same(s.name, f.name)),
+          ),
+        ].slice(0, 4);
   const rootRef = useRef<HTMLDivElement>(null);
   const vpRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
@@ -208,16 +226,22 @@ export default function ReviewsTile({ reviews }: { reviews?: Review[] }) {
               const op = dist === 0 ? 1 : Math.abs(dist) === 1 ? 0.4 : 0;
               const sc = dist === 0 ? 1 : 0.92;
               return (
-                <div
+                <a
                   key={r}
-                  className="absolute inset-x-0 rounded-2xl bg-white p-3.5 text-[#2b1a17] shadow-[0_16px_34px_-18px_rgba(0,0,0,0.6)]"
+                  href={GOOGLE_REVIEWS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Read ${rv.name}'s review on Google`}
+                  className="absolute inset-x-0 block rounded-2xl bg-white p-3.5 text-[#2b1a17] shadow-[0_16px_34px_-18px_rgba(0,0,0,0.6)] transition-shadow hover:shadow-[0_20px_40px_-16px_rgba(0,0,0,0.75)]"
                   style={{
                     top: r * STEP,
                     height: CARD_H,
                     opacity: op,
                     transform: `scale(${sc})`,
                     transition: "opacity 0.6s ease, transform 0.6s ease",
+                    pointerEvents: dist === 0 ? "auto" : "none",
                   }}
+                  tabIndex={dist === 0 ? 0 : -1}
                 >
                   <div className="flex items-center gap-2.5">
                     <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#f4c430] text-[12px] font-bold text-[#4a1c20]">
@@ -229,7 +253,7 @@ export default function ReviewsTile({ reviews }: { reviews?: Review[] }) {
                     <GoogleG className="h-4 w-4 shrink-0" />
                   </div>
                   <p className="mt-1.5 line-clamp-2 text-[12.5px] leading-snug text-black/65">
-                    {rv.text}
+                    {truncate(rv.text, CARD_CHARS)}
                   </p>
                   <div className="mt-1.5 flex items-center gap-2">
                     <span className="flex gap-0.5">
@@ -242,7 +266,7 @@ export default function ReviewsTile({ reviews }: { reviews?: Review[] }) {
                     </span>
                     <span className="text-[11px] text-black/40">{rv.time}</span>
                   </div>
-                </div>
+                </a>
               );
             })}
           </div>
