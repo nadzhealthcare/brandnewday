@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import SectionTitle from "./SectionTitle";
 import { waLink } from "@/lib/contact";
+import { handOffToWhatsApp } from "@/lib/booking";
 
 const INFO = [
   {
@@ -88,7 +89,7 @@ export default function ContactPage() {
       form.address ? `Address for visit: ${form.address}` : null,
       form.service ? `Required service: ${form.service}` : null,
     ].filter(Boolean);
-    window.open(waLink(lines.join("\n")), "_blank", "noopener,noreferrer");
+    handOffToWhatsApp(waLink(lines.join("\n")));
     setLoading(false);
     setSent(true);
   };

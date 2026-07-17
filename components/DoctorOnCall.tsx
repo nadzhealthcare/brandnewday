@@ -178,8 +178,15 @@ export default function DoctorOnCall() {
                     alt=""
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
                   />
-                  {/* maroon wash, keeps the copy legible over any photo */}
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#3a1518] via-[#3a1518]/80 to-[#3a1518]/15" />
+                  {/* Maroon wash behind the copy only, so the top of the
+                      photo stays clean. */}
+                  <div
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(to top, #3a1518 0%, rgba(58,21,24,0.88) 26%, rgba(58,21,24,0.45) 48%, rgba(58,21,24,0) 72%)",
+                    }}
+                  />
 
                   <span className="absolute left-4 top-4 grid h-11 w-11 place-items-center rounded-[13px] bg-white text-[color:var(--maroon)] shadow-[0_6px_18px_-6px_rgba(0,0,0,0.5)] transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110">
                     <Icon className="h-[22px] w-[22px]" strokeWidth={1.6} />
