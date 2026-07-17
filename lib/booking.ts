@@ -30,6 +30,18 @@ export type BookingFields = {
   notes?: string;
 };
 
+/** Where the tab lands after handing off to WhatsApp, so Ads/Analytics have a
+    real conversion URL to fire on. */
+export const THANK_YOU_PATH = "/thank-you";
+
+/** Open WhatsApp in a new tab and move this one to the thank-you page. If the
+    popup is blocked, navigate to WhatsApp here instead of stranding them. */
+export function handOffToWhatsApp(link: string) {
+  const win = window.open(link, "_blank", "noopener,noreferrer");
+  if (win) window.location.assign(THANK_YOU_PATH);
+  else window.location.assign(link);
+}
+
 /** WhatsApp deep link carrying whatever the patient filled in. */
 export function bookingLink(f: BookingFields): string {
   const lines = [

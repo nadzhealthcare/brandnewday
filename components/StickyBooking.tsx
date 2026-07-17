@@ -6,7 +6,7 @@ import { CalendarPlus, X } from "lucide-react";
 import BookingForm from "./BookingForm";
 
 // routes that should never show the sticky booking bar
-const HIDDEN = new Set(["/contact", "/book"]);
+const HIDDEN = new Set(["/contact", "/book", "/thank-you"]);
 
 export default function StickyBooking() {
   const pathname = usePathname();

@@ -10,7 +10,12 @@ import {
   LoaderCircle,
   ChevronDown,
 } from "lucide-react";
-import { SERVICES, bookingLink, detectLocation } from "@/lib/booking";
+import {
+  SERVICES,
+  bookingLink,
+  detectLocation,
+  handOffToWhatsApp,
+} from "@/lib/booking";
 
 export default function BookingForm() {
   const [service, setService] = useState("");
@@ -27,11 +32,7 @@ export default function BookingForm() {
   };
 
   const submit = () => {
-    window.open(
-      bookingLink({ service, name, phone, location }),
-      "_blank",
-      "noopener,noreferrer",
-    );
+    handOffToWhatsApp(bookingLink({ service, name, phone, location }));
   };
 
   return (

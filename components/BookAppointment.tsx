@@ -19,7 +19,12 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import SectionTitle from "./SectionTitle";
-import { SERVICES, bookingLink, detectLocation } from "@/lib/booking";
+import {
+  SERVICES,
+  bookingLink,
+  detectLocation,
+  handOffToWhatsApp,
+} from "@/lib/booking";
 
 function WhatsAppIcon({ className = "" }: { className?: string }) {
   return (
@@ -87,10 +92,8 @@ export default function BookAppointment() {
       return;
     }
     setError(null);
-    window.open(
+    handOffToWhatsApp(
       bookingLink({ service, name, phone, location, date, time, notes }),
-      "_blank",
-      "noopener,noreferrer",
     );
   };
 
