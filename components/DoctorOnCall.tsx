@@ -54,7 +54,7 @@ const CONDITIONS: {
     icon: HeartPulse,
     title: "Chronic conditions",
     desc: "Diabetes, hypertension and thyroid disorder management.",
-    img: "/assets/cond-chronic.jpg",
+    img: "/assets/chronic-conditions.webp",
   },
   {
     icon: Bandage,
