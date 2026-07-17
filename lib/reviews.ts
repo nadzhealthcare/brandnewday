@@ -44,6 +44,18 @@ export const GOOGLE_REVIEWS: CuratedReview[] = [
     time: "Verified patient",
   },
   {
+    name: "Priya Dhas",
+    initials: "PD",
+    text: "Had a great experience with Nadz Healthcare in Jumeirah. Booked a home nurse and IV drip, and the entire process was smooth from start to finish. The team was responsive, organised, and made everything easy to arrange.",
+    time: "Verified patient",
+  },
+  {
+    name: "Precious Piyoure",
+    initials: "PP",
+    text: "The hangover IV drip at home from NADZ Home Healthcare Saved my day. Immediate relief and hydration",
+    time: "Verified patient",
+  },
+  {
     name: "Ruwan Ranjith Fernando",
     initials: "RF",
     text: "Overall service was superb. Contact person was very supportive and nursing staff also very experienced.",
