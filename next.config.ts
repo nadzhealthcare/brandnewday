@@ -81,6 +81,39 @@ const LEGACY_REDIRECTS: [string, string][] = [
   ["/interviews-and-podcast", "/media/interviews-podcasts"],
   ["/testimonials", "/about/who-we-are"],
 
+  // ---- Older WordPress structure, found in Search Console's 404 report.
+  // These predate the sitemap the cutover was built from.
+
+  // /home/* section
+  ["/home", "/"],
+  ["/home/iv-drips", "/services/iv-drips"],
+  ["/home/poc-testing", "/exclusive/poc-testing"],
+  ["/home/faq", "/about/faqs"],
+  ["/home/medical-tourism-2", "/services/medical-tourism"],
+  ["/home/physiotherapy-at-home", "/services/physiotherapy-at-home"],
+  ["/home/nadz-vital-brain", "/exclusive/nadz-vital-brain"],
+  ["/home/lab-testing-at-home", "/services/labs-at-home"],
+
+  // root-level service pages
+  ["/doctor-on-call-services", "/services/doctor-on-call"],
+  ["/services", "/"],
+  ["/expert-home-healthcare", "/"],
+
+  // retired blog. Only the vitamin D post has a live equivalent, the rest go
+  // to the index, there's no closer page to send them to.
+  ["/wellness-journal", "/media/blogs"],
+  ["/vitamin-d-deficiency-in-dubai", "/media/blogs/low-vitamin-d"],
+  ["/pre-travel-health-check-ups-for-winter-holidays-why-its-essential-for-families-frequent-flyers", "/media/blogs"],
+  ["/the-science-of-living-longer-how-preventive-healthcare-shapes-longevity", "/media/blogs"],
+  ["/winter-respiratory-infections-in-dubai-early-signs-when-to-call-a-home-doctor", "/media/blogs"],
+  ["/the-role-of-nutritional-testing-and-iv-therapy-in-modern-biohacking", "/media/blogs"],
+  ["/dubai-heat-and-dehydration", "/media/blogs"],
+  ["/influenza-in-dubai-a-constant-threat-even-in-summer", "/media/blogs"],
+  ["/preparing-your-home-for-senior-wellness-this-winter-with-pro-tips", "/media/blogs"],
+
+  // policy page that no longer exists on its own
+  ["/refund-cancellation-policy", "/terms"],
+
   // Contact & legal
   ["/contact-us", "/contact"],
   ["/cookie-policy", "/cookies"],
@@ -122,6 +155,23 @@ const nextConfig: NextConfig = {
         destination: "/media/press-releases/:slug",
         permanent: true,
       },
+      // WordPress date archives, e.g. /2025/08/05. No 4-digit route exists
+      // on this site, so these can't shadow anything real.
+      {
+        source: "/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})",
+        destination: "/media/blogs",
+        permanent: true,
+      },
+      {
+        source: "/:year(\\d{4})/:month(\\d{2})",
+        destination: "/media/blogs",
+        permanent: true,
+      },
+      { source: "/:year(\\d{4})", destination: "/media/blogs", permanent: true },
+      // WordPress RSS endpoints
+      { source: "/:path*/feed", destination: "/media/blogs", permanent: true },
+      { source: "/feed", destination: "/media/blogs", permanent: true },
+
       ...LEGACY_REDIRECTS.map(([source, destination]) => ({
         source,
         destination,
