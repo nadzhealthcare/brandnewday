@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, Star, Globe } from "lucide-react";
 import SectionTitle from "./SectionTitle";
 
@@ -107,38 +107,48 @@ const TEAM: Member[] = [
 // duplicated for a seamless infinite loop
 const LOOP = [...TEAM, ...TEAM];
 
+/* px per frame, ~27px/s at 60fps: a slow, continuous drift */
+const SPEED = 0.45;
+
 export default function ExpertTeam() {
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const thumbRef = useRef<HTMLDivElement>(null);
   const pausedRef = useRef(false);
-  const [thumb, setThumb] = useState({ w: 25, left: 0 });
+  // Cleared once a manual scroll (arrows) finishes, so autoplay resumes.
+  const resumeAt = useRef(0);
 
-  const updateThumb = useCallback(() => {
+  /* Continuous marquee. The row holds two copies of the team, so scrolling
+     past the first copy can wrap back by exactly one set without a visible
+     jump. Position is tracked in a float: reading scrollLeft back rounds to
+     an integer, which would swallow a sub-pixel speed and never advance.
+     The thumb is written straight to the DOM rather than through state, so
+     the loop doesn't re-render React every frame. */
+  useEffect(() => {
     const s = scrollerRef.current;
     if (!s) return;
-    const half = s.scrollWidth / 2 || 1;
-    setThumb({
-      w: Math.min(100, (s.clientWidth / half) * 100),
-      left: ((s.scrollLeft % half) / half) * 100,
-    });
-  }, []);
+    let raf = 0;
+    let pos = s.scrollLeft;
 
-  useEffect(() => {
-    updateThumb();
-    window.addEventListener("resize", updateThumb);
-    return () => window.removeEventListener("resize", updateThumb);
-  }, [updateThumb]);
-
-  // autoplay with a seamless loop (jumps back by one set when past the first)
-  useEffect(() => {
-    const id = window.setInterval(() => {
-      const s = scrollerRef.current;
-      if (!s || pausedRef.current) return;
+    const frame = () => {
       const half = s.scrollWidth / 2;
-      const step = (s.firstElementChild?.clientWidth ?? 260) + 20;
-      if (s.scrollLeft >= half - 1) s.scrollLeft -= half; // seamless reset
-      s.scrollBy({ left: step, behavior: "smooth" });
-    }, 3000);
-    return () => window.clearInterval(id);
+      const holding = pausedRef.current || performance.now() < resumeAt.current;
+
+      if (holding) {
+        pos = s.scrollLeft; // stay in sync with manual scrolling
+      } else if (half > 0) {
+        pos += SPEED;
+        if (pos >= half) pos -= half;
+        s.scrollLeft = pos;
+      }
+
+      if (thumbRef.current && half > 0) {
+        thumbRef.current.style.width = `${Math.min(100, (s.clientWidth / half) * 100)}%`;
+        thumbRef.current.style.left = `${((s.scrollLeft % half) / half) * 100}%`;
+      }
+      raf = requestAnimationFrame(frame);
+    };
+    raf = requestAnimationFrame(frame);
+    return () => cancelAnimationFrame(raf);
   }, []);
 
   const nudge = (dir: number) => {
@@ -147,6 +157,8 @@ export default function ExpertTeam() {
     const half = s.scrollWidth / 2;
     if (dir > 0 && s.scrollLeft >= half - 1) s.scrollLeft -= half;
     if (dir < 0 && s.scrollLeft <= 1) s.scrollLeft += half;
+    // hold the marquee while the smooth arrow scroll plays out
+    resumeAt.current = performance.now() + 800;
     s.scrollBy({ left: dir * (s.clientWidth * 0.8), behavior: "smooth" });
   };
 
@@ -184,11 +196,11 @@ export default function ExpertTeam() {
         {/* carousel */}
         <div
           ref={scrollerRef}
-          onScroll={updateThumb}
           onMouseEnter={() => (pausedRef.current = true)}
           onMouseLeave={() => (pausedRef.current = false)}
           onTouchStart={() => (pausedRef.current = true)}
-          className="no-scrollbar flex gap-5 overflow-x-auto scroll-smooth pb-2"
+          onTouchEnd={() => (pausedRef.current = false)}
+          className="no-scrollbar flex gap-5 overflow-x-auto pb-2"
         >
           {LOOP.map((m, i) => (
             <article
@@ -234,8 +246,9 @@ export default function ExpertTeam() {
         {/* progress thumb */}
         <div className="relative mx-auto mt-7 h-1 w-full max-w-[260px] rounded-full bg-black/10">
           <div
-            className="absolute top-0 h-full rounded-full bg-[color:var(--maroon)] transition-[left,width] duration-150 ease-out"
-            style={{ width: `${thumb.w}%`, left: `${thumb.left}%` }}
+            ref={thumbRef}
+            className="absolute top-0 h-full rounded-full bg-[color:var(--maroon)]"
+            style={{ width: "25%", left: "0%" }}
           />
         </div>
       </div>
