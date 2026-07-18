@@ -95,7 +95,7 @@ export default function Footer() {
         <div className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr]">
           {/* brand card */}
           <div
-            className="relative flex min-h-[360px] flex-col justify-between overflow-hidden rounded-[28px] p-7 text-white"
+            className="relative flex min-w-0 min-h-[360px] flex-col justify-between overflow-hidden rounded-[28px] p-6 text-white sm:p-7"
             style={{
               backgroundImage:
                 "linear-gradient(155deg, #4a1c20 0%, #6C2A37 100%)",
@@ -133,8 +133,8 @@ export default function Footer() {
           </div>
 
           {/* links + subscribe panel */}
-          <div className="flex flex-col justify-between rounded-[28px] bg-[#f3f4f6] p-7 sm:p-9">
-            <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
+          <div className="flex min-w-0 flex-col justify-between rounded-[28px] bg-[#f3f4f6] p-6 sm:p-9">
+            <div className="grid min-w-0 grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 sm:gap-8">
               {COLUMNS.map((col) => (
                 <div key={col.title}>
                   <h2 className="text-[12px] font-semibold uppercase tracking-wide text-black/40">
