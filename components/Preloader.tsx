@@ -1,47 +1,43 @@
 /* Full-screen brand preloader.
 
-   Deliberately dependency-free: a server-rendered element with its critical
-   layout in inline styles, dismissed by a small inline script. It must be
-   correct at the very first paint, so it can't wait on the stylesheet (the
-   Tailwind classes land later) or on React hydration (the app bundle can be
-   many seconds away on a slow connection).
+   Must be correct at the very first paint, so it can't wait on the stylesheet
+   (Tailwind classes land later) or on React hydration (the app bundle can be
+   seconds away on a slow connection). Hence: server-rendered markup, critical
+   layout in inline styles, dismissed by a small inline script.
 
-   The decorative breathing/sweep animations live in globals.css. If that
-   arrives late the splash simply renders static, which is fine. */
+   The script must NOT remove or restyle the element directly. It's part of the
+   React tree, so hydration would just put it back and the splash would stick.
+   Instead the script sets a data attribute on <html>, which React doesn't
+   manage, and a scoped <style> hides the overlay off that attribute. React can
+   re-render the node as much as it likes, it stays hidden either way. */
 
 const HOLD_MS = 700; // minimum on-screen time, so it reads rather than blinks
 const CAP_MS = 2500; // hard ceiling, never sit in front of the content
 
+const HIDE_CSS = `
+#nadz-preloader{opacity:1;visibility:visible;transition:opacity .5s ease-out,visibility 0s linear .5s}
+html[data-nadz-ready] #nadz-preloader{opacity:0;visibility:hidden;pointer-events:none}
+`;
+
 const DISMISS = `
 (function () {
-  var el = document.getElementById('nadz-preloader');
-  if (!el) return;
-  var done = false;
-  var start = Date.now();
-  function hide() {
-    if (done) return;
-    done = true;
-    el.style.opacity = '0';
-    el.style.pointerEvents = 'none';
-    setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, 520);
-  }
+  var d = document, root = d.documentElement, start = Date.now();
   function ready() {
-    var wait = Math.max(0, ${HOLD_MS} - (Date.now() - start));
-    setTimeout(hide, wait);
+    setTimeout(function () { root.setAttribute('data-nadz-ready', ''); },
+      Math.max(0, ${HOLD_MS} - (Date.now() - start)));
   }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', ready, { once: true });
-  } else {
-    ready();
-  }
-  setTimeout(hide, ${CAP_MS});
+  if (d.readyState === 'loading') d.addEventListener('DOMContentLoaded', ready, { once: true });
+  else ready();
+  setTimeout(function () { root.setAttribute('data-nadz-ready', ''); }, ${CAP_MS});
 })();
 `;
 
 export default function Preloader() {
   return (
     <>
-      {/* No script means no way to dismiss it, so never show it. */}
+      <style dangerouslySetInnerHTML={{ __html: HIDE_CSS }} />
+
+      {/* No script means nothing can dismiss it, so never show it. */}
       <noscript>
         <style>{`#nadz-preloader{display:none !important}`}</style>
       </noscript>
@@ -62,8 +58,6 @@ export default function Preloader() {
           padding: "0 24px",
           backgroundImage:
             "linear-gradient(135deg, #331828 0%, #6C2A37 50%, #331828 100%)",
-          opacity: 1,
-          transition: "opacity 0.5s ease-out",
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}

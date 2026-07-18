@@ -21,20 +21,23 @@ export default function PartnersSection() {
             aria-label="NADZ partnerships in healthcare"
             className="absolute inset-0 h-full w-full object-cover"
           />
-          {/* keeps the labels legible over any frame of the clip */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-black/20" />
+          {/* darkens the lower third so the labels stay legible on any frame */}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
 
-          <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-[#14b8a6] px-3 py-1.5 text-[12px] font-medium text-white shadow">
-            <Handshake className="h-3.5 w-3.5" /> Trusted Partnerships
-          </span>
-          {/* Descriptive, not a count: the grid shows a handful of logos, so a
-              number here would be a claim we can't back. */}
-          <span className="absolute right-4 top-14 rounded-full bg-black/50 px-3 py-1.5 text-[12px] text-white backdrop-blur">
-            Hospitals &amp; health platforms
-          </span>
-          <span className="absolute right-4 top-[92px] grid h-8 w-8 place-items-center rounded-full bg-black/50 text-white backdrop-blur">
-            <ShieldCheck className="h-4 w-4" />
-          </span>
+          {/* labels, anchored to the bottom of the container */}
+          <div className="absolute inset-x-4 bottom-4 flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#14b8a6] px-3 py-1.5 text-[12px] font-medium text-white shadow">
+              <Handshake className="h-3.5 w-3.5" /> Trusted Partnerships
+            </span>
+            {/* Descriptive, not a count: the grid shows a handful of logos, so
+                a number here would be a claim we can't back. */}
+            <span className="rounded-full bg-black/50 px-3 py-1.5 text-[12px] text-white backdrop-blur">
+              Hospitals &amp; health platforms
+            </span>
+            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-black/50 text-white backdrop-blur">
+              <ShieldCheck className="h-4 w-4" />
+            </span>
+          </div>
         </div>
 
         {/* right: heading + logos + cta */}
