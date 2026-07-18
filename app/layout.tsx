@@ -8,6 +8,7 @@ import StickyBooking from "@/components/StickyBooking";
 import OfferPopup from "@/components/OfferPopup";
 import CookieConsent from "@/components/CookieConsent";
 import Clarity from "@/components/Clarity";
+import Preloader from "@/components/Preloader";
 import Footer from "@/components/Footer";
 import { SITE_URL, ALLOW_INDEX } from "@/lib/site";
 import "./globals.css";
@@ -61,6 +62,7 @@ export default function RootLayout({
       className={`${inter.variable} ${monaSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white text-[color:var(--foreground)]">
+        <Preloader />
         <ConsoleFilter />
         <SmoothScroll />
         {children}
