@@ -103,7 +103,7 @@ export default function ThankYouPage() {
                   Our hotline is open 24/7, every day of the year.
                 </p>
                 <Link
-                  href="tel:8004NADZ"
+                  href="tel:80046239"
                   className="mt-4 inline-flex items-center gap-2.5 text-[22px] font-bold text-[color:var(--gold-light)] transition-transform hover:-translate-y-0.5"
                 >
                   <Phone className="h-5 w-5" />

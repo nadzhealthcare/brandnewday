@@ -1,11 +1,13 @@
 "use client";
 
+import { WA_NUMBER, PHONE_TEL } from "@/lib/contact";
+
 import { useEffect, useRef, useState } from "react";
 import { Phone, MessageCircle, X, Send } from "lucide-react";
 
 // TODO: replace with the real NADZ numbers
-const PHONE = "+971501234567";
-const WA_NUMBER = "971501234567";
+/* These were local copies that had drifted to a placeholder number, so the
+   floating call and WhatsApp buttons pointed nowhere. Single source now. */
 const WA_LINK = `https://wa.me/${WA_NUMBER}`;
 
 function WhatsAppIcon({ className = "" }: { className?: string }) {
@@ -164,7 +166,7 @@ export default function FloatingWidgets() {
       <div className="fixed bottom-5 right-5 z-[70] flex flex-col items-end gap-3 print:hidden">
         {/* Call */}
         <a
-          href={`tel:${PHONE}`}
+          href={`tel:${PHONE_TEL}`}
           aria-label="Call us"
           className="group flex items-center gap-2.5"
         >

@@ -294,7 +294,7 @@ export default function FaqPage() {
               <ArrowUpRight className="h-4 w-4" />
             </Link>
             <Link
-              href="tel:8004NADZ"
+              href="tel:80046239"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 px-7 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-white/10"
             >
               <Phone className="h-4 w-4 text-[color:var(--gold-light)]" />

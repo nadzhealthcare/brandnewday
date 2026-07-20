@@ -333,7 +333,7 @@ export default function BookAppointment() {
               >
                 <p className="text-[13px] text-white/60">Prefer to talk?</p>
                 <Link
-                  href="tel:8004NADZ"
+                  href="tel:80046239"
                   className="mt-2 inline-flex items-center gap-2.5 text-[20px] font-bold text-[color:var(--gold-light)] transition-transform hover:-translate-y-0.5"
                 >
                   <Phone className="h-5 w-5" />

@@ -34,7 +34,7 @@ function CtaButtons() {
         Book a Home Visit
       </Link>
       <Link
-        href="tel:8004NADZ"
+        href="tel:80046239"
         className="inline-flex items-center justify-center gap-2.5 rounded-full bg-[color:var(--maroon)] px-6 py-3.5 text-[15px] font-semibold text-white ring-1 ring-white/15 transition-transform hover:-translate-y-0.5"
       >
         <Phone className="h-4 w-4 text-[color:var(--gold-light)]" />
@@ -74,7 +74,7 @@ function TitleBlock() {
 
 function EightHundred() {
   return (
-    <Link href="tel:8004NADZ" className="inline-block transition-transform hover:-translate-y-0.5">
+    <Link href="tel:80046239" className="inline-block transition-transform hover:-translate-y-0.5">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/assets/nadz-800.svg"
