@@ -142,6 +142,16 @@ const nextConfig: NextConfig = {
           ]
         : []),
 
+      /* Influencer short links. Something postable in a bio, expanding to the
+         landing page plus the ?ref= we attribute on and the UTMs GA4 groups
+         the traffic by. Add one row per creator. */
+      {
+        source: "/ummleya",
+        destination:
+          "/shop?ref=ummleya&utm_source=instagram&utm_medium=influencer&utm_campaign=ummleya_doula",
+        permanent: false,
+      },
+
       // Slugs are identical on both sites, so these carry straight over.
       { source: "/blog", destination: "/media/blogs", permanent: true },
       { source: "/blog/:slug", destination: "/media/blogs/:slug", permanent: true },
