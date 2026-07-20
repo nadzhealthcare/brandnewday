@@ -138,7 +138,9 @@ export default function Navbar() {
           className={`relative flex h-16 items-center justify-between rounded-2xl pl-4 pr-3 transition-colors duration-300 sm:pl-5 sm:pr-4 ${
             solid
               ? "border border-black/5 bg-white/95 shadow-[0_12px_34px_-14px_rgba(74,28,32,0.4)] backdrop-blur"
-              : "border border-white/15 bg-white/10 shadow-[0_12px_34px_-18px_rgba(0,0,0,0.6)] backdrop-blur-md"
+              : /* Solid on mobile so there's no glass-to-white swap at the top,
+                   which is what read as a flicker. Glass stays on desktop. */
+                "border border-black/5 bg-white/95 shadow-[0_12px_34px_-14px_rgba(74,28,32,0.4)] backdrop-blur lg:border-white/15 lg:bg-white/10 lg:shadow-[0_12px_34px_-18px_rgba(0,0,0,0.6)] lg:backdrop-blur-md"
           }`}
         >
           <Logo light={light} />
@@ -204,7 +206,8 @@ export default function Navbar() {
         </nav>
 
           {/* Mobile trigger */}
-          <MobileNav triggerLight={light} />
+          {/* Mobile bar is always solid, so the trigger is always the dark mark. */}
+          <MobileNav triggerLight={false} />
         </div>
       </div>
     </header>
