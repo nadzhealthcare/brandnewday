@@ -8,6 +8,7 @@ import StickyBooking from "@/components/StickyBooking";
 import OfferPopup from "@/components/OfferPopup";
 import CookieConsent from "@/components/CookieConsent";
 import Clarity from "@/components/Clarity";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import FazaaBanner from "@/components/FazaaBanner";
 import Preloader from "@/components/Preloader";
 import Footer from "@/components/Footer";
@@ -80,6 +81,7 @@ export default function RootLayout({
         <OfferPopup />
         <CookieConsent />
         <Clarity />
+        <GoogleAnalytics />
         <FazaaBanner />
         <FloatingWidgets />
         </CartProvider>
