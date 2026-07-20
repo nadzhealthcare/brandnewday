@@ -78,14 +78,33 @@ export default function Navbar() {
   const lastY = useRef(0);
 
   useEffect(() => {
+    /* Deadzone before the bar reacts. At 4px, the small oscillation that comes
+       with momentum and iOS rubber-band settling reads as a direction change
+       and flickers it in and out. */
+    const THRESHOLD = 10;
+    const SHOW_ABOVE = 160; // always visible near the top
+
     const onScroll = () => {
-      const y = window.scrollY;
+      const max = Math.max(
+        0,
+        document.documentElement.scrollHeight - window.innerHeight,
+      );
+      // Rubber-band overscroll reports a scrollY outside the document (negative
+      // at the top, past max at the bottom). Clamping keeps that bounce from
+      // registering as a scroll direction.
+      const y = Math.min(Math.max(window.scrollY, 0), max);
       setScrolled(y > 40);
-      // hide when scrolling down (past the hero-ish threshold), show on scroll up
-      if (y > lastY.current + 4 && y > 160) setHidden(true);
-      else if (y < lastY.current - 4) setHidden(false);
+
+      const delta = y - lastY.current;
+      // Inside the deadzone, leave lastY alone: jitter then measures against a
+      // fixed point instead of creeping, while a slow deliberate scroll still
+      // accumulates past the threshold and flips it.
+      if (Math.abs(delta) < THRESHOLD) return;
+
+      setHidden(y > SHOW_ABOVE && delta > 0);
       lastY.current = y;
     };
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
