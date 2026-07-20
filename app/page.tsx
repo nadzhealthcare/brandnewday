@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import TopBar from "@/components/TopBar";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import PaymentStrip from "@/components/PaymentStrip";
 import ComprehensiveCare from "@/components/ComprehensiveCare";
 import FeaturedServices from "@/components/FeaturedServices";
 import StackCards from "@/components/StackCards";
@@ -33,6 +34,7 @@ export default function Home() {
         {/* pull the hero up so the navbar floats over it at the top */}
         <main className="flex-1 -mt-20 sm:-mt-[84px] lg:-mt-[88px]">
           <Hero />
+          <PaymentStrip />
           <ComprehensiveCare />
           <FeaturedServices />
           <StackCards />
