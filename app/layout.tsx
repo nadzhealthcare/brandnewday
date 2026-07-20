@@ -8,8 +8,10 @@ import StickyBooking from "@/components/StickyBooking";
 import OfferPopup from "@/components/OfferPopup";
 import CookieConsent from "@/components/CookieConsent";
 import Clarity from "@/components/Clarity";
+import FazaaBanner from "@/components/FazaaBanner";
 import Preloader from "@/components/Preloader";
 import Footer from "@/components/Footer";
+import { CartProvider } from "@/lib/cart";
 import { SITE_URL, ALLOW_INDEX } from "@/lib/site";
 import "./globals.css";
 
@@ -57,11 +59,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    // The preloader's inline script stamps data-nadz-ready on <html> before
+    // hydration, which React would otherwise report as a mismatch. This is the
+    // documented escape hatch for that pattern (see the Next.js guide on
+    // preventing a flash before hydration). It only covers this element's own
+    // attributes, children still hydrate normally.
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${inter.variable} ${monaSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white text-[color:var(--foreground)]">
+        <CartProvider>
         <Preloader />
         <ConsoleFilter />
         <SmoothScroll />
@@ -71,7 +80,9 @@ export default function RootLayout({
         <OfferPopup />
         <CookieConsent />
         <Clarity />
+        <FazaaBanner />
         <FloatingWidgets />
+        </CartProvider>
       </body>
     </html>
   );
