@@ -32,7 +32,7 @@ export default function TestimonialsBento() {
               poster="/assets/featured-placeholder.webp"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/25" />
-            <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-[#14b8a6] px-3 py-1.5 text-[12px] font-medium text-white shadow">
+            <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-[color:var(--maroon)] px-3 py-1.5 text-[12px] font-medium text-white shadow">
               <ThumbsUp className="h-3.5 w-3.5" /> Fast, Reliable Healthcare
             </span>
             <span className="absolute right-4 top-14 rounded-full bg-black/50 px-3 py-1.5 text-[12px] text-white backdrop-blur">

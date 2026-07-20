@@ -18,6 +18,14 @@ const IDLE_MS = 10_000; // quiet time before it appears
 const VISIBLE_MS = 4_000; // how long it stays
 const SETTLE_MS = 600; // let any modal claim the screen before we commit
 
+/* Mirrors the strip under the hero. Flip `live` as each provider is
+   switched on, the "Soon" caption follows from it. */
+const MARKS = [
+  { src: "/assets/pay-fazaa.svg", alt: "Fazaa", live: true, height: "h-7 sm:h-8" },
+  { src: "/assets/pay-tabby.svg", alt: "Tabby", live: false, height: "h-[18px] sm:h-5" },
+  { src: "/assets/pay-tamara.svg", alt: "Tamara", live: false, height: "h-3 sm:h-[13px]" },
+] as const;
+
 export default function FazaaBanner() {
   const pathname = usePathname();
   const [shown, setShown] = useState(false);
@@ -110,16 +118,30 @@ export default function FazaaBanner() {
             : "pointer-events-none translate-y-4 opacity-0"
         }`}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/assets/pay-fazaa.svg"
-          alt="Fazaa"
-          className="h-8 w-auto shrink-0 sm:h-9"
-        />
-        <p className="min-w-0 text-[13px] leading-tight text-[#241417] sm:text-[14px]">
-          <span className="font-semibold">Fazaa cardholders</span>
-          <span className="text-black/55"> — benefits available on your visit</span>
+        <p className="min-w-0 shrink-0 text-[13px] font-semibold leading-tight text-[#241417] sm:text-[14px]">
+          Flexible payments
         </p>
+
+        {/* Marks carry the message: Fazaa reads live, the two that can't take
+            a payment yet are dimmed and captioned, so the row never implies a
+            method that would fail at the till. */}
+        <ul className="flex min-w-0 items-center gap-3 sm:gap-4">
+          {MARKS.map((m) => (
+            <li key={m.alt} className="flex shrink-0 items-center gap-1.5">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={m.src}
+                alt={m.alt}
+                className={`${m.height} w-auto shrink-0 ${m.live ? "" : "opacity-45"}`}
+              />
+              {!m.live && (
+                <span className="text-[10px] font-semibold uppercase tracking-wide text-black/35">
+                  Soon
+                </span>
+              )}
+            </li>
+          ))}
+        </ul>
         <button
           type="button"
           onClick={() => setShown(false)}

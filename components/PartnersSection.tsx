@@ -26,7 +26,7 @@ export default function PartnersSection() {
 
           {/* labels, anchored to the bottom of the container */}
           <div className="absolute inset-x-4 bottom-4 flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#14b8a6] px-3 py-1.5 text-[12px] font-medium text-white shadow">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--maroon)] px-3 py-1.5 text-[12px] font-medium text-white shadow">
               <Handshake className="h-3.5 w-3.5" /> Trusted Partnerships
             </span>
             {/* Descriptive, not a count: the grid shows a handful of logos, so
