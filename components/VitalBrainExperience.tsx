@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import SplineHero from "./vital-brain/SplineHero";
 import BrainDashboard from "./vital-brain/BrainDashboard";
+import WhoCards from "./vital-brain/WhoCards";
 import Reveal from "./vital-brain/Reveal";
 import { waLink } from "@/lib/contact";
 import { PHONE_DISPLAY, PHONE_TEL } from "@/lib/contact";
@@ -60,12 +61,6 @@ const ASSURANCES = [
   "Non-invasive QEEG recorded in the comfort of home",
   "Every case reviewed by a 2,000-doctor panel",
   "Results reviewed with clear, personal guidance",
-];
-
-const WHO = [
-  { title: "Executives", desc: "Sustain focus and cognitive edge." },
-  { title: "Students", desc: "Sharpen memory and attention." },
-  { title: "Athletes", desc: "Optimise recovery and performance." },
 ];
 
 /* Same display face as the rest of the site: Mona Sans, expanded and
@@ -293,20 +288,7 @@ export default function VitalBrainExperience() {
             </h2>
           </Reveal>
 
-          <div className="mt-14 grid gap-4 sm:grid-cols-3">
-            {WHO.map((w, i) => (
-              <Reveal key={w.title} delay={i * 110}>
-                <div className="h-full rounded-2xl border border-white/12 bg-white/[0.03] p-8">
-                  <h3 className={`${DISPLAY} text-[23px] leading-none`}>
-                    {w.title}
-                  </h3>
-                  <p className="mt-4 text-[14.5px] leading-relaxed text-[#f5f4f8]/55">
-                    {w.desc}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <WhoCards />
         </div>
       </section>
 

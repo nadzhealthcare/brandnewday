@@ -639,3 +639,15 @@ body {
 @media (hover: hover) and (pointer: fine) {
   .vb-spline-layer { pointer-events: auto; }
 }
+
+/* ---------------- Who-it's-for hover charts ---------------- */
+/* Trend lines redraw and the gauge re-sweeps when a card is hovered. Base
+   state is fully drawn (see the components), so at rest the charts read; the
+   keyframes replay the draw on hover. */
+@keyframes vbDrawLine {
+  from { stroke-dashoffset: 1; }
+}
+@keyframes vbSweepGauge {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: var(--vb-o); }
+}
