@@ -7,8 +7,10 @@ import { waLink } from "@/lib/contact";
 
 /* ------------------------------------------------------------------ *
  * Latest-offer popup.
- *  - Opens once, 10s after the page loads.
- *  - Once the visitor closes it, it does not open again this session.
+ *  - Only on the home page and the NAD+ IV therapy page, nowhere else.
+ *  - Opens once, 10s after landing on one of those pages, and only once
+ *    per session — it never re-opens, including when moving between the
+ *    two eligible pages.
  *  - The cover image is a single editable path, swap it (or wire it to
  *    a backend) without touching the rest of the component.
  * ------------------------------------------------------------------ */
@@ -19,28 +21,35 @@ const OFFER_ALT = "Exclusive limited-time IV therapy discount";
 const OFFER_WA_MESSAGE =
   "Hi NADZ, I'd like to claim your latest offer.";
 
+// The only two routes the offer is allowed to appear on.
+const OFFER_PATHS = new Set(["/", "/wellness/nad-plus-iv-therapy"]);
+
 const FIRST_OPEN_MS = 10_000;
 
 export default function OfferPopup() {
   const pathname = usePathname();
-  const suppressed =
-    pathname.startsWith("/pay") ||
-    ["/cookies", "/privacy", "/terms", "/thank-you"].includes(pathname);
+  const eligible = OFFER_PATHS.has(pathname);
   const [open, setOpen] = useState(false);
-  // Once the visitor closes it, it stays closed for the session, no re-opening.
-  const dismissed = useRef(false);
+  // Shows at most once per session: after it opens (or is dismissed) this stays
+  // true, so it won't fire again when moving between the two eligible pages.
+  const shown = useRef(false);
 
-  // open once, 10s after load (not on payment/legal pages)
+  // Open once, 10s after landing on an eligible page.
   useEffect(() => {
-    if (suppressed) return;
+    if (!eligible) {
+      setOpen(false);
+      return;
+    }
+    if (shown.current) return;
     const t = setTimeout(() => {
-      if (!dismissed.current) setOpen(true);
+      shown.current = true;
+      setOpen(true);
     }, FIRST_OPEN_MS);
     return () => clearTimeout(t);
-  }, [suppressed]);
+  }, [eligible]);
 
   const close = () => {
-    dismissed.current = true;
+    shown.current = true;
     setOpen(false);
   };
 
@@ -62,7 +71,7 @@ export default function OfferPopup() {
     close();
   };
 
-  if (suppressed) return null;
+  if (!eligible) return null;
 
   return (
     <div
