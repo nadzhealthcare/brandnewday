@@ -12,6 +12,7 @@ import DoctorOnCall from "@/components/DoctorOnCall";
 import BookAppointment from "@/components/BookAppointment";
 import HowItWorks from "@/components/HowItWorks";
 import ServiceBody from "@/components/ServiceBody";
+import VitalBrainExperience from "@/components/VitalBrainExperience";
 import { SERVICE_BODIES } from "@/lib/service-content";
 import MediaBody from "@/components/MediaBody";
 import { MEDIA_BODIES } from "@/lib/media-content";
@@ -31,6 +32,8 @@ const CUSTOM_PAGES: Record<string, React.ComponentType> = {
   "/about/faqs": FaqPage,
   "/contact": ContactPage,
   "/book": BookAppointment,
+  /* Runs its own visual direction, so it replaces the standard hero+body. */
+  "/exclusive/nadz-vital-brain": VitalBrainExperience,
 };
 
 // routes that keep the default slider hero, then render a custom body below it

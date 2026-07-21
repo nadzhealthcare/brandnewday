@@ -122,9 +122,27 @@ const LEGACY_REDIRECTS: [string, string][] = [
 ];
 
 const nextConfig: NextConfig = {
+  // Hide the on-screen dev indicator (the floating "N").
+  devIndicators: false,
   // Pin the workspace root to this project (a stray lockfile lives in $HOME).
   turbopack: {
     root: path.join(__dirname),
+  },
+  webpack: (config) => {
+    /* @splinetool/react-spline ships an import-only exports map with no
+       default/require condition and no main field, which this bundler won't
+       match ("Package path . is not exported"). Point the bare specifier
+       straight at its ESM entry; its own imports (./ParentSize.js and
+       @splinetool/runtime, which resolves normally) load from there.
+       Only the Vital Brain page imports it, and it's code-split. */
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      "@splinetool/react-spline$": path.resolve(
+        __dirname,
+        "node_modules/@splinetool/react-spline/dist/react-spline.js",
+      ),
+    };
+    return config;
   },
   async redirects() {
     return [

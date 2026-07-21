@@ -605,3 +605,28 @@ body {
     animation: none;
   }
 }
+
+/* ---------------- NADZ Vital Brain accent gradient ---------------- */
+/* Deep violet -> rose -> warm sand, used on accent text and icons on the
+   Vital Brain page. Text can clip a CSS gradient, but an SVG stroke can't,
+   so icons point at a paint server defined once in the page (#vbGrad). */
+.vb-grad-text {
+  background-image: linear-gradient(to top, #641887 0%, #cc5972 52%, #f0cca5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.vb-grad-icon svg {
+  stroke: url(#vbGrad);
+}
+
+/* ---------------- Vital Brain analytics cards ---------------- */
+@keyframes vbFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+.vb-card-float { animation: vbFloat 6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .vb-card-float { animation: none; }
+}
