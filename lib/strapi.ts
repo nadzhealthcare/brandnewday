@@ -73,6 +73,15 @@ export function mediaUrl(
 const LIST_FIELDS =
   "fields[0]=title&fields[1]=slug&fields[2]=excerpt&fields[3]=authorName&fields[4]=date&fields[5]=readTime&fields[6]=category&fields[7]=publishedAt";
 
+/* Editors occasionally save a slug with a stray leading/trailing space. That
+   space is invisible in the CMS but breaks the page: the URL never carries it,
+   so an exact slug match finds nothing and the route 404s. Trimming the slug
+   the moment an article enters the app keeps every link, canonical and lookup
+   clean regardless of what was typed. */
+function normalizeArticle(a: Article): Article {
+  return a.slug === a.slug?.trim() ? a : { ...a, slug: a.slug.trim() };
+}
+
 export async function getArticles(
   page = 1,
   pageSize = 24,
@@ -80,16 +89,31 @@ export async function getArticles(
   const json = await strapiFetch<StrapiList<Article>>(
     `/api/articles?${LIST_FIELDS}&populate[image]=true&sort=publishedAt:desc&pagination[page]=${page}&pagination[pageSize]=${pageSize}`,
   );
-  return { items: json?.data ?? [], pageCount: json?.meta.pagination.pageCount ?? 1 };
+  return {
+    items: (json?.data ?? []).map(normalizeArticle),
+    pageCount: json?.meta.pagination.pageCount ?? 1,
+  };
 }
 
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
-  const json = await strapiFetch<StrapiList<Article>>(
-    `/api/articles?filters[slug][$eq]=${encodeURIComponent(
-      slug,
-    )}&populate[image]=true&populate[content][populate]=*`,
+  const clean = slug.trim();
+  const suffix = "&populate[image]=true&populate[content][populate]=*";
+
+  // Fast path: exact match on a clean slug.
+  const exact = await strapiFetch<StrapiList<Article>>(
+    `/api/articles?filters[slug][$eq]=${encodeURIComponent(clean)}${suffix}`,
   );
-  return json?.data?.[0] ?? null;
+  if (exact?.data?.[0]) return normalizeArticle(exact.data[0]);
+
+  // Fallback: the stored slug carries stray whitespace, so an exact match
+  // missed it. A contains-match then a precise trim-compare finds it without
+  // false positives (a different slug that merely contains this one won't
+  // trim-equal it).
+  const loose = await strapiFetch<StrapiList<Article>>(
+    `/api/articles?filters[slug][$containsi]=${encodeURIComponent(clean)}${suffix}`,
+  );
+  const hit = loose?.data?.find((a) => a.slug?.trim() === clean);
+  return hit ? normalizeArticle(hit) : null;
 }
 
 /* ---------------- Testimonials ---------------- */
