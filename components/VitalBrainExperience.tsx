@@ -109,8 +109,10 @@ export default function VitalBrainExperience() {
 
 
         {/* Content anchored to the bottom: the title sits directly above the
-            buttons on the left, the intro to the right. */}
-        <div className="relative mx-auto flex min-h-[100svh] max-w-[1240px] flex-col justify-end px-6 pb-16 pt-40 sm:px-10 sm:pb-20">
+            buttons on the left, the intro to the right. pointer-events-none so
+            a drag over the copy passes through to orbit the scene behind; the
+            buttons re-enable events on themselves. */}
+        <div className="pointer-events-none relative mx-auto flex min-h-[100svh] max-w-[1240px] flex-col justify-end px-6 pb-16 pt-40 sm:px-10 sm:pb-20">
           <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
             {/* Hero copy is above the fold and bottom-anchored, so it renders
                 immediately rather than through the scroll-in Reveal, whose
@@ -122,7 +124,7 @@ export default function VitalBrainExperience() {
               >
                 Brain mapping at home with AI insights
               </h1>
-              <div className="mt-9 hidden flex-wrap items-center gap-4 sm:flex">
+              <div className="pointer-events-auto mt-9 hidden flex-wrap items-center gap-4 sm:flex">
                 <a
                   href={book}
                   target="_blank"

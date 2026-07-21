@@ -630,3 +630,12 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .vb-card-float { animation: none; }
 }
+
+/* ---------------- Vital Brain: interactive Spline layer ---------------- */
+/* The 3D scene reacts to drag/mouse/click on desktop, where scrolling is the
+   wheel and can't be confused with an orbit drag. On touch it stays inert so a
+   one-finger swipe scrolls the page instead of rotating the scene. */
+.vb-spline-layer { pointer-events: none; }
+@media (hover: hover) and (pointer: fine) {
+  .vb-spline-layer { pointer-events: auto; }
+}

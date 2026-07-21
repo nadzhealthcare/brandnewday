@@ -86,15 +86,14 @@ export default function SplineHero({ className = "" }: { className?: string }) {
 
       {load && (
         <div
-          className={`absolute inset-0 transition-opacity duration-1000 ease-out ${
+          className={`vb-spline-layer absolute inset-0 transition-opacity duration-1000 ease-out ${
             ready ? "opacity-100" : "opacity-0"
           }`}
         >
           <Spline
             scene={SCENE}
             onLoad={() => setReady(true)}
-            // Decorative backdrop: never intercept taps meant for the CTAs.
-            style={{ width: "100%", height: "100%", pointerEvents: "none" }}
+            style={{ width: "100%", height: "100%" }}
           />
         </div>
       )}
