@@ -193,7 +193,7 @@ export default function BookAppointment() {
                       }
                       inputMode="numeric"
                       maxLength={9}
-                      placeholder="50 123 4567"
+                      placeholder="5X XXX XXXX"
                       className={FIELD}
                     />
                   </div>

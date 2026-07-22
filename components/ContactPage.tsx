@@ -217,7 +217,7 @@ export default function ContactPage() {
                     type="tel"
                     value={form.phone}
                     onChange={set("phone")}
-                    placeholder="+971 50 123 4567"
+                    placeholder="+971 5X XXX XXXX"
                     className={`mt-1.5 ${field}`}
                   />
                 </div>

@@ -71,7 +71,7 @@ export default function BookingForm() {
           onChange={(e) => setPhone(e.target.value.replace(/[^\d]/g, ""))}
           inputMode="numeric"
           maxLength={9}
-          placeholder="50 123 4567"
+          placeholder="5X XXX XXXX"
           aria-label="Phone number"
           className="w-32 bg-transparent text-[15px] text-[#241417] outline-none placeholder:text-black/40"
         />
