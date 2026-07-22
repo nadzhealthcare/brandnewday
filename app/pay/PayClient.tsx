@@ -7,8 +7,12 @@ import {
   Lock,
   Loader2,
   ChevronDown,
+  Banknote,
+  Check,
 } from "lucide-react";
 import type { PayData } from "@/lib/paylink";
+import { waLink } from "@/lib/contact";
+import { track } from "@/lib/analytics";
 
 function AppleIcon({ className = "" }: { className?: string }) {
   return (
@@ -62,6 +66,7 @@ export default function PayClient({
 }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [cashSent, setCashSent] = useState(false);
 
   // Tabby buyer step
   const [tabbyOpen, setTabbyOpen] = useState(tabbyDefaultOpen);
@@ -127,6 +132,29 @@ export default function PayClient({
       currency: data.c || "AED",
       minimumFractionDigits: data.a % 1 === 0 ? 0 : 2,
     }).format(data.a);
+
+  /* Cash has no gateway to redirect to, so the order is handed to the team on
+     WhatsApp instead: they confirm the visit and collect on arrival. The
+     message carries the basket and the amount, and waLink appends the referral
+     slug, so a cash order is attributed to a campaign exactly like a card one.
+     The GA event marks intent, not payment, the team confirms the collection. */
+  const payCash = () => {
+    if (!data) return;
+    track("cash_checkout", {
+      value: data.a,
+      currency: data.c || "AED",
+      items: data.d,
+    });
+    const lines = [
+      "Hi NADZ, I'd like to pay cash on visit.",
+      "",
+      `Order: ${data.d}`,
+      `Amount: ${amountLabel}`,
+    ];
+    if (data.n) lines.push(`Name: ${data.n}`);
+    window.open(waLink(lines.join("\n")), "_blank", "noopener,noreferrer");
+    setCashSent(true);
+  };
 
   const field =
     "w-full rounded-xl border border-black/10 bg-white px-4 py-2.5 text-[14px] text-[#241417] outline-none transition-colors focus:border-[color:var(--maroon)]/50";
@@ -291,6 +319,37 @@ export default function PayClient({
                     Soon
                   </span>
                 </button>
+
+                {/* Cash on visit, confirmed with the team on WhatsApp */}
+                <div className="pt-1">
+                  <div className="mb-3 flex items-center gap-3">
+                    <span className="h-px flex-1 bg-black/[0.08]" />
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-black/30">
+                      or
+                    </span>
+                    <span className="h-px flex-1 bg-black/[0.08]" />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={payCash}
+                    className="flex w-full items-center justify-between rounded-2xl border border-black/10 bg-white px-5 py-4 text-[14px] font-medium text-[#241417] transition-colors hover:border-[color:var(--maroon)]/40 hover:bg-[#faf7f5]"
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <Banknote className="h-5 w-5 text-[color:var(--maroon)]" />
+                      Pay cash on visit
+                    </span>
+                    <span className="text-[11px] font-semibold uppercase tracking-wide text-black/35">
+                      Confirm on WhatsApp
+                    </span>
+                  </button>
+                  {cashSent && (
+                    <p className="mt-2.5 flex items-center justify-center gap-1.5 text-center text-[12.5px] text-[color:var(--maroon)]">
+                      <Check className="h-4 w-4" />
+                      We&apos;ve opened WhatsApp, send the message and our team
+                      will confirm your visit.
+                    </p>
+                  )}
+                </div>
 
                 {!stripeReady && (
                   <p className="text-center text-[12.5px] text-[color:var(--maroon)]">
