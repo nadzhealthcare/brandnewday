@@ -23,7 +23,11 @@ export async function generateMetadata({
   if (!a) return { title: "Article, NADZ Healthcare" };
   return {
     alternates: { canonical: `/media/blogs/${slug}` },
-    title: `${a.seoTitle || a.title}, NADZ Healthcare`,
+    /* The CMS seoTitle is used exactly as written. Articles are the one place
+       where someone is tuning titles for search, and appending the brand here
+       pushed them past the length Google will show while being uneditable from
+       the CMS. If a brand suffix is wanted, it belongs in the seoTitle. */
+    title: a.seoTitle || a.title,
     description: a.seoDescription || a.excerpt || undefined,
     openGraph: {
       title: a.seoTitle || a.title,
