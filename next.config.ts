@@ -166,7 +166,7 @@ const nextConfig: NextConfig = {
       {
         source: "/ummleya",
         destination:
-          "/shop?ref=ummleya&utm_source=instagram&utm_medium=influencer&utm_campaign=ummleya_doula",
+          "/?ref=ummleya&utm_source=instagram&utm_medium=influencer&utm_campaign=ummleya_doula",
         permanent: false,
       },
 
