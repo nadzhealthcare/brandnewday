@@ -1,20 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
-import ConsoleFilter from "@/components/ConsoleFilter";
-import SmoothScroll from "@/components/SmoothScroll";
-import FloatingWidgets from "@/components/FloatingWidgets";
-import StickyBooking from "@/components/StickyBooking";
-import OfferPopup from "@/components/OfferPopup";
-import CookieConsent from "@/components/CookieConsent";
-import Clarity from "@/components/Clarity";
-import GoogleAnalytics from "@/components/GoogleAnalytics";
-import ReferralCapture from "@/components/ReferralCapture";
-import ConversionTracking from "@/components/ConversionTracking";
-import FazaaBanner from "@/components/FazaaBanner";
-import Preloader from "@/components/Preloader";
-import Footer from "@/components/Footer";
-import { CartProvider } from "@/lib/cart";
 import { SITE_URL, ALLOW_INDEX } from "@/lib/site";
 import "./globals.css";
 
@@ -72,23 +58,12 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${monaSans.variable} h-full antialiased`}
     >
+      {/* The root layout is deliberately bare: chrome (navbar, footer, floating
+          buttons, popups, cookie consent, analytics) lives in the (main) route
+          group's layout, so PPC landing pages outside that group — e.g.
+          /services/ppc-* — render with none of it, in the server HTML too. */}
       <body className="min-h-full flex flex-col bg-white text-[color:var(--foreground)]">
-        <CartProvider>
-        <Preloader />
-        <ConsoleFilter />
-        <SmoothScroll />
         {children}
-        <Footer />
-        <StickyBooking />
-        <OfferPopup />
-        <CookieConsent />
-        <Clarity />
-        <GoogleAnalytics />
-        <ReferralCapture />
-        <ConversionTracking />
-        <FazaaBanner />
-        <FloatingWidgets />
-        </CartProvider>
       </body>
     </html>
   );
