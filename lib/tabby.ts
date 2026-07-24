@@ -53,6 +53,17 @@ export async function createTabbyCheckout(input: {
           },
         ],
       },
+      /* Tabby's pre-scoring reads these two, and leaving them out costs
+         approvals. Everything here checks out as a guest: there are no
+         accounts and no orders table, so the truthful values are "no prior
+         history" rather than invented ones. A lender's risk engine must not be
+         fed fiction, and Tabby scores a thin file rather than rejecting it.
+         If order history ever exists, pass the last 5-10 orders here. */
+      buyer_history: {
+        registered_since: new Date().toISOString(),
+        loyalty_level: 0,
+      },
+      order_history: [],
       shipping_address: { city: "Dubai", address: "Dubai, UAE", zip: "00000" },
     },
     lang: "en",
@@ -105,6 +116,7 @@ export type TabbyPayment = {
   status: string; // CREATED | AUTHORIZED | CLOSED | REJECTED | EXPIRED
   amount: string;
   currency: string;
+  captures?: { amount: string }[];
 } | null;
 
 export async function getTabbyPayment(id: string): Promise<TabbyPayment> {
@@ -130,6 +142,32 @@ export async function captureTabbyPayment(
   } catch {
     return false;
   }
+}
+
+/* Capture an authorised payment, exactly once.
+
+   Two things can trigger a capture for the same order: the shopper landing on
+   /pay/success, and the webhook firing. Tabby has no idempotency key on
+   captures, so a naive implementation charges twice when both arrive. The
+   payment itself is the source of truth: re-read it, and only capture while it
+   is still AUTHORIZED with nothing captured yet. A full capture moves it to
+   CLOSED, so whichever call loses the race finds nothing left to do.
+
+   Returns the payment as it stands, so callers can report the real state. */
+export async function captureAuthorized(
+  id: string,
+): Promise<{ payment: TabbyPayment; captured: boolean }> {
+  const payment = await getTabbyPayment(id);
+  if (!payment) return { payment: null, captured: false };
+
+  const alreadyCaptured = (payment.captures?.length ?? 0) > 0;
+  if (payment.status !== "AUTHORIZED" || alreadyCaptured) {
+    // CLOSED means it is captured and settled; anything else is not payable.
+    return { payment, captured: payment.status === "CLOSED" };
+  }
+
+  const ok = await captureTabbyPayment(payment.id, payment.amount);
+  return { payment, captured: ok };
 }
 
 /** Human-readable Tabby rejection reasons. */

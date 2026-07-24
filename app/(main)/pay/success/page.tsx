@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CircleCheck } from "lucide-react";
 import { getStripe } from "@/lib/stripe";
-import { getTabbyPayment, captureTabbyPayment } from "@/lib/tabby";
+import { captureAuthorized } from "@/lib/tabby";
 
 export const metadata: Metadata = {
   title: "Payment Received, NADZ Healthcare",
@@ -39,17 +39,16 @@ export default async function PaySuccessPage({
       /* show generic success */
     }
   } else if (payment_id) {
-    // Tabby: confirm the payment is authorized, then capture it
-    const p = await getTabbyPayment(payment_id);
-    if (p) {
-      if (p.status === "AUTHORIZED") {
-        await captureTabbyPayment(p.id, p.amount);
-        paid = true;
-      } else {
-        paid = p.status === "CLOSED";
+    /* Tabby: verify server-side and capture. The webhook may well have got
+       here first, so this shares the same capture-once helper rather than
+       charging again. */
+    const { payment, captured } = await captureAuthorized(payment_id);
+    if (payment) {
+      paid = captured;
+      const amt = Number(payment.amount);
+      if (Number.isFinite(amt)) {
+        amountLabel = money(amt, payment.currency || "AED");
       }
-      const amt = Number(p.amount);
-      if (Number.isFinite(amt)) amountLabel = money(amt, p.currency || "AED");
     }
   }
 
