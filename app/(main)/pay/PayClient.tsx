@@ -13,6 +13,7 @@ import {
 import type { PayData } from "@/lib/paylink";
 import { waLink } from "@/lib/contact";
 import { track } from "@/lib/analytics";
+import TabbyPromo from "@/components/TabbyPromo";
 
 function AppleIcon({ className = "" }: { className?: string }) {
   return (
@@ -209,6 +210,11 @@ export default function PayClient({
 
               {/* methods */}
               <div className="space-y-3 p-6">
+                {/* Tabby installment messaging for the real amount owed */}
+                {data.a > 0 && (
+                  <TabbyPromo price={data.a} source="product" className="mb-1" />
+                )}
+
                 <p className="text-center text-[12px] font-semibold uppercase tracking-[0.18em] text-black/40">
                   Choose a payment method
                 </p>

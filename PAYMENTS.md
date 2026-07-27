@@ -35,9 +35,11 @@ STRIPE_WEBHOOK_SECRET=     # whsec_…
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=  # pk_test_…
 
 # Tabby  (UAE uses api.tabby.ai; KSA would be api.tabby.sa)
-TABBY_SECRET_KEY=          # sk_test_… then sk_… (the key decides test vs live)
-TABBY_MERCHANT_CODE=       # from your Tabby integration manager
-TABBY_WEBHOOK_SECRET=      # openssl rand -hex 32, sent back to us as a header
+TABBY_SECRET_KEY=                 # sk_test_… then sk_… (the key decides test vs live)
+TABBY_MERCHANT_CODE=             # from your Tabby integration manager (e.g. Nadz)
+TABBY_WEBHOOK_SECRET=            # openssl rand -hex 32, sent back to us as a header
+NEXT_PUBLIC_TABBY_PUBLIC_KEY=    # pk_test_… then pk_…, for the on-site promo widget
+NEXT_PUBLIC_TABBY_MERCHANT_CODE= # same merchant code, exposed client-side for the widget
 
 # Tamara
 TAMARA_API_TOKEN=
@@ -81,6 +83,18 @@ node scripts/tabby-webhook.mjs register
 It registers `NEXT_PUBLIC_SITE_URL/api/webhooks/tabby` with an `x-tabby-auth`
 header set to `TABBY_WEBHOOK_SECRET`; the route rejects anything whose header
 doesn't match. Tabby cannot reach localhost, so this needs the deployed URL.
+
+### On-site promo widget (required for go-live)
+Tabby's checklist requires their "Pay in 4…" messaging wherever a payable price
+shows. `components/TabbyPromo.tsx` loads `tabby-promo.js` and renders it; it's
+live on the `/pay` page against the real quoted amount. It needs the two
+`NEXT_PUBLIC_TABBY_*` vars above and no-ops without them, so it's safe to ship
+before keys are set. The widget is treated as functional (part of the payment
+option), so it loads without the cookie-consent gate.
+
+Shop and cart snippets are also required, but the shop prices in
+`lib/catalog.ts` are placeholders — add `<TabbyPromo>` there once the real
+price list lands, so we never advertise instalments on a made-up figure.
 
 ### Sandbox test buyers (OTP is always `8888`)
 | Outcome | Email | UAE phone |
