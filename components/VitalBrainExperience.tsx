@@ -1,19 +1,9 @@
 import Link from "next/link";
-import {
-  Activity,
-  Brain,
-  Gauge,
-  HeartPulse,
-  Home,
-  Moon,
-  Sparkles,
-  Target,
-  Users,
-  Zap,
-} from "lucide-react";
+import { Brain, Gauge, Home, Sparkles, Users } from "lucide-react";
 import SplineHero from "./vital-brain/SplineHero";
 import BrainDashboard from "./vital-brain/BrainDashboard";
 import WhoCards from "./vital-brain/WhoCards";
+import HelpsGrid from "./vital-brain/HelpsGrid";
 import Reveal from "./vital-brain/Reveal";
 import { waLink } from "@/lib/contact";
 import { PHONE_DISPLAY, PHONE_TEL } from "@/lib/contact";
@@ -31,15 +21,6 @@ const STATS = [
   { big: "2,000", small: "doctor review panel", icon: Users },
   { big: "AI", small: "clinical-grade insights", icon: Sparkles },
   { big: "At home", small: "across Dubai", icon: Home },
-];
-
-const HELPS = [
-  { title: "Anxiety & stress", desc: "Overwhelm and persistent stress.", icon: Activity },
-  { title: "Mood & motivation", desc: "Low motivation and emotional instability.", icon: HeartPulse },
-  { title: "Focus & attention", desc: "Attention and productivity struggles.", icon: Target },
-  { title: "Memory & clarity", desc: "Memory concerns and cognitive fog.", icon: Brain },
-  { title: "Sleep disturbances", desc: "Restless, disrupted sleep.", icon: Moon },
-  { title: "Peak performance", desc: "Optimise an already-healthy brain.", icon: Zap },
 ];
 
 const PLANS = [
@@ -196,27 +177,7 @@ export default function VitalBrainExperience() {
             </h2>
           </Reveal>
 
-          <div className="mt-14 grid gap-px overflow-hidden rounded-2xl bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
-            {HELPS.map((f, i) => {
-              const Icon = f.icon;
-              return (
-                <Reveal key={f.title} delay={i * 70}>
-                  {/* group hover lifts the tile out of the hairline grid */}
-                  <div className="group h-full bg-[#0a0510] p-8 transition-colors duration-300 hover:bg-[#120a1c]">
-                    <span className="vb-grad-icon block transition-opacity duration-300 group-hover:opacity-80">
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <h3 className={`${DISPLAY} mt-6 text-[19px] leading-tight`}>
-                      {f.title}
-                    </h3>
-                    <p className="mt-2.5 text-[14px] leading-relaxed text-[#f5f4f8]/45">
-                      {f.desc}
-                    </p>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
+          <HelpsGrid />
         </div>
       </section>
 

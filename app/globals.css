@@ -651,3 +651,9 @@ body {
   from { stroke-dashoffset: 1; }
   to { stroke-dashoffset: var(--vb-o); }
 }
+
+/* "What it helps with" cards play an abstract clip on hover. Reduced-motion
+   visitors keep the calm static tile and never load the video. */
+@media (prefers-reduced-motion: reduce) {
+  .vb-help-video { display: none; }
+}
