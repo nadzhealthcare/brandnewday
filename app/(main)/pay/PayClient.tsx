@@ -250,9 +250,8 @@ export default function PayClient({
                         <TabbyMark /> Split in 4 · interest-free
                       </span>
                       <ChevronDown
-                        className={`h-4 w-4 text-black/40 transition-transform ${
-                          tabbyOpen ? "rotate-180" : ""
-                        }`}
+                        className={`h-4 w-4 text-black/40 transition-transform ${tabbyOpen ? "rotate-180" : ""
+                          }`}
                       />
                     </button>
                     {tabbyOpen && (
@@ -307,7 +306,7 @@ export default function PayClient({
                       <TabbyMark /> Split in 4 · interest-free
                     </span>
                     <span className="text-[11px] font-semibold uppercase tracking-wide text-black/35">
-                      Soon
+                      Available Now
                     </span>
                   </button>
                 )}
