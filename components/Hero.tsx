@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { Suspense } from "react";
-import Spline from "@splinetool/react-spline/next";
-import { Phone, Timer, Stethoscope } from "lucide-react";
+import { Phone, Timer } from "lucide-react";
 import DhaBadge from "./DhaBadge";
 import BookingBar from "./BookingBar";
 import AutoScrollRow from "./AutoScrollRow";
+import HeroScene from "./HeroScene";
 
 /* ---------- small pieces ---------- */
 
@@ -173,32 +172,14 @@ function GlassCarousel() {
   );
 }
 
-function BrainLoading() {
-  return (
-    <div className="absolute inset-0 grid place-items-center bg-[#2a0e12]">
-      <div className="flex items-center gap-3 text-white/50">
-        <Stethoscope className="h-6 w-6 animate-pulse" />
-        <span className="text-sm">Loading experience…</span>
-      </div>
-    </div>
-  );
-}
-
 /* ---------- hero ---------- */
 
 export default function Hero() {
   return (
     <section className="bg-white px-0 pb-0 pt-0 sm:px-5 sm:pb-8 sm:pt-3 lg:px-6">
       <div className="relative min-h-[100svh] overflow-hidden rounded-none border-0 bg-[#2a0e12] shadow-[0_30px_70px_-30px_rgba(74,28,32,0.55)] sm:min-h-[640px] sm:rounded-[32px] sm:border-[12px] sm:border-white lg:h-[calc(100vh-208px)] lg:max-h-[740px] lg:min-h-[600px]">
-        {/* 3D brain background */}
-        <div className="absolute inset-0">
-          <Suspense fallback={<BrainLoading />}>
-            <Spline
-              scene="https://prod.spline.design/EFHKQjXKEMoZ8GS3/scene.splinecode"
-              className="!absolute !inset-0 !h-full !w-full"
-            />
-          </Suspense>
-        </div>
+        {/* 3D brain background, deferred so it never blocks first paint */}
+        <HeroScene className="absolute inset-0" />
 
         {/* Gentle warm glow (the scene already carries most of the red ambiance) */}
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(65%_75%_at_72%_45%,rgba(160,26,38,0.18),transparent_62%)] mix-blend-screen" />
