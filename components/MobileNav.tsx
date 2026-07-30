@@ -152,7 +152,7 @@ export default function MobileNav({
   );
 
   return (
-    <div className="lg:hidden">
+    <div className="xl:hidden">
       <button
         aria-label="Open menu"
         onClick={() => setOpen(true)}

@@ -23,14 +23,14 @@ export default function Logo({
           <img
             src="/assets/logo-nadz.svg"
             alt="NADZ Healthcare"
-            className="h-11 w-auto sm:h-12 lg:hidden"
+            className="h-11 w-auto sm:h-12 xl:hidden"
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/assets/logo-nadz-dark.svg"
             alt=""
             aria-hidden="true"
-            className="hidden h-11 w-auto sm:h-12 lg:block"
+            className="hidden h-11 w-auto sm:h-12 xl:block"
           />
         </>
       ) : (

@@ -127,7 +127,7 @@ export default function Navbar() {
         offscreen ? "-translate-y-[130%]" : "translate-y-0"
       }`}
     >
-      <div className="mx-auto max-w-[1500px] px-4 pt-4 sm:px-6 sm:pt-5 lg:px-10 lg:pt-6">
+      <div className="mx-auto max-w-[1500px] px-4 pt-4 sm:px-6 sm:pt-5 lg:px-8 lg:pt-6">
         {/* Floating glass bar with margin around it */}
         <div
           onMouseEnter={() => setHovered(true)}
@@ -138,22 +138,23 @@ export default function Navbar() {
           className={`relative flex h-16 items-center justify-between rounded-2xl pl-4 pr-3 transition-colors duration-300 sm:pl-5 sm:pr-4 ${
             solid
               ? "border border-black/5 bg-white/95 shadow-[0_12px_34px_-14px_rgba(74,28,32,0.4)] backdrop-blur"
-              : /* Solid on mobile so there's no glass-to-white swap at the top,
-                   which is what read as a flicker. Glass stays on desktop. */
-                "border border-black/5 bg-white/95 shadow-[0_12px_34px_-14px_rgba(74,28,32,0.4)] backdrop-blur lg:border-white/15 lg:bg-white/10 lg:shadow-[0_12px_34px_-18px_rgba(0,0,0,0.6)] lg:backdrop-blur-md"
+              : /* Solid up to the desktop breakpoint so there's no glass-to-white
+                   swap at the top, which read as a flicker. Glass on desktop. */
+                "border border-black/5 bg-white/95 shadow-[0_12px_34px_-14px_rgba(74,28,32,0.4)] backdrop-blur xl:border-white/15 xl:bg-white/10 xl:shadow-[0_12px_34px_-18px_rgba(0,0,0,0.6)] xl:backdrop-blur-md"
           }`}
         >
           <Logo light={light} />
 
-        {/* Desktop nav */}
-        <nav className="hidden items-center gap-1 lg:flex">
+        {/* Desktop nav — kicks in at xl; below that the nav is too wide for the
+            labels and the hamburger takes over. */}
+        <nav className="hidden items-center gap-0.5 xl:flex">
           {NAV.map((item, i) => {
             if (item.isButton) {
               return (
                 <Link
                   key={item.label}
                   href={item.href!}
-                  className="btn-gold ml-2 rounded-full px-6 py-2.5 text-[14px] font-semibold text-[color:var(--maroon)] shadow-[0_8px_20px_-8px_rgba(169,127,46,0.9)] ring-1 ring-white/40 transition-transform hover:-translate-y-0.5"
+                  className="btn-gold ml-1 rounded-full px-4 py-2.5 text-[14px] font-semibold text-[color:var(--maroon)] shadow-[0_8px_20px_-8px_rgba(169,127,46,0.9)] ring-1 ring-white/40 transition-transform hover:-translate-y-0.5"
                 >
                   {item.label}
                 </Link>
@@ -168,7 +169,7 @@ export default function Navbar() {
                   key={item.label}
                   href={item.href ?? "#"}
                   onMouseEnter={() => setOpenMenu(null)}
-                  className={`rounded-full px-3.5 py-2 text-[15px] font-medium transition-colors ${linkText} ${hoverBg}`}
+                  className={`rounded-full px-3 py-2 text-[14px] font-medium transition-colors ${linkText} ${hoverBg}`}
                 >
                   {item.label}
                 </Link>
@@ -183,7 +184,7 @@ export default function Navbar() {
                 onMouseEnter={() => setOpenMenu(i)}
               >
                 <button
-                  className={`flex items-center gap-1 rounded-full px-3.5 py-2 text-[15px] font-medium transition-colors ${linkText} ${
+                  className={`flex items-center gap-0.5 rounded-full px-3 py-2 text-[14px] font-medium transition-colors ${linkText} ${
                     isOpen ? activeBg : hoverBg
                   }`}
                 >
