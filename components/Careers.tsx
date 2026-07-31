@@ -20,6 +20,22 @@ import {
 } from "lucide-react";
 import SectionTitle from "./SectionTitle";
 import { ROLES, applyMailto, type Role } from "@/lib/careers";
+import { SITE_URL } from "@/lib/site";
+
+function LinkedinIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+      <path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0 0-5ZM3 9h4v12H3V9Zm6 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C20.6 8.65 22 10.6 22 14v7h-4v-6.2c0-1.48-.03-3.38-2.06-3.38-2.06 0-2.38 1.6-2.38 3.27V21H9V9Z" />
+    </svg>
+  );
+}
+
+/* LinkedIn share opens the offsite composer with the careers URL; LinkedIn
+   scrapes the page's OG card, and the sharer picks whether to post to their
+   profile or a company page they manage. */
+const careersShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+  `${SITE_URL}/about/careers`,
+)}`;
 
 /* One open role, laid out with its responsibilities and requirements side by
    side and a pre-filled application email. */
@@ -40,12 +56,24 @@ function RoleCard({ role }: { role: Role }) {
             </span>
           </div>
         </div>
-        <Link
-          href={applyMailto(role)}
-          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[color:var(--maroon)] px-6 py-3 text-[14.5px] font-semibold text-white transition-transform hover:-translate-y-0.5"
-        >
-          <Mail className="h-4 w-4 text-[color:var(--gold-light)]" /> Apply now
-        </Link>
+        <div className="flex shrink-0 items-center gap-2.5">
+          <Link
+            href={applyMailto(role)}
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-[color:var(--maroon)] px-6 py-3 text-[14.5px] font-semibold text-white transition-transform hover:-translate-y-0.5"
+          >
+            <Mail className="h-4 w-4 text-[color:var(--gold-light)]" /> Apply now
+          </Link>
+          <a
+            href={careersShareUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Share this role on LinkedIn"
+            title="Share on LinkedIn"
+            className="grid h-11 w-11 place-items-center rounded-full bg-[#f5f4f2] text-[color:var(--maroon)] ring-1 ring-black/5 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#0A66C2] hover:text-white"
+          >
+            <LinkedinIcon className="h-[18px] w-[18px]" />
+          </a>
+        </div>
       </div>
 
       <p className="mt-5 text-[15px] leading-relaxed text-black/60">
