@@ -12,10 +12,104 @@ import {
   Rocket,
   Briefcase,
   Mail,
+  MapPin,
+  Check,
+  Dot,
   ArrowUpRight,
   type LucideIcon,
 } from "lucide-react";
 import SectionTitle from "./SectionTitle";
+import { ROLES, applyMailto, type Role } from "@/lib/careers";
+
+/* One open role, laid out with its responsibilities and requirements side by
+   side and a pre-filled application email. */
+function RoleCard({ role }: { role: Role }) {
+  return (
+    <article className="overflow-hidden rounded-[28px] border border-black/5 bg-white p-7 shadow-[0_24px_60px_-38px_rgba(43,26,23,0.6)] ring-1 ring-black/5 sm:p-9">
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h3 className="text-[24px] font-semibold leading-tight text-[color:var(--maroon)] sm:text-[27px]">
+            {role.title}
+          </h3>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--maroon)]/[0.06] px-3 py-1 text-[12.5px] font-medium text-[color:var(--maroon)]">
+              <MapPin className="h-3.5 w-3.5" /> {role.location}
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--gold)]/15 px-3 py-1 text-[12.5px] font-medium text-[color:var(--gold-dark)]">
+              <Briefcase className="h-3.5 w-3.5" /> {role.type}
+            </span>
+          </div>
+        </div>
+        <Link
+          href={applyMailto(role)}
+          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[color:var(--maroon)] px-6 py-3 text-[14.5px] font-semibold text-white transition-transform hover:-translate-y-0.5"
+        >
+          <Mail className="h-4 w-4 text-[color:var(--gold-light)]" /> Apply now
+        </Link>
+      </div>
+
+      <p className="mt-5 text-[15px] leading-relaxed text-black/60">
+        {role.summary}
+      </p>
+
+      <div className="mt-7 grid gap-8 sm:grid-cols-2">
+        <div>
+          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-black/40">
+            Key Responsibilities
+          </p>
+          <ul className="mt-4 space-y-2.5">
+            {role.responsibilities.map((r) => (
+              <li key={r} className="flex gap-2.5 text-[14px] leading-snug text-black/70">
+                <Dot className="mt-0.5 h-5 w-5 shrink-0 text-[color:var(--gold-dark)]" strokeWidth={3} />
+                <span>{r}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-black/40">
+            Requirements
+          </p>
+          <ul className="mt-4 space-y-2.5">
+            {role.requirements.map((r) => (
+              <li key={r} className="flex gap-2.5 text-[14px] leading-snug text-black/70">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-[color:var(--maroon)]" strokeWidth={2.6} />
+                <span>{r}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+/* Shown when there are no open roles. */
+function TalentPoolCard() {
+  return (
+    <div className="group relative mx-auto max-w-2xl overflow-hidden rounded-[28px] border border-[color:var(--gold)]/25 bg-[#fbf8f0] px-6 py-12 text-center transition-shadow duration-500 hover:shadow-[0_30px_60px_-34px_rgba(169,127,46,0.6)] sm:py-14">
+      <span className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-white text-[color:var(--maroon)] ring-1 ring-black/5 transition-transform duration-500 group-hover:scale-110">
+        <Briefcase className="h-7 w-7" strokeWidth={1.6} />
+      </span>
+      <h3 className="mt-6 text-[20px] font-semibold text-[#2b1a17]">
+        No open roles right now
+      </h3>
+      <p className="mx-auto mt-3 max-w-md text-[14.5px] leading-relaxed text-black/55">
+        We&apos;re not actively hiring at the moment, but we&apos;re always glad
+        to hear from exceptional doctors, nurses and specialists. Introduce
+        yourself and we&apos;ll reach out when the right role opens.
+      </p>
+      <Link
+        href="mailto:careers@nadzhealthcare.com?subject=Joining%20the%20NADZ%20talent%20pool"
+        className="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-[color:var(--maroon)] px-7 py-3.5 text-[15px] font-semibold text-white transition-transform hover:-translate-y-0.5"
+      >
+        <Mail className="h-4 w-4 text-[color:var(--gold-light)]" />
+        Join our talent pool
+      </Link>
+      <Glare />
+    </div>
+  );
+}
 
 /* diagonal light streak that glides across a card on hover */
 function Glare() {
@@ -198,28 +292,17 @@ export default function Careers() {
             Current opportunities
           </SectionTitle>
 
-          <div className="group relative mx-auto mt-10 max-w-2xl overflow-hidden rounded-[28px] border border-[color:var(--gold)]/25 bg-[#fbf8f0] px-6 py-12 text-center transition-shadow duration-500 hover:shadow-[0_30px_60px_-34px_rgba(169,127,46,0.6)] sm:py-14">
-            <span className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-white text-[color:var(--maroon)] ring-1 ring-black/5 transition-transform duration-500 group-hover:scale-110">
-              <Briefcase className="h-7 w-7" strokeWidth={1.6} />
-            </span>
-            <h3 className="mt-6 text-[20px] font-semibold text-[#2b1a17]">
-              No open roles right now
-            </h3>
-            <p className="mx-auto mt-3 max-w-md text-[14.5px] leading-relaxed text-black/55">
-              We&apos;re not actively hiring at the moment, but we&apos;re always
-              glad to hear from exceptional doctors, nurses and specialists.
-              Introduce yourself and we&apos;ll reach out when the right role
-              opens.
-            </p>
-            <Link
-              href="mailto:careers@nadzhealthcare.com?subject=Joining%20the%20NADZ%20talent%20pool"
-              className="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-[color:var(--maroon)] px-7 py-3.5 text-[15px] font-semibold text-white transition-transform hover:-translate-y-0.5"
-            >
-              <Mail className="h-4 w-4 text-[color:var(--gold-light)]" />
-              Join our talent pool
-            </Link>
-            <Glare />
-          </div>
+          {ROLES.length === 0 ? (
+            <div className="mt-10">
+              <TalentPoolCard />
+            </div>
+          ) : (
+            <div className="mx-auto mt-10 flex max-w-3xl flex-col gap-6">
+              {ROLES.map((role) => (
+                <RoleCard key={role.slug} role={role} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
