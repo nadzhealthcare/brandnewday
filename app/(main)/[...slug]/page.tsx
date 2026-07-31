@@ -23,6 +23,53 @@ import {
   ALL_PATHS,
 } from "@/lib/page-content";
 import { SEO_OVERRIDES } from "@/lib/seo";
+import { ROLES } from "@/lib/careers";
+
+/* The careers page gets a hiring-specific share card: a branded image plus a
+   title and description built from the open role, so a LinkedIn/social share
+   reads "We're hiring: <role>" rather than a bare page title. Falls back to a
+   plain careers card when nothing is open. */
+function careersMetadata(path: string): Metadata {
+  const open = ROLES[0];
+  const many = ROLES.length > 1;
+  const title =
+    ROLES.length === 0
+      ? "Careers at NADZ Healthcare"
+      : many
+        ? "We're Hiring — Join the NADZ Healthcare Team"
+        : `We're Hiring: ${open.title} — NADZ Healthcare`;
+  const description =
+    ROLES.length === 0
+      ? "Explore careers at NADZ Healthcare, Dubai's premium home-healthcare team."
+      : many
+        ? "Open roles at NADZ Healthcare. Join Dubai's premium home-healthcare team."
+        : `${open.title} · ${open.location} · ${open.type}. Join Dubai's premium home-healthcare team.`;
+  return {
+    alternates: { canonical: path },
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: path,
+      type: "website",
+      images: [
+        {
+          url: "/assets/careers.jpg",
+          width: 1200,
+          height: 630,
+          alt: "We're hiring at NADZ Healthcare",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/assets/careers.jpg"],
+    },
+  };
+}
 
 // routes with a fully custom page instead of the default slider hero
 const CUSTOM_PAGES: Record<string, React.ComponentType> = {
@@ -66,6 +113,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const path = "/" + slug.join("/");
+  if (path === "/about/careers") return careersMetadata(path);
   const meta = PAGE_META[path];
   // Restored original title/description wins, used verbatim. Otherwise the
   // page name runs through the "{label}, NADZ Healthcare" template.

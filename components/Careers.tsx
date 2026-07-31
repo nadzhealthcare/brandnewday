@@ -76,9 +76,11 @@ function RoleCard({ role }: { role: Role }) {
         </div>
       </div>
 
-      <p className="mt-5 text-[15px] leading-relaxed text-black/60">
-        {role.summary}
-      </p>
+      <div className="mt-5 space-y-3 text-[15px] leading-relaxed text-black/60">
+        {role.summary.split("\n\n").map((para, i) => (
+          <p key={i}>{para}</p>
+        ))}
+      </div>
 
       <div className="mt-7 grid gap-8 sm:grid-cols-2">
         <div>
