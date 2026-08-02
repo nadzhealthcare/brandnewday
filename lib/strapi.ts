@@ -224,8 +224,13 @@ export async function getEventBySlug(slug: string): Promise<EventItem | null> {
 export type AwardItem = {
   id: number;
   title: string;
+  /* slug + gallery are added to the Award Item component in Strapi to give each
+     award an article-style detail page; both are absent until then, so the card
+     links and gallery light up once they exist. body/image are already there. */
+  slug?: string | null;
   body?: string | null;
   image?: StrapiMedia;
+  gallery?: NonNullable<StrapiMedia>[] | null;
 };
 type SinglePage<T> = {
   data:
@@ -253,6 +258,14 @@ export async function getAwards(): Promise<{
     pillText: d?.pillText,
     items: d?.items ?? [],
   };
+}
+
+/** A single award by its (per-item) slug. Awards are a single type holding a
+    list, so this reads them all and matches — the list is short. */
+export async function getAwardBySlug(slug: string): Promise<AwardItem | null> {
+  const clean = slug.trim();
+  const { items } = await getAwards();
+  return items.find((a) => a.slug?.trim() === clean) ?? null;
 }
 
 /* ---------------- Interviews & Podcasts (single type) ---------------- */

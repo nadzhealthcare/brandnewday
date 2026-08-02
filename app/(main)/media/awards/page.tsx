@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Award } from "lucide-react";
 import SectionTitle from "@/components/SectionTitle";
 import { getAwards, mediaUrl, type AwardItem } from "@/lib/strapi";
@@ -48,10 +49,9 @@ function AwardCard({
     overflow: "hidden",
   });
 
-  return (
-    <article
-      className={`group relative overflow-hidden rounded-[24px] shadow-[0_20px_50px_-30px_rgba(20,10,16,0.6)] ring-1 ring-black/5 ${spanClass}`}
-    >
+  const cls = `group relative block overflow-hidden rounded-[24px] shadow-[0_20px_50px_-30px_rgba(20,10,16,0.6)] ring-1 ring-black/5 ${spanClass}`;
+  const inner = (
+    <>
       {img ? (
         <Image
           src={img}
@@ -103,7 +103,17 @@ function AwardCard({
           </p>
         )}
       </div>
-    </article>
+    </>
+  );
+
+  // Link to the detail page only once the award has a slug, so there are no
+  // broken links before the slug field is filled in Strapi.
+  return a.slug ? (
+    <Link href={`/media/awards/${a.slug}`} className={cls}>
+      {inner}
+    </Link>
+  ) : (
+    <article className={cls}>{inner}</article>
   );
 }
 
