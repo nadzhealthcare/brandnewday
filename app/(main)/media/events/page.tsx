@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { CalendarDays, MapPin } from "lucide-react";
 import SectionTitle from "@/components/SectionTitle";
 import { getEvents, mediaUrl } from "@/lib/strapi";
@@ -60,18 +61,19 @@ export default async function EventsPage() {
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {items.map((e) => {
-                const img = mediaUrl(e.image, "medium");
+                const img = mediaUrl(e.coverImage, "medium");
                 const when = formatDate(e.eventDate);
                 return (
-                  <article
+                  <Link
                     key={e.id}
+                    href={`/media/events/${e.slug}`}
                     className="group flex flex-col overflow-hidden rounded-[22px] bg-white ring-1 ring-black/5 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_30px_56px_-30px_rgba(43,26,23,0.5)] hover:ring-[color:var(--gold)]/30"
                   >
                     <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#f0eeea]">
                       {img ? (
                         <Image
                           src={img}
-                          alt={e.image?.alternativeText || e.title}
+                          alt={e.coverImage?.alternativeText || e.title}
                           fill
                           sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 380px"
                           className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
@@ -111,7 +113,7 @@ export default async function EventsPage() {
                         )}
                       </div>
                     </div>
-                  </article>
+                  </Link>
                 );
               })}
             </div>

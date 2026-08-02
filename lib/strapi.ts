@@ -179,15 +179,45 @@ export type EventItem = {
   eventEndDate?: string | null;
   location?: string | null;
   category?: string | null;
-  image?: StrapiMedia;
+  coverImage?: StrapiMedia;
+  /* Events carry the same Article Content component as articles (`content.intro`
+     Markdown) plus a multiple-media `gallery`, so a detail page can read like an
+     article. Populated only on the single-event fetch. */
+  content?: { intro?: string | null } | null;
+  gallery?: NonNullable<StrapiMedia>[] | null;
 };
 
+/* The detail fetch pulls the cover, the gallery and the content component.
+   Each query falls back to an un-populated one if the populate is ever
+   rejected, so a schema hiccup degrades to "no media" rather than emptying the
+   page or 404-ing every event. */
+const EVENT_MEDIA =
+  "&populate[coverImage]=true&populate[gallery]=true&populate[content][populate]=*";
+
 export async function getEvents(): Promise<EventItem[]> {
-  // the events type has no media field, so no populate
-  const json = await strapiFetch<StrapiList<EventItem>>(
-    `/api/events?sort=eventDate:desc&pagination[pageSize]=50`,
-  );
+  const base = "/api/events?sort=eventDate:desc&pagination[pageSize]=50";
+  const json =
+    (await strapiFetch<StrapiList<EventItem>>(
+      `${base}&populate[coverImage]=true`,
+    )) ?? (await strapiFetch<StrapiList<EventItem>>(base));
   return json?.data ?? [];
+}
+
+export async function getEventBySlug(slug: string): Promise<EventItem | null> {
+  const clean = slug.trim();
+  const q = (op: string) =>
+    `/api/events?filters[slug][${op}]=${encodeURIComponent(clean)}`;
+
+  const exact =
+    (await strapiFetch<StrapiList<EventItem>>(`${q("$eq")}${EVENT_MEDIA}`)) ??
+    (await strapiFetch<StrapiList<EventItem>>(q("$eq")));
+  if (exact?.data?.[0]) return exact.data[0];
+
+  // Fallback for a slug saved with stray whitespace (same guard as articles).
+  const loose =
+    (await strapiFetch<StrapiList<EventItem>>(`${q("$containsi")}${EVENT_MEDIA}`)) ??
+    (await strapiFetch<StrapiList<EventItem>>(q("$containsi")));
+  return loose?.data?.find((e) => e.slug?.trim() === clean) ?? null;
 }
 
 /* ---------------- Awards & Achievements (single type) ---------------- */
