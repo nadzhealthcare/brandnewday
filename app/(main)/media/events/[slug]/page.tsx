@@ -8,6 +8,7 @@ import rehypeRaw from "rehype-raw";
 import { ArrowLeft, CalendarDays, MapPin } from "lucide-react";
 import { getEventBySlug, mediaUrl } from "@/lib/strapi";
 import ShareButtons from "@/components/ShareButtons";
+import EventGallery from "@/components/EventGallery";
 
 export const revalidate = 300;
 
@@ -57,8 +58,17 @@ export default async function EventPage({
   const when = formatDate(e.eventDate);
   const whenEnd = formatDate(e.eventEndDate);
   const gallery = (e.gallery ?? [])
-    .map((g) => ({ url: mediaUrl(g, "medium"), alt: g.alternativeText || e.title }))
-    .filter((g): g is { url: string; alt: string } => !!g.url);
+    .map((g) => {
+      const thumb = mediaUrl(g, "medium");
+      return thumb
+        ? {
+            thumb,
+            full: mediaUrl(g) || thumb, // original for the lightbox
+            alt: g.alternativeText || e.title,
+          }
+        : null;
+    })
+    .filter((g): g is { thumb: string; full: string; alt: string } => g !== null);
   // The write-up, or the excerpt as a graceful fallback until a body is added.
   const body = e.content?.intro?.trim() || e.excerpt?.trim() || "";
 
@@ -129,28 +139,13 @@ export default async function EventPage({
           </div>
         )}
 
-        {/* photo gallery */}
+        {/* photo gallery with tap-to-enlarge lightbox */}
         {gallery.length > 0 && (
           <div className="mt-12">
             <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-black/40">
               Gallery
             </p>
-            <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-              {gallery.map((g, i) => (
-                <div
-                  key={i}
-                  className="relative aspect-square overflow-hidden rounded-[16px] bg-[#f0eeea] ring-1 ring-black/5"
-                >
-                  <Image
-                    src={g.url}
-                    alt={g.alt}
-                    fill
-                    sizes="(max-width:640px) 50vw, 240px"
-                    className="object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                </div>
-              ))}
-            </div>
+            <EventGallery images={gallery} />
           </div>
         )}
 
