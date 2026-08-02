@@ -47,6 +47,31 @@ export const ROLES: Role[] = [
       "UAE driving licence is a plus",
     ],
   },
+  {
+    slug: "driver",
+    title: "Driver (Own Visa Preferred)",
+    location: "Dubai, UAE",
+    type: "Full-Time",
+    summary:
+      "We are looking for a responsible, punctual, and professional Driver to join our team.",
+    responsibilities: [
+      "Safely transport staff and company materials as assigned",
+      "Ensure timely pick-up and drop-off according to schedules",
+      "Maintain the cleanliness and good condition of the assigned vehicle",
+      "Conduct routine vehicle inspections and report any maintenance issues promptly",
+      "Follow all UAE traffic rules and company policies",
+      "Assist with basic administrative or operational tasks when required",
+    ],
+    requirements: [
+      "Valid UAE Driving License",
+      "Good knowledge of Dubai roads and navigation",
+      "Minimum 2 years of driving experience in the UAE is preferred",
+      "Good communication skills in English (Arabic is an advantage)",
+      "Professional appearance and courteous attitude",
+      "Own Visa is preferred",
+      "Ability to join immediately is an advantage",
+    ],
+  },
 ];
 
 /** Pre-filled application mailto for a role. */
