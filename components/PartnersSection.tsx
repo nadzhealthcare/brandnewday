@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { ArrowRight, Handshake, ShieldCheck } from "lucide-react";
+import { Handshake, ShieldCheck } from "lucide-react";
 import SectionTitle from "./SectionTitle";
 import PartnersGrid from "./PartnersGrid";
 
@@ -50,16 +49,6 @@ export default function PartnersSection() {
           </p>
 
           <PartnersGrid />
-
-          <div className="mt-8">
-            <Link
-              href="/partners"
-              className="inline-flex items-center gap-2 rounded-full border border-[color:var(--maroon)]/20 bg-white px-6 py-3 text-[14px] font-semibold text-[color:var(--maroon)] transition-colors hover:bg-[color:var(--cream)]"
-            >
-              View All Partners
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
         </div>
       </div>
     </section>

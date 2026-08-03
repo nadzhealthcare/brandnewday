@@ -81,8 +81,8 @@ export const SEO_OVERRIDES: Record<string, SeoMeta> = {
       "Experience the transformative power of precision peptide protocols. Cellular regeneration, hormonal balance & performance optimization.",
   },
   "/wellness/functional-integrative-medicine": {
-    title: "Functional & Integrated Medicine | NADZ Healthcare",
+    title: "Functional & Integrative Medicine | NADZ Healthcare",
     description:
-      "Your Personalized Pathway to Root-Cause Healing & Lifelong Wellness. Deep, investigative, biology-first approach that studies how your genetics, environment, lifestyle, metabolism, gut, hormones, nervous system, and immune function interact.",
+      "Root-cause, biology-first care for lifelong wellness — studying how your genetics, environment, lifestyle, metabolism, gut, hormones and immunity interact.",
   },
 };
