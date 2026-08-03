@@ -155,7 +155,7 @@ export default async function AwardsPage() {
               Our latest achievements will appear here shortly.
             </p>
           ) : items.length === 1 ? (
-            <div className="grid auto-rows-[480px] grid-cols-1 sm:auto-rows-[700px]">
+            <div className="grid auto-rows-[300px] grid-cols-1 sm:auto-rows-[700px]">
               <AwardCard a={items[0]} featured />
             </div>
           ) : items.length === 2 ? (
