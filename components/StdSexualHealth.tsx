@@ -138,6 +138,55 @@ const PANELS: Panel[] = [
   },
 ];
 
+/* Full inclusion lists for the combined panels, from the NADZ STD Panels sheet. */
+const STD14: string[] = [
+  "Chlamydia Trachomatis",
+  "Neisseria Gonorrhoeae",
+  "Mycoplasma Genitalium",
+  "Mycoplasma Hominis",
+  "Trichomonas Vaginalis",
+  "Varicella-Zoster Virus",
+  "Chlamydia Trachomatis LGV",
+  "Treponema Pallidum",
+  "Haemophilus Ducreyi",
+  "Herpes Simplex Virus 1",
+  "Herpes Simplex Virus 2",
+  "Cytomegalovirus",
+  "Ureaplasma Parvum",
+  "Ureaplasma Urealyticum",
+];
+
+const STD28: string[] = [
+  "Chlamydia Trachomatis",
+  "Neisseria Gonorrhoeae",
+  "Mycoplasma Genitalium",
+  "Mycoplasma Hominis",
+  "Trichomonas Vaginalis",
+  "Varicella-Zoster Virus",
+  "Chlamydia Trachomatis LGV",
+  "Treponema Pallidum",
+  "Haemophilus Ducreyi",
+  "Gardnerella Vaginalis",
+  "Atopobium Vaginae",
+  "Megasphaera type 1",
+  "BV-associated bacteria 2",
+  "Mobiluncus spp",
+  "Lactobacillus spp",
+  "Herpes Simplex Virus 1",
+  "Herpes Simplex Virus 2",
+  "Cytomegalovirus",
+  "Bacteroides Fragilis",
+  "Candida Albicans",
+  "Candida Glabrata",
+  "Candida Tropicalis",
+  "Candida Parapsilosis",
+  "Candida Krusei",
+  "Candida Lusitaniae",
+  "Candida Dubliniensis",
+  "Ureaplasma Parvum",
+  "Ureaplasma Urealyticum",
+];
+
 const TRUST = [
   { icon: ShieldCheck, big: "DHA", small: "licensed nurses" },
   { icon: Lock, big: "100%", small: "confidential" },
@@ -362,18 +411,23 @@ export default function StdSexualHealth() {
           <div className="mx-auto max-w-[1180px]">
             <div className="text-center">
               <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-black/40">
-                Inside the STD 7 Panels
+                What Each Panel Detects
               </p>
               <SectionTitle className="mt-3 text-[2rem] text-[color:var(--maroon)] sm:text-[2.6rem]">
-                Exactly what each panel detects
+                Exactly what's included
               </SectionTitle>
               <p className="mx-auto mt-4 max-w-xl text-[15px] text-black/55">
-                Every STD 7 panel screens seven targeted pathogens. STD 14 and
-                STD 28 combine these groups for wider coverage.
+                Every STD 7 panel screens seven targeted pathogens; STD 14 and
+                STD 28 combine them for wider coverage. Here's the full list for
+                each.
               </p>
             </div>
 
-            <div className="mt-11 grid gap-4 sm:grid-cols-2">
+            <p className="mt-11 text-[12px] font-semibold uppercase tracking-[0.16em] text-[color:var(--maroon)]/70">
+              STD 7 · pick one focus — AED 699
+            </p>
+
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
               {PANELS.map((panel) => (
                 <article
                   key={panel.name}
@@ -400,6 +454,69 @@ export default function StdSexualHealth() {
                     {panel.items.map((org) => (
                       <li
                         key={org}
+                        className="flex items-center gap-2 text-[13px] text-black/70"
+                      >
+                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--gold)]" />
+                        <span className="font-mono text-[12.5px] leading-snug tracking-tight">
+                          {org}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Glare />
+                </article>
+              ))}
+            </div>
+
+            {/* combined panels — full inclusion lists */}
+            <p className="mt-10 text-[12px] font-semibold uppercase tracking-[0.16em] text-[color:var(--maroon)]/70">
+              STD 14 &amp; STD 28 · combined coverage
+            </p>
+            <div className="mt-5 grid gap-4 lg:grid-cols-2">
+              {[
+                {
+                  code: "STD 14",
+                  price: 1199,
+                  note: "Routine screen — bacterial, viral & ulcer",
+                  items: STD14,
+                },
+                {
+                  code: "STD 28",
+                  price: 1899,
+                  note: "Complete screen — the full spectrum",
+                  items: STD28,
+                },
+              ].map((panel) => (
+                <article
+                  key={panel.code}
+                  className="group relative overflow-hidden rounded-[24px] bg-white p-6 ring-1 ring-black/5 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_30px_56px_-30px_rgba(43,26,23,0.45)] hover:ring-[color:var(--gold)]/30 sm:p-7"
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <span className="grid h-11 w-11 place-items-center rounded-2xl bg-[color:var(--maroon)] text-white ring-1 ring-[color:var(--maroon)]/10 transition-transform duration-500 group-hover:scale-110">
+                        <FlaskConical className="h-5 w-5" strokeWidth={1.7} />
+                      </span>
+                      <div>
+                        <h3 className="text-[18px] font-semibold text-[#241417]">
+                          {panel.code}
+                        </h3>
+                        <p className="text-[12.5px] text-black/45">{panel.note}</p>
+                      </div>
+                    </div>
+                    <span className="shrink-0 text-right">
+                      <span className="block font-title text-[17px] leading-none text-[color:var(--maroon)]">
+                        AED {money(panel.price)}
+                      </span>
+                      <span className="font-mono text-[11px] text-black/30">
+                        {panel.items.length}×
+                      </span>
+                    </span>
+                  </div>
+
+                  <ul className="mt-5 grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-2">
+                    {panel.items.map((org, i) => (
+                      <li
+                        key={`${org}-${i}`}
                         className="flex items-center gap-2 text-[13px] text-black/70"
                       >
                         <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--gold)]" />
