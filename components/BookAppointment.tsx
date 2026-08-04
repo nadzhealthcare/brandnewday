@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   SlidersHorizontal,
@@ -76,6 +76,18 @@ export default function BookAppointment() {
   const [notes, setNotes] = useState("");
   const [locating, setLocating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Pre-fill from the URL so a "Book this panel" link (or any other deep link)
+  // can land here with the service chosen and the chosen item in the notes.
+  // Read once on mount from window.location so /book stays statically rendered
+  // (no useSearchParams, which would force the route to be dynamic).
+  useEffect(() => {
+    const sp = new URLSearchParams(window.location.search);
+    const svc = sp.get("service");
+    const panel = sp.get("panel");
+    if (svc && SERVICES.includes(svc)) setService(svc);
+    if (panel) setNotes((n) => n || `Requested: ${panel}`);
+  }, []);
 
   const locate = async () => {
     setLocating(true);

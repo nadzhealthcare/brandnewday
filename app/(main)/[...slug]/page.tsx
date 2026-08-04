@@ -9,6 +9,7 @@ import Careers from "@/components/Careers";
 import FaqPage from "@/components/FaqPage";
 import ContactPage from "@/components/ContactPage";
 import DoctorOnCall from "@/components/DoctorOnCall";
+import StdSexualHealth from "@/components/StdSexualHealth";
 import BookAppointment from "@/components/BookAppointment";
 import HowItWorks from "@/components/HowItWorks";
 import ServiceBody from "@/components/ServiceBody";
@@ -86,6 +87,7 @@ const CUSTOM_PAGES: Record<string, React.ComponentType> = {
 // routes that keep the default slider hero, then render a custom body below it
 const CUSTOM_BODIES: Record<string, React.ComponentType> = {
   "/services/doctor-on-call": DoctorOnCall,
+  "/services/labs-at-home/std-sexual-health": StdSexualHealth,
 };
 
 // only pre-generate the known menu routes; anything else 404s
