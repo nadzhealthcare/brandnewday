@@ -114,6 +114,17 @@ function TitleBlock({
   );
 }
 
+/* Per-slide focal point for object-cover. A wide landscape shot loses most of
+   its width in the tall mobile hero, so a photo whose subject sits off-centre
+   needs its focus nudged to stay in frame. Keyed by src; anything unlisted
+   stays centred. On desktop the hero shows the full width, so a horizontal
+   value here is a no-op there — it only reframes the mobile crop. */
+const SLIDE_FOCUS: Record<string, string> = {
+  // Couple sits centre with the nurse on the right; nudge right so the couple
+  // and the collection are framed rather than the woman being cut at the edge.
+  "/assets/std-hero-1.webp": "62% center",
+};
+
 export default function PageHero({
   title,
   description,
@@ -155,7 +166,10 @@ export default function PageHero({
           {slides.map((src, i) => {
             const cls =
               "absolute inset-0 h-full w-full object-cover transition-opacity duration-[1100ms] ease-in-out";
-            const style = { opacity: i === index ? 1 : 0 };
+            const style: React.CSSProperties = {
+              opacity: i === index ? 1 : 0,
+              objectPosition: SLIDE_FOCUS[src],
+            };
             return /\.(mp4|webm)$/i.test(src) ? (
               <video
                 key={`${src}-${i}`}
