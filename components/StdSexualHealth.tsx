@@ -560,7 +560,7 @@ export default function StdSexualHealth() {
                 <Glare />
               </div>
 
-              <div className="relative overflow-hidden rounded-[24px] ring-1 ring-black/5 lg:row-span-2">
+              <div className="relative min-h-[420px] overflow-hidden rounded-[24px] ring-1 ring-black/5 lg:min-h-0 lg:row-span-2">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/assets/labs-at-home.webp"
@@ -584,7 +584,7 @@ export default function StdSexualHealth() {
                 </div>
               </div>
 
-              <div className="relative overflow-hidden rounded-[24px] ring-1 ring-black/5">
+              <div className="relative min-h-[240px] overflow-hidden rounded-[24px] ring-1 ring-black/5 lg:min-h-0">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/assets/dna2.webp"
@@ -603,7 +603,7 @@ export default function StdSexualHealth() {
               </div>
 
               {/* col 1 bottom photo */}
-              <div className="relative overflow-hidden rounded-[24px] ring-1 ring-black/5">
+              <div className="relative min-h-[240px] overflow-hidden rounded-[24px] ring-1 ring-black/5 lg:min-h-0">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/assets/lab.jpg"
