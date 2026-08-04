@@ -160,9 +160,9 @@ export const HERO_IMAGES: Record<string, string[]> = {
     "/assets/fam.jpg",
   ],
   "/services/labs-at-home/std-sexual-health": [
-    "/assets/labs-at-home.webp",
-    "/assets/advanced.jpg",
-    "/assets/doct.jpg",
+    "/assets/std-hero-1.webp",
+    "/assets/std_hero.mp4",
+    "/assets/doc-car.jpg",
   ],
   "/services/labs-at-home/covid-pcr": [
     "/assets/labs-at-home.webp",
