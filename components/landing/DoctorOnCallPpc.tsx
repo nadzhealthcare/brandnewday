@@ -37,7 +37,8 @@ const CSS = `
   overflow-x:hidden;scroll-behavior:smooth;
 }
 .ppc h1,.ppc h2,.ppc h3{font-family:var(--font-mona),Georgia,'Times New Roman',serif;line-height:1.12;font-weight:600;letter-spacing:-.01em}
-.ppc a{color:inherit;text-decoration:none}
+.ppc a:not(.btn){color:inherit}
+.ppc a{text-decoration:none}
 .ppc img{max-width:100%;display:block;height:auto}
 .ppc h1,.ppc h2{text-wrap:balance}
 .ppc p{text-wrap:pretty}
@@ -254,7 +255,69 @@ section.sec{padding:74px 0}
 @media(max-width:960px){.hero-grid{grid-template-columns:1fr;gap:28px;padding:36px 0 44px}.hero h1{font-size:clamp(2rem,6vw,2.9rem)}.bgrid{grid-template-columns:repeat(2,1fr)}.sgrid{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:1fr}.rgrid{grid-template-columns:repeat(2,1fr)}.split .wrap{grid-template-columns:1fr;gap:50px}.foot-grid{grid-template-columns:1fr;gap:28px}.nav-phone .txt{display:none}.split-img{max-width:440px;margin:0 auto}.staffgrid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:760px){section.sec{padding:56px 0}.trustbar .wrap{gap:16px 22px}.trustbar .ti{min-width:44%}.rev-top .score{font-size:1.9rem}}
 @media(max-width:640px){.wrap{padding:0 16px}section.sec{padding:48px 0}.sec-head{margin-bottom:34px}.btn{white-space:normal}.nav .btn.book-top{display:none}.bgrid,.sgrid,.rgrid{grid-template-columns:1fr}.greviews{width:100%;justify-content:flex-start}.hero-cta{gap:10px}.hero-cta .btn{flex:1 1 auto}.fc-alt{flex-direction:column}.mobile-cta{display:flex}.ppc{padding-bottom:76px}.topstrip .hide-sm{display:none}.foot-bottom{flex-direction:column}.formcard{padding:24px 18px 22px}.split-img{max-width:100%}.trustbar .award{width:100%}.staffgrid{grid-template-columns:repeat(2,1fr)}.gallery{grid-template-columns:1fr}.team-head{flex-direction:column;align-items:flex-start;gap:16px}.slide{flex-basis:80vw;max-width:80vw}}
-@media(max-width:400px){.hero h1{font-size:1.72rem}.btn{padding:14px 18px;font-size:.95rem}.greviews{gap:10px;padding:10px 12px}.greviews .g-num{font-size:1.3rem}.sec-head h2{font-size:1.5rem}.mobile-cta a{font-size:.68rem}.step,.bcard,.scard{padding:22px 18px}}
+@media(max-width:400px){.hero h1{font-size:1.72rem}.btn{padding:14px 18px;font-size:.95rem}.sec-head h2{font-size:1.5rem}.mobile-cta a{font-size:.68rem}.step,.bcard,.scard{padding:22px 18px}}
+
+/* ---------- Hero redesign: full-bleed doc.webp + glassmorphism form ---------- */
+.hero{position:relative;min-height:100vh;color:#fff;overflow:hidden;display:flex;background:#2B1A17 url('/assets/doc.webp') center/cover no-repeat}
+.hero::after{display:none}
+.hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(26,9,12,.94) 0%,rgba(26,9,12,.74) 40%,rgba(26,9,12,.40) 100%),linear-gradient(0deg,rgba(18,7,9,.82) 0%,transparent 42%)}
+.hero-inner{position:relative;z-index:2;width:100%;max-width:var(--maxw);margin:0 auto;padding:18px 22px 46px;display:flex;flex-direction:column;min-height:100vh}
+.hero-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:11px 12px 11px 20px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(12px)}
+.hero-nav .brand img{height:32px;width:auto;display:block}
+.hero-nav-right{display:flex;align-items:center;gap:14px}
+.hero-phone{display:inline-flex;align-items:center;gap:10px;color:#fff;font-weight:700}
+.hero-phone small{display:block;font-size:.62rem;font-weight:600;color:rgba(255,255,255,.6);letter-spacing:.05em;text-transform:uppercase}
+.hero-phone .ph-ic{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.12);display:grid;place-items:center;color:var(--gold-soft)}
+.hero-phone .ph-ic svg{width:17px;height:17px}
+.btn-book{background:#fff;color:var(--maroon-dark);padding:11px 22px;font-size:.92rem;border:none}
+.btn-book:hover{background:#fff;transform:translateY(-2px);filter:brightness(.97)}
+.hero-grid{flex:1;display:grid;grid-template-columns:1.05fr minmax(0,430px);gap:46px;align-items:center;padding:34px 0;position:static}
+.hero-copy{max-width:660px}
+.hero-rate{display:inline-flex;align-items:center;gap:8px;font-size:.82rem;font-weight:600;color:#F4E7D9;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);padding:7px 15px;border-radius:999px;margin-bottom:20px}
+.hero-rate svg{width:15px;height:15px;color:var(--star)}
+.hero-rate b{color:#fff;font-weight:800}
+.hero-eyebrow{display:block;font-size:.74rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:12px}
+.hero h1{font-size:clamp(2.3rem,4.9vw,3.7rem);line-height:1.04;margin:0 0 16px;font-weight:600;color:#fff}
+.hero h1 i{font-style:italic;color:var(--gold-soft)}
+.hero .sub{font-size:1.05rem;color:#EAD9CC;max-width:33em;margin-bottom:22px}
+.hero .usp{margin:0 0 24px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:26px}
+.hero-cta .btn-gold svg{width:16px;height:16px}
+.hero-tags{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.hero-tags-lbl{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.hero-tags .tag{display:inline-flex;align-items:center;gap:8px;font-size:.82rem;font-weight:600;color:#F4E7D9;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);padding:8px 14px;border-radius:999px}
+.hero-tags .tag svg{width:15px;height:15px;color:var(--gold-soft);flex:none}
+/* glassmorphism form */
+.formcard.glass{background:rgba(26,10,13,.5);backdrop-filter:blur(26px) saturate(1.25);border:1px solid rgba(255,255,255,.18);box-shadow:0 30px 80px -28px rgba(0,0,0,.75);color:#fff}
+.formcard.glass h3{color:#fff}
+.formcard.glass .fc-sub{color:rgba(255,255,255,.72)}
+.formcard.glass .fc-price span{background:rgba(198,161,91,.16);color:var(--gold-soft)}
+.formcard.glass .field label{color:rgba(255,255,255,.85)}
+.formcard.glass .field input,.formcard.glass .field select{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.2);color:#fff}
+.formcard.glass .field input::placeholder{color:rgba(255,255,255,.5)}
+.formcard.glass .field select option{color:#1c1c1c}
+.formcard.glass .field input:focus,.formcard.glass .field select:focus{border-color:var(--gold);background:rgba(255,255,255,.14);box-shadow:0 0 0 4px rgba(198,161,91,.2)}
+.formcard.glass .btn-ghost{color:#fff;border-color:rgba(255,255,255,.4)}
+.formcard.glass .btn-ghost:hover{background:rgba(255,255,255,.1);border-color:#fff}
+.formcard.glass .fc-note{color:rgba(255,255,255,.6)}
+.formcard.glass .fc-note svg{color:var(--wa)}
+.formcard.glass .form-success h3{color:#fff}
+.formcard.glass .form-success p{color:rgba(255,255,255,.72) !important}
+@media(max-width:960px){
+  .hero{min-height:auto}
+  .hero-inner{min-height:auto;padding-bottom:34px}
+  .hero-grid{grid-template-columns:1fr;gap:30px;padding:28px 0}
+  .hero-copy{max-width:none}
+  .hero h1{font-size:clamp(2rem,7vw,2.8rem)}
+  .hero-phone .txt{display:none}
+}
+@media(max-width:640px){
+  .hero-nav{padding:8px 10px 8px 14px}
+  .hero-nav .brand img{height:27px}
+  .btn-book{padding:10px 16px;font-size:.85rem}
+  .hero-cta .btn{flex:1 1 auto}
+  .hero-rate{font-size:.76rem}
+}
 `;
 
 const G = `<svg class="g-logo" viewBox="0 0 48 48"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24s.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>`;
@@ -337,47 +400,41 @@ const FAQS = [
   .join("");
 
 const HTML = `
-<div class="topstrip"><b>DHA-Licensed Doctors on Call</b><span class="dot">&#8226;</span>Often with you in <b>30 minutes</b><span class="dot">&#8226;</span>Consultation <b>AED 249</b><span class="dot hide-sm">&#8226;</span><span class="hide-sm">Home, office or hotel across Dubai and nearby areas</span></div>
-
-<header>
-  <div class="nav">
-    <a class="brand" href="#top" aria-label="NADZ Healthcare"><img src="/assets/logo-nadz-dark.svg" alt="NADZ Healthcare" /></a>
-    <div class="nav-actions">
-      <a class="nav-phone" href="tel:80046239"><span class="ph-ic">${PHONE_ICON}</span><span class="txt"><small>24/7 Hotline</small><span>800 4 NADZ</span></span></a>
-      <a class="btn btn-primary book-top" href="#book">Book a Visit</a>
-    </div>
-  </div>
-</header>
-
 <section class="hero" id="top">
-  <div class="wrap">
+  <div class="hero-scrim"></div>
+  <div class="hero-inner">
+    <nav class="hero-nav">
+      <a class="brand" href="#top" aria-label="NADZ Healthcare"><img src="/assets/logo-nadz.svg" alt="NADZ Healthcare" /></a>
+      <div class="hero-nav-right">
+        <a class="hero-phone" href="tel:80046239"><span class="ph-ic">${PHONE_ICON}</span><span class="txt"><small>24/7 Hotline</small><span>800 4 NADZ</span></span></a>
+        <a class="btn btn-book" href="#book">Book a Visit</a>
+      </div>
+    </nav>
     <div class="hero-grid">
       <div class="hero-copy">
-        <div class="greviews">
-          <div class="g-left">${G}<div><div class="g-num">5.0</div><div class="stars">${STARS5}</div></div></div>
-          <div class="g-divider"></div>
-          <div><div class="g-word">Google Rating</div><div class="g-sub">Trusted by 10,000+ patients</div></div>
-        </div>
-        <h1>See a Doctor <span class="hl">Wherever You Are</span> - Home, Office or Hotel</h1>
-        <p class="sub">A DHA-licensed doctor comes to you - at home, at the office, at your hotel, across Dubai and nearby areas. 24/7, often within 30 minutes, with a full consultation, examination and treatment on the spot for a flat AED 249. No clinic queues, no ER waits.</p>
+        <span class="hero-rate">${STAR}<b>5.0</b> · Trusted by 10,000+ patients</span>
+        <span class="hero-eyebrow">Doctor on Call · Dubai</span>
+        <h1>See a Doctor <i>Wherever You Are</i> — Home, Office or Hotel</h1>
+        <p class="sub">A DHA-licensed doctor comes to you — at home, the office or your hotel, across Dubai and nearby areas. 24/7, often within 30 minutes, with a full consultation, examination and treatment on the spot for a flat AED 249.</p>
         <ul class="usp">
-          <li><span class="ck">${CHECK}</span>DHA-licensed doctors - a complete consultation, not a rushed house call</li>
-          <li><span class="ck">${CHECK}</span>Available 24/7 - day, night and weekends, often within 30 minutes</li>
-          <li><span class="ck">${CHECK}</span>Flat AED 249 consultation - examination, treatment and home lab tests arranged on the spot</li>
+          <li><span class="ck">${CHECK}</span>DHA-licensed doctors — a complete consultation, not a rushed house call</li>
+          <li><span class="ck">${CHECK}</span>Available 24/7 — day, night and weekends, often within 30 minutes</li>
+          <li><span class="ck">${CHECK}</span>Flat AED 249 consultation — examination and treatment on the spot</li>
         </ul>
         <div class="hero-cta">
-          <a class="btn btn-gold" href="#book">Request a Doctor Visit</a>
+          <a class="btn btn-gold" href="#book">Request a Doctor Visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
           <a class="btn btn-wa" href="${WA}" target="_blank" rel="noopener">${WA_ICON} WhatsApp Us</a>
         </div>
-        <div class="hero-mini">
-          <span class="m">${SHIELD}DHA / MOH Licensed</span>
-          <span class="m">${CLOCK}30-min average arrival</span>
-          <span class="m">${RECEIPT}Consultation <b>AED 249</b></span>
+        <div class="hero-tags">
+          <span class="hero-tags-lbl">Why NADZ</span>
+          <span class="tag">${SHIELD}DHA / MOH Licensed</span>
+          <span class="tag">${CLOCK}30-min arrival</span>
+          <span class="tag">${RECEIPT}Consultation AED 249</span>
         </div>
       </div>
 
       <div class="order-form" id="book">
-        <form class="formcard" id="leadForm" novalidate>
+        <form class="formcard glass" id="leadForm" novalidate>
           <span class="fc-flag">&#9889; A doctor can reach you in 30 min</span>
           <div id="formFields">
             <h3>Request a Doctor Visit</h3>
