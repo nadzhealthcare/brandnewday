@@ -281,11 +281,11 @@ section.sec{padding:74px 0}
 .fab-btn svg{width:26px;height:26px}
 .fab-btn:hover{transform:translateY(-3px);filter:brightness(1.05)}
 .fab-wa{background:var(--wa)}
-.fab-call{background:var(--maroon)}
+.fab-call{background:linear-gradient(180deg,#D4B06A,#B58A3C);color:#2B1A17}
 @media(max-width:640px){.fab{display:none}}
 .hero-rate b{color:#fff;font-weight:800}
 .hero-eyebrow{display:block;font-size:.74rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:12px}
-.hero h1{font-size:clamp(2.3rem,4.9vw,3.7rem);line-height:1.04;margin:0 0 16px;font-weight:600;color:#fff}
+.hero h1{font-size:clamp(2rem,4.3vw,3.3rem);line-height:1.06;margin:0 0 16px;font-weight:600;color:#fff;text-transform:uppercase;font-stretch:125%;letter-spacing:-.005em}
 .hero h1 i{font-style:italic;color:var(--gold-soft)}
 .hero .sub{font-size:1.05rem;color:#EAD9CC;max-width:33em;margin-bottom:22px}
 .hero .usp{margin:0 0 24px}
@@ -327,11 +327,14 @@ section.sec{padding:74px 0}
   .hero-phone .txt{display:none}
 }
 @media(max-width:640px){
+  .hero{background-image:url('/assets/doc-mob.webp')}
+  .hero-scrim{background:linear-gradient(180deg,rgba(22,8,11,.6) 0%,rgba(22,8,11,.36) 38%,rgba(22,8,11,.85) 100%)}
   .hero-nav{padding:8px 10px 8px 14px}
   .hero-nav .brand img{height:27px}
   .btn-book{padding:10px 16px;font-size:.85rem}
   .hero-cta .btn{flex:1 1 auto}
   .hero-rate{font-size:.76rem}
+  .hero h1{font-size:clamp(1.7rem,6.2vw,2.45rem)}
 }
 `;
 
