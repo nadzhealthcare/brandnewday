@@ -274,7 +274,15 @@ section.sec{padding:74px 0}
 .hero-grid{flex:1;display:grid;grid-template-columns:1.05fr minmax(0,430px);gap:46px;align-items:center;padding:34px 0;position:static}
 .hero-copy{max-width:660px}
 .hero-rate{display:inline-flex;align-items:center;gap:8px;font-size:.82rem;font-weight:600;color:#F4E7D9;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);padding:7px 15px;border-radius:999px;margin-bottom:20px}
-.hero-rate svg{width:15px;height:15px;color:var(--star)}
+.hero-rate svg{width:17px;height:17px}
+/* floating WhatsApp + Call buttons, bottom-right (desktop; mobile uses the sticky bar) */
+.fab{position:fixed;right:20px;bottom:24px;z-index:70;display:flex;flex-direction:column;gap:12px}
+.fab-btn{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;color:#fff;box-shadow:0 14px 30px -8px rgba(0,0,0,.5);transition:transform .2s ease,filter .2s ease}
+.fab-btn svg{width:26px;height:26px}
+.fab-btn:hover{transform:translateY(-3px);filter:brightness(1.05)}
+.fab-wa{background:var(--wa)}
+.fab-call{background:var(--maroon)}
+@media(max-width:640px){.fab{display:none}}
 .hero-rate b{color:#fff;font-weight:800}
 .hero-eyebrow{display:block;font-size:.74rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:12px}
 .hero h1{font-size:clamp(2.3rem,4.9vw,3.7rem);line-height:1.04;margin:0 0 16px;font-weight:600;color:#fff}
@@ -412,7 +420,7 @@ const HTML = `
     </nav>
     <div class="hero-grid">
       <div class="hero-copy">
-        <span class="hero-rate">${STAR}<b>5.0</b> · Trusted by 10,000+ patients</span>
+        <span class="hero-rate">${G}<b>5.0</b> · Trusted by 10,000+ patients</span>
         <span class="hero-eyebrow">Doctor on Call · Dubai</span>
         <h1>See a Doctor <i>Wherever You Are</i> — Home, Office or Hotel</h1>
         <p class="sub">A DHA-licensed doctor comes to you — at home, the office or your hotel, across Dubai and nearby areas. 24/7, often within 30 minutes, with a full consultation, examination and treatment on the spot for a flat AED 249.</p>
@@ -421,10 +429,6 @@ const HTML = `
           <li><span class="ck">${CHECK}</span>Available 24/7 — day, night and weekends, often within 30 minutes</li>
           <li><span class="ck">${CHECK}</span>Flat AED 249 consultation — examination and treatment on the spot</li>
         </ul>
-        <div class="hero-cta">
-          <a class="btn btn-gold" href="#book">Request a Doctor Visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-          <a class="btn btn-wa" href="${WA}" target="_blank" rel="noopener">${WA_ICON} WhatsApp Us</a>
-        </div>
         <div class="hero-tags">
           <span class="hero-tags-lbl">Why NADZ</span>
           <span class="tag">${SHIELD}DHA / MOH Licensed</span>
@@ -439,7 +443,6 @@ const HTML = `
           <div id="formFields">
             <h3>Request a Doctor Visit</h3>
             <p class="fc-sub">Home, office or hotel - free callback within minutes. No obligation.</p>
-            <div class="fc-price"><span>${RECEIPT}Consultation fee AED 249</span></div>
             <div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" placeholder="e.g. Sara Ahmed" required autocomplete="name" /></div>
             <div class="field"><label for="phone">Phone / WhatsApp number</label><input id="phone" name="phone" type="tel" placeholder="+971 5X XXX XXXX" required autocomplete="tel" inputmode="tel" /></div>
             <div class="field"><label for="service">What do you need help with?</label>
@@ -636,6 +639,11 @@ const HTML = `
   <a class="m-call" href="tel:80046239">${PHONE_ICON}Call</a>
   <a class="m-wa" href="${WA}" target="_blank" rel="noopener">${WA_ICON}WhatsApp</a>
   <a class="m-book" href="#book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4M3 10h18"/><rect x="3" y="4" width="18" height="18" rx="2"/></svg>Book</a>
+</div>
+
+<div class="fab">
+  <a class="fab-btn fab-wa" href="${WA}" target="_blank" rel="noopener" aria-label="WhatsApp us">${WA_ICON}</a>
+  <a class="fab-btn fab-call" href="tel:80046239" aria-label="Call us">${PHONE_ICON}</a>
 </div>
 `;
 
