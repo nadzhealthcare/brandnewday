@@ -240,18 +240,19 @@ section.sec{padding:74px 0}
 .finalcta h2{font-size:clamp(1.9rem,3.6vw,2.8rem);color:#fff;margin-bottom:14px}
 .finalcta p{color:#E7D6C8;font-size:1.1rem;max-width:36em;margin:0 auto 28px}
 .finalcta .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.ppc footer{background:var(--maroon-dark);color:#CDB9A9;padding:56px 0 30px}
+.ppc footer{background:radial-gradient(700px 340px at 88% -20%,rgba(160,26,38,.22),transparent 60%),linear-gradient(160deg,#4A1C20,#2B1A17 72%);color:#CDB9A9;padding:56px 0 30px}
 .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1.3fr;gap:36px;padding-bottom:34px;border-bottom:1px solid rgba(255,255,255,.1)}
 .ppc footer .brand img{height:40px;margin-bottom:16px}
 .ppc footer p{font-size:.92rem;color:#C3AF9F;max-width:30em}
 .ppc footer h4{color:#fff;font-family:var(--font-inter),sans-serif;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;font-weight:700}
 .foot-c{display:flex;flex-direction:column;gap:12px}
+.foot-c.foot-services{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px}
 .foot-c a,.foot-c div{display:flex;align-items:flex-start;gap:11px;font-size:.92rem;color:#D4C1B2}
 .foot-c a:hover{color:#fff}
 .foot-c svg{width:18px;height:18px;color:var(--gold);flex:none;margin-top:2px}
 .foot-bottom{padding-top:22px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:.8rem;color:#9E8A7B}
 .foot-bottom .lic{color:var(--gold-soft)}
-.mobile-cta{position:fixed;bottom:0;left:0;right:0;z-index:60;display:none;background:rgba(255,255,255,.55);backdrop-filter:blur(18px) saturate(1.5);border-top:1px solid rgba(255,255,255,.5);box-shadow:0 -8px 24px -12px rgba(43,26,23,.3);padding:7px 9px;gap:7px}
+.mobile-cta{position:fixed;bottom:0;left:0;right:0;z-index:60;display:none;background:rgba(255,255,255,.32);backdrop-filter:blur(20px) saturate(1.6);border-top:1px solid rgba(255,255,255,.4);box-shadow:0 -8px 24px -12px rgba(43,26,23,.3);padding:7px 9px;gap:7px}
 .mobile-cta a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 4px;border-radius:11px;font-size:.68rem;font-weight:700}
 .mobile-cta svg{width:18px;height:18px}
 .mobile-cta .m-call{background:var(--cream-2);color:var(--maroon)}
@@ -295,7 +296,7 @@ section.sec{padding:74px 0}
 @media(max-width:1120px){.sgrid{grid-template-columns:repeat(3,1fr)}.hero-grid{gap:38px}}
 @media(max-width:960px){.hero-grid{grid-template-columns:1fr;gap:28px;padding:36px 0 44px}.hero h1{font-size:clamp(2rem,6vw,2.9rem)}.bgrid{grid-template-columns:repeat(2,1fr)}.sgrid{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:1fr}.rgrid{grid-template-columns:repeat(2,1fr)}.split .wrap{grid-template-columns:1fr;gap:50px}.foot-grid{grid-template-columns:1fr;gap:28px}.nav-phone .txt{display:none}.split-img{max-width:440px;margin:0 auto}.staffgrid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:760px){section.sec{padding:56px 0}.trustbar .ti-grid{grid-template-columns:repeat(2,1fr);gap:18px 16px}.rev-top .score{font-size:1.9rem}}
-@media(max-width:640px){.wrap{padding:0 16px}section.sec{padding:48px 0}.sec-head{margin-bottom:34px}.btn{white-space:normal}.nav .btn.book-top{display:none}.bgrid,.sgrid,.rgrid{grid-template-columns:1fr}.greviews{width:100%;justify-content:flex-start}.hero-cta{gap:10px}.hero-cta .btn{flex:1 1 auto}.fc-alt{flex-direction:column}.mobile-cta{display:flex}.ppc{padding-bottom:76px}.topstrip .hide-sm{display:none}.foot-bottom{flex-direction:column}.formcard{padding:24px 18px 22px}.split-img{max-width:100%}.trustbar .award{width:100%}.staffgrid{grid-template-columns:repeat(2,1fr)}.gallery{grid-template-columns:1fr}.team-head{flex-direction:column;align-items:flex-start;gap:16px}.slide{flex-basis:80vw;max-width:80vw}.rcard{flex-basis:84vw;max-width:84vw}}
+@media(max-width:640px){.wrap{padding:0 16px}section.sec{padding:48px 0}.sec-head{margin-bottom:34px}.btn{white-space:normal}.nav .btn.book-top{display:none}.bgrid{grid-template-columns:1fr}.sgrid{grid-template-columns:repeat(2,1fr);gap:12px}.scard{padding:16px 14px}.scard h3{font-size:.92rem}.scard .ic{width:42px;height:42px;margin-bottom:11px}.scard .ic svg{width:22px;height:22px}.greviews{width:100%;justify-content:flex-start}.hero-cta{gap:10px}.hero-cta .btn{flex:1 1 auto}.fc-alt{flex-direction:column}.mobile-cta{display:flex}.ppc{padding-bottom:76px}.topstrip .hide-sm{display:none}.foot-bottom{flex-direction:column}.formcard{padding:24px 18px 22px}.split-img{max-width:100%}.trustbar .award{width:100%}.staffgrid{grid-template-columns:repeat(2,1fr)}.gallery{grid-template-columns:1fr}.team-head{flex-direction:column;align-items:flex-start;gap:16px}.slide{flex-basis:80vw;max-width:80vw}.rcard{flex-basis:84vw;max-width:84vw}}
 @media(max-width:400px){.hero h1{font-size:1.72rem}.btn{padding:14px 18px;font-size:.95rem}.sec-head h2{font-size:1.5rem}.mobile-cta a{font-size:.68rem}.step,.bcard,.scard{padding:22px 18px}}
 
 /* ---------- Hero redesign: full-bleed doc.webp + glassmorphism form ---------- */
@@ -687,7 +688,7 @@ const HTML_BOTTOM = `
   <div class="wrap">
     <div class="foot-grid">
       <div><div class="brand"><img src="/assets/logo-nadz.svg" alt="NADZ Healthcare" /></div><p>Blending care with innovation. DHA-licensed doctors and home-healthcare delivered to your home, office or hotel across Dubai and nearby areas.</p></div>
-      <div><h4>Doctor on Call</h4><div class="foot-c"><a href="#services">Fever &amp; infections</a><a href="#services">Rehydration &amp; fluids</a><a href="#services">Children &amp; family care</a><a href="#services">Chronic condition care</a><a href="#services">Sick notes &amp; certificates</a><a href="#services">Minor injuries &amp; wounds</a></div></div>
+      <div><h4>Doctor on Call</h4><div class="foot-c foot-services"><a href="#services">Fever &amp; infections</a><a href="#services">Rehydration &amp; fluids</a><a href="#services">Children &amp; family care</a><a href="#services">Chronic condition care</a><a href="#services">Sick notes &amp; certificates</a><a href="#services">Minor injuries &amp; wounds</a></div></div>
       <div><h4>Contact us - 24/7</h4><div class="foot-c">
         <a href="tel:80046239">${PHONE_ICON}800 4 NADZ (800 4 6239)</a>
         <a href="https://wa.me/${WA_NUMBER}" target="_blank" rel="noopener">${WA_ICON}WhatsApp: +971 52 159 7336</a>
