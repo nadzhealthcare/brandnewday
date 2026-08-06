@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { track } from "@/lib/analytics";
+import HowItWorks from "@/components/HowItWorks";
 
 /* Doctor on Call — PPC landing page (Google Ads).
 
@@ -308,6 +309,7 @@ section.sec{padding:74px 0}
 .btn-book:hover{background:#fff;transform:translateY(-2px);filter:brightness(.97)}
 .hero-grid{flex:1;display:grid;grid-template-columns:1.05fr minmax(0,430px);gap:46px;align-items:center;padding:34px 0;position:static}
 .hero-copy{max-width:660px}
+.hero-copy .hero-mob-pic{display:none}
 .hero-rate{display:inline-flex;align-items:center;gap:8px;font-size:.82rem;font-weight:600;color:#F4E7D9;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);padding:7px 15px;border-radius:999px;margin-bottom:20px}
 .hero-rate svg{width:17px;height:17px}
 /* floating WhatsApp + Call buttons, bottom-right (desktop; mobile uses the sticky bar) */
@@ -369,8 +371,9 @@ section.sec{padding:74px 0}
   .hero-phone .txt{display:none}
 }
 @media(max-width:640px){
-  .hero{background-image:url('/assets/doc-mob.webp')}
-  .hero-scrim{background:linear-gradient(180deg,rgba(22,8,11,.6) 0%,rgba(22,8,11,.36) 38%,rgba(22,8,11,.85) 100%)}
+  .hero{background-image:url('/assets/doc-mob-2.webp');background-position:center top}
+  .hero-scrim{background:linear-gradient(180deg,rgba(22,8,11,.30) 0%,rgba(22,8,11,.14) 45%,rgba(22,8,11,.62) 100%)}
+  .hero-copy .hero-mob-pic{display:block;width:100%;border-radius:20px;margin-bottom:18px;box-shadow:0 22px 44px -22px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.12)}
   .hero-nav{padding:8px 10px 8px 14px}
   .hero-nav .brand img{height:27px}
   .btn-book{padding:10px 16px;font-size:.85rem}
@@ -389,6 +392,9 @@ const CHECK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
 const SHIELD = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>`;
 const CLOCK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
 const HOME = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`;
+const STETH = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.8 2.3A2 2 0 0 0 3 4v5a5 5 0 0 0 10 0V4a2 2 0 0 0-1.8-1.7"/><path d="M8 15v1a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="10" r="2"/></svg>`;
+const PULSE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`;
+const FLASK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6L4.6 18.4A2 2 0 0 0 6.3 21h11.4a2 2 0 0 0 1.7-2.6L14 9V3"/><path d="M7.5 14h9"/></svg>`;
 const USERS = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>`;
 const GLOBE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`;
 const RECEIPT = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>`;
@@ -460,7 +466,7 @@ const FAQS = [
   )
   .join("");
 
-const HTML = `
+const HTML_TOP = `
 <section class="hero" id="top">
   <div class="hero-scrim"></div>
   <div class="hero-inner">
@@ -473,6 +479,7 @@ const HTML = `
     </nav>
     <div class="hero-grid">
       <div class="hero-copy">
+        <img class="hero-mob-pic" src="/assets/doc-mob-1.webp" alt="A DHA-licensed doctor caring for a patient at home" />
         <span class="hero-rate">${G}<b>5.0</b> · Trusted by 10,000+ patients</span>
         <span class="hero-eyebrow">Doctor on Call · Dubai</span>
         <h1>See a Doctor <i>Wherever You Are</i> - Home, Office or Hotel</h1>
@@ -537,9 +544,10 @@ const HTML = `
 
 <div class="trustbar">
   <div class="wrap">
-    <div class="ti"><span class="tic">${SHIELD}</span><div><div class="n">DHA</div><div class="l">Licensed doctors</div></div></div>
-    <div class="ti"><span class="tic">${CLOCK}</span><div><div class="n">30 min</div><div class="l">Average arrival time</div></div></div>
-    <div class="ti"><span class="tic">${RECEIPT}</span><div><div class="n">AED 249</div><div class="l">Flat consultation fee</div></div></div>
+    <div class="ti"><span class="tic">${SHIELD}</span><div><div class="n" style="font-size:1.05rem">Licensed</div><div class="l">by Dubai Health Authority</div></div></div>
+    <div class="ti"><span class="tic">${STETH}</span><div><div class="n">30+</div><div class="l">Board-certified medical staff</div></div></div>
+    <div class="ti"><span class="tic">${PULSE}</span><div><div class="n">30+</div><div class="l">Medical services delivered</div></div></div>
+    <div class="ti"><span class="tic">${FLASK}</span><div><div class="n">10+</div><div class="l">Global laboratory partners</div></div></div>
     <div class="ti"><span class="tic">${USERS}</span><div><div class="n">10,000+</div><div class="l">Patients cared for</div></div></div>
     <div class="award"><img src="/assets/best-award.png" alt="Best Home Healthcare Award 2025" /><div><div class="n" style="font-size:.98rem">Best Home Healthcare</div><div class="l">Health Magazine Awards 2025</div></div></div>
   </div>
@@ -621,18 +629,10 @@ const HTML = `
   </div>
 </section>
 
-<section class="sec how">
-  <div class="wrap">
-    <div class="sec-head"><span class="eyebrow light">Simple &amp; fast</span><h2>From your call to your doctor, in 3 simple steps</h2><p>Booking a doctor takes minutes - care can be at your door the same day.</p></div>
-    <div class="steps">
-      <div class="step"><div class="num">1</div><h3>Call or WhatsApp, 24/7</h3><p>Describe your symptoms. Our team triages your case and guides you - any time, day or night.</p></div>
-      <div class="step"><div class="num">2</div><h3>We dispatch a DHA-licensed doctor</h3><p>A doctor matched to your needs comes to your home, office or hotel with a full medical kit.</p></div>
-      <div class="step"><div class="num">3</div><h3>Get examined &amp; treated on the spot</h3><p>Full consultation, examination and treatment for AED 249 - often within about 30 minutes, with follow-up if needed.</p></div>
-    </div>
-    <div class="how-cta"><a class="btn btn-gold" href="#book">Request a Doctor Now</a></div>
-  </div>
-</section>
+`;
 
+// HowItWorks (the animated site component) renders between these two halves.
+const HTML_BOTTOM = `
 <section class="sec" style="background:#fff">
   <div class="wrap">
     <div class="sec-head"><span class="eyebrow">Care in action</span><h2>Bringing the clinic to your doorstep</h2><p>Real NADZ care, delivered across Dubai and nearby areas.</p></div>
@@ -840,20 +840,36 @@ export default function DoctorOnCallPpc() {
       });
     }
 
+    // ---- Keep HowItWorks' CTA on-page ----
+    // The shared component links to /book (the full-chrome site page); on this
+    // self-contained landing that CTA should scroll to the form instead.
+    const howCta = root.querySelector<HTMLAnchorElement>('a[href="/book"]');
+    if (howCta) {
+      const h = (e: Event) => {
+        e.preventDefault();
+        root
+          .querySelector("#book")
+          ?.scrollIntoView({ behavior: "smooth", block: "start" });
+      };
+      howCta.addEventListener("click", h, true);
+      cleanups.push(() => howCta.removeEventListener("click", h, true));
+    }
+
     return () => cleanups.forEach((fn) => fn());
   }, []);
 
   return (
-    <>
-      {/* Headings use Mona Sans and body copy uses Inter — both already loaded
-          globally by the root layout as --font-mona / --font-inter, so this
-          page needs no external font fetch. */}
+    // Headings use Mona Sans and body copy Inter — both loaded globally by the
+    // root layout as --font-mona / --font-inter, so no external font fetch.
+    // The page is two static halves with the animated HowItWorks between them;
+    // HowItWorks sits OUTSIDE .ppc so the page's hard CSS reset doesn't touch
+    // its Tailwind styling. rootRef wraps everything so the effect can still
+    // wire the form, FAQ, sliders and the HowItWorks CTA.
+    <div ref={rootRef}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
-      <div
-        ref={rootRef}
-        className="ppc"
-        dangerouslySetInnerHTML={{ __html: HTML }}
-      />
-    </>
+      <div className="ppc" dangerouslySetInnerHTML={{ __html: HTML_TOP }} />
+      <HowItWorks />
+      <div className="ppc" dangerouslySetInnerHTML={{ __html: HTML_BOTTOM }} />
+    </div>
   );
 }
