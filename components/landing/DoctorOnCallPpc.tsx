@@ -289,6 +289,13 @@ section.sec{padding:74px 0}
 .hero h1 i{font-style:italic;color:var(--gold-soft)}
 .hero .sub{font-size:1.05rem;color:#EAD9CC;max-width:33em;margin-bottom:22px}
 .hero .usp{margin:0 0 24px}
+.hero-feats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px;max-width:540px;margin:4px 0 4px}
+.hero-feats .feat{display:flex;align-items:center;gap:12px}
+.hero-feats .fi{width:44px;height:44px;border-radius:12px;background:rgba(198,161,91,.16);border:1px solid rgba(255,255,255,.12);display:grid;place-items:center;color:var(--gold-soft);flex:none}
+.hero-feats .fi svg{width:22px;height:22px}
+.hero-feats b{display:block;font-size:1rem;color:#fff;font-weight:700;line-height:1.15}
+.hero-feats .feat>div>span{font-size:.8rem;color:rgba(255,255,255,.62)}
+@media(max-width:640px){.hero-feats{grid-template-columns:1fr;gap:13px}}
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:26px}
 .hero-cta .btn-gold svg{width:16px;height:16px}
 .hero-tags{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
@@ -336,6 +343,7 @@ const PHONE_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" s
 const CHECK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
 const SHIELD = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>`;
 const CLOCK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
+const HOME = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`;
 const USERS = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>`;
 const GLOBE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`;
 const RECEIPT = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>`;
@@ -423,17 +431,12 @@ const HTML = `
         <span class="hero-rate">${G}<b>5.0</b> · Trusted by 10,000+ patients</span>
         <span class="hero-eyebrow">Doctor on Call · Dubai</span>
         <h1>See a Doctor <i>Wherever You Are</i> — Home, Office or Hotel</h1>
-        <p class="sub">A DHA-licensed doctor comes to you — at home, the office or your hotel, across Dubai and nearby areas. 24/7, often within 30 minutes, with a full consultation, examination and treatment on the spot for a flat AED 249.</p>
-        <ul class="usp">
-          <li><span class="ck">${CHECK}</span>DHA-licensed doctors — a complete consultation, not a rushed house call</li>
-          <li><span class="ck">${CHECK}</span>Available 24/7 — day, night and weekends, often within 30 minutes</li>
-          <li><span class="ck">${CHECK}</span>Flat AED 249 consultation — examination and treatment on the spot</li>
-        </ul>
-        <div class="hero-tags">
-          <span class="hero-tags-lbl">Why NADZ</span>
-          <span class="tag">${SHIELD}DHA / MOH Licensed</span>
-          <span class="tag">${CLOCK}30-min arrival</span>
-          <span class="tag">${RECEIPT}Consultation AED 249</span>
+        <p class="sub">Real, in-person care across Dubai and nearby areas — no clinic queues, no ER waits.</p>
+        <div class="hero-feats">
+          <div class="feat"><span class="fi">${SHIELD}</span><div><b>DHA-licensed</b><span>doctors &amp; nurses</span></div></div>
+          <div class="feat"><span class="fi">${CLOCK}</span><div><b>30 min · 24/7</b><span>day, night &amp; weekends</span></div></div>
+          <div class="feat"><span class="fi">${RECEIPT}</span><div><b>Flat AED 249</b><span>per consultation</span></div></div>
+          <div class="feat"><span class="fi">${HOME}</span><div><b>Home · office · hotel</b><span>we come to you</span></div></div>
         </div>
       </div>
 
