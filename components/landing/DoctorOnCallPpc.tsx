@@ -37,6 +37,9 @@ const CSS = `
   overflow-x:hidden;scroll-behavior:smooth;
 }
 .ppc h1,.ppc h2,.ppc h3{font-family:var(--font-mona),Georgia,'Times New Roman',serif;line-height:1.12;font-weight:600;letter-spacing:-.01em}
+/* titles: Mona Sans expanded, uppercase (matches the hero). h4 team names and
+   the Inter-set FAQ questions / review names are intentionally left normal. */
+.ppc h1,.ppc h2,.ppc h3{text-transform:uppercase;font-stretch:125%;letter-spacing:-.005em}
 .ppc a:not(.btn){color:inherit}
 .ppc a{text-decoration:none}
 .ppc img{max-width:100%;display:block;height:auto}
@@ -138,8 +141,40 @@ section.sec{padding:74px 0}
 .bcard p{color:var(--muted);font-size:.94rem}
 .split{background:var(--cream)}
 .split .wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
-.split-img{position:relative}
-.split-img img{width:100%;border-radius:22px;box-shadow:var(--shadow);object-fit:cover;aspect-ratio:5/6}
+.split-img{position:relative;aspect-ratio:5/6;border-radius:22px;box-shadow:var(--shadow)}
+.split-slides{position:absolute;inset:0;border-radius:22px;overflow:hidden}
+.split-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity 1.1s ease,transform 6s ease}
+.split-slide.is-active{opacity:1;transform:scale(1)}
+.split-dots{position:absolute;left:16px;bottom:16px;z-index:3;display:flex;gap:7px}
+.split-dot{width:8px;height:8px;padding:0;border:none;border-radius:999px;background:rgba(255,255,255,.5);cursor:pointer;transition:width .25s ease,background .25s ease}
+.split-dot.is-active{width:22px;background:#fff}
+.split-dot:hover{background:rgba(255,255,255,.85)}
+/* ---------- micro-interactions ---------- */
+@media (prefers-reduced-motion: no-preference){
+  @keyframes ppcRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .hero-rate,.hero-eyebrow,.hero h1,.hero .sub,.hero-feats,.order-form{animation:ppcRise .65s cubic-bezier(.22,.61,.36,1) both}
+  .hero-eyebrow{animation-delay:.05s}
+  .hero h1{animation-delay:.1s}
+  .hero .sub{animation-delay:.2s}
+  .hero-feats{animation-delay:.28s}
+  .order-form{animation-delay:.16s}
+}
+.hero-feats .feat{transition:transform .25s ease}
+.hero-feats .feat:hover{transform:translateY(-2px)}
+.hero-feats .fi{transition:transform .25s ease,background .25s ease,border-color .25s ease}
+.hero-feats .feat:hover .fi{transform:scale(1.08);background:rgba(198,161,91,.28);border-color:rgba(255,255,255,.26)}
+.scard .ic,.bcard .ic{transition:transform .3s ease}
+.scard:hover .ic{transform:rotate(-6deg) scale(1.08)}
+.bcard:hover .ic{transform:scale(1.08)}
+.slide .tphoto img{transition:transform .5s ease}
+.slide:hover .tphoto img{transform:scale(1.06)}
+.faq-q{transition:background .2s ease,color .2s ease}
+.faq-q:hover{background:rgba(198,161,91,.08)}
+.faq-item.open .faq-q{color:var(--maroon-soft)}
+.fab-btn:active{transform:scale(.93)}
+.hero-rate{transition:transform .25s ease,background .25s ease}
+.hero-rate:hover{transform:translateY(-1px);background:rgba(255,255,255,.12)}
+.formcard.glass .field input,.formcard.glass .field select{transition:border-color .18s ease,background .18s ease,box-shadow .18s ease}
 .split-img .floatstat{position:absolute;right:-16px;bottom:-18px;background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:16px 20px;display:flex;align-items:center;gap:13px;border:1px solid var(--line)}
 .split-img .floatstat .n{font-size:1.5rem;font-weight:800;font-family:var(--font-inter),sans-serif;color:var(--maroon);line-height:1}
 .split-img .floatstat .l{font-size:.76rem;color:var(--muted);font-weight:600}
@@ -520,9 +555,20 @@ const HTML = `
 
 <section class="sec split">
   <div class="wrap">
-    <div class="split-img">
-      <img src="/assets/doc-car.jpg" alt="NADZ Healthcare doctor arriving for a home visit" loading="lazy" />
+    <div class="split-img" id="splitShow">
+      <div class="split-slides">
+        <img class="split-slide is-active" src="/assets/doc-car.jpg" alt="NADZ Healthcare doctor arriving for a home visit" loading="lazy" />
+        <img class="split-slide" src="/assets/doc.webp" alt="A DHA-licensed doctor consulting a patient at home" loading="lazy" />
+        <img class="split-slide" src="/assets/doct.jpg" alt="NADZ doctor caring for a patient" loading="lazy" />
+        <img class="split-slide" src="/assets/fam.jpg" alt="A family cared for at home by NADZ" loading="lazy" />
+      </div>
       <div class="floatstat"><span class="fic">${CLOCK}</span><div><div class="n">24/7</div><div class="l">A doctor whenever<br/>you need one</div></div></div>
+      <div class="split-dots">
+        <button class="split-dot is-active" type="button" aria-label="Show slide 1"></button>
+        <button class="split-dot" type="button" aria-label="Show slide 2"></button>
+        <button class="split-dot" type="button" aria-label="Show slide 3"></button>
+        <button class="split-dot" type="button" aria-label="Show slide 4"></button>
+      </div>
     </div>
     <div>
       <span class="eyebrow">Why a doctor at your door</span>
@@ -761,6 +807,36 @@ export default function DoctorOnCallPpc() {
         next?.removeEventListener("click", onNext);
         slider.removeEventListener("scroll", upd);
         window.removeEventListener("resize", upd);
+      });
+    }
+
+    // ---- Split-section image slideshow (auto-advance + dot clicks) ----
+    const show = root.querySelector<HTMLElement>("#splitShow");
+    if (show) {
+      const slides = [...show.querySelectorAll<HTMLElement>(".split-slide")];
+      const dots = [...show.querySelectorAll<HTMLElement>(".split-dot")];
+      let i = 0;
+      const setSlide = (n: number) => {
+        i = (n + slides.length) % slides.length;
+        slides.forEach((s, k) => s.classList.toggle("is-active", k === i));
+        dots.forEach((d, k) => d.classList.toggle("is-active", k === i));
+      };
+      let timer = window.setInterval(() => setSlide(i + 1), 4000);
+      const reset = () => {
+        clearInterval(timer);
+        timer = window.setInterval(() => setSlide(i + 1), 4000);
+      };
+      const dotHandlers = dots.map((d, k) => {
+        const h = () => {
+          setSlide(k);
+          reset();
+        };
+        d.addEventListener("click", h);
+        return h;
+      });
+      cleanups.push(() => {
+        clearInterval(timer);
+        dots.forEach((d, k) => d.removeEventListener("click", dotHandlers[k]));
       });
     }
 
