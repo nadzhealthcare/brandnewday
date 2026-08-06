@@ -212,8 +212,9 @@ section.sec{padding:74px 0}
 .rev-top .score{font-size:2.2rem;font-weight:800;font-family:var(--font-inter),sans-serif;color:var(--ink);line-height:1}
 .rev-top .stars{display:flex;gap:3px}
 .rev-top .stars svg{width:22px;height:22px;color:var(--star)}
-.rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:8px}
-.rcard{background:var(--cream);border:1px solid var(--line);border-radius:var(--radius);padding:24px 22px;display:flex;flex-direction:column;gap:12px}
+.rgrid{display:flex;gap:20px;margin-top:8px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px 2px 8px;scrollbar-width:none;-ms-overflow-style:none}
+.rgrid::-webkit-scrollbar{display:none}
+.rcard{flex:0 0 340px;max-width:340px;scroll-snap-align:start;background:var(--cream);border:1px solid var(--line);border-radius:var(--radius);padding:24px 22px;display:flex;flex-direction:column;gap:12px}
 .rcard .rstars{display:flex;gap:2px}
 .rcard .rstars svg{width:16px;height:16px;color:var(--star)}
 .rcard .rtext{color:#4a3d37;font-size:.96rem;flex:1}
@@ -249,12 +250,15 @@ section.sec{padding:74px 0}
 .foot-c svg{width:18px;height:18px;color:var(--gold);flex:none;margin-top:2px}
 .foot-bottom{padding-top:22px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:.8rem;color:#9E8A7B}
 .foot-bottom .lic{color:var(--gold-soft)}
-.mobile-cta{position:fixed;bottom:0;left:0;right:0;z-index:60;display:none;background:#fff;border-top:1px solid var(--line);box-shadow:0 -8px 24px -12px rgba(43,26,23,.3);padding:9px 10px;gap:8px}
-.mobile-cta a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:8px 4px;border-radius:12px;font-size:.72rem;font-weight:700}
-.mobile-cta svg{width:20px;height:20px}
+.mobile-cta{position:fixed;bottom:0;left:0;right:0;z-index:60;display:none;background:rgba(255,255,255,.55);backdrop-filter:blur(18px) saturate(1.5);border-top:1px solid rgba(255,255,255,.5);box-shadow:0 -8px 24px -12px rgba(43,26,23,.3);padding:7px 9px;gap:7px}
+.mobile-cta a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 4px;border-radius:11px;font-size:.68rem;font-weight:700}
+.mobile-cta svg{width:18px;height:18px}
 .mobile-cta .m-call{background:var(--cream-2);color:var(--maroon)}
 .mobile-cta .m-wa{background:var(--wa);color:#fff}
-.mobile-cta .m-book{background:var(--maroon);color:#fff}
+.mobile-cta .m-book{background:linear-gradient(180deg,#D4B06A,#B58A3C);color:#2B1A17}
+/* mid-page CTA: abstract maroon gradient (was flat gold) */
+.midcta{position:relative;overflow:hidden;background:radial-gradient(900px 420px at 80% -12%,rgba(198,161,91,.20),transparent 60%),radial-gradient(720px 460px at -6% 112%,rgba(110,42,47,.6),transparent 62%),linear-gradient(150deg,#6E2A2F,#4A1C20 55%,#2B1A17)}
+.midcta::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:22px 22px;opacity:.5;pointer-events:none}
 .staffgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .gallery figure{margin:0;position:relative;border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm);aspect-ratio:4/3}
@@ -290,7 +294,7 @@ section.sec{padding:74px 0}
 @media(max-width:1120px){.sgrid{grid-template-columns:repeat(3,1fr)}.hero-grid{gap:38px}}
 @media(max-width:960px){.hero-grid{grid-template-columns:1fr;gap:28px;padding:36px 0 44px}.hero h1{font-size:clamp(2rem,6vw,2.9rem)}.bgrid{grid-template-columns:repeat(2,1fr)}.sgrid{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:1fr}.rgrid{grid-template-columns:repeat(2,1fr)}.split .wrap{grid-template-columns:1fr;gap:50px}.foot-grid{grid-template-columns:1fr;gap:28px}.nav-phone .txt{display:none}.split-img{max-width:440px;margin:0 auto}.staffgrid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:760px){section.sec{padding:56px 0}.trustbar .wrap{gap:16px 22px}.trustbar .ti{min-width:44%}.rev-top .score{font-size:1.9rem}}
-@media(max-width:640px){.wrap{padding:0 16px}section.sec{padding:48px 0}.sec-head{margin-bottom:34px}.btn{white-space:normal}.nav .btn.book-top{display:none}.bgrid,.sgrid,.rgrid{grid-template-columns:1fr}.greviews{width:100%;justify-content:flex-start}.hero-cta{gap:10px}.hero-cta .btn{flex:1 1 auto}.fc-alt{flex-direction:column}.mobile-cta{display:flex}.ppc{padding-bottom:76px}.topstrip .hide-sm{display:none}.foot-bottom{flex-direction:column}.formcard{padding:24px 18px 22px}.split-img{max-width:100%}.trustbar .award{width:100%}.staffgrid{grid-template-columns:repeat(2,1fr)}.gallery{grid-template-columns:1fr}.team-head{flex-direction:column;align-items:flex-start;gap:16px}.slide{flex-basis:80vw;max-width:80vw}}
+@media(max-width:640px){.wrap{padding:0 16px}section.sec{padding:48px 0}.sec-head{margin-bottom:34px}.btn{white-space:normal}.nav .btn.book-top{display:none}.bgrid,.sgrid,.rgrid{grid-template-columns:1fr}.greviews{width:100%;justify-content:flex-start}.hero-cta{gap:10px}.hero-cta .btn{flex:1 1 auto}.fc-alt{flex-direction:column}.mobile-cta{display:flex}.ppc{padding-bottom:76px}.topstrip .hide-sm{display:none}.foot-bottom{flex-direction:column}.formcard{padding:24px 18px 22px}.split-img{max-width:100%}.trustbar .award{width:100%}.staffgrid{grid-template-columns:repeat(2,1fr)}.gallery{grid-template-columns:1fr}.team-head{flex-direction:column;align-items:flex-start;gap:16px}.slide{flex-basis:80vw;max-width:80vw}.rcard{flex-basis:84vw;max-width:84vw}}
 @media(max-width:400px){.hero h1{font-size:1.72rem}.btn{padding:14px 18px;font-size:.95rem}.sec-head h2{font-size:1.5rem}.mobile-cta a{font-size:.68rem}.step,.bcard,.scard{padding:22px 18px}}
 
 /* ---------- Hero redesign: full-bleed doc.webp + glassmorphism form ---------- */
@@ -600,16 +604,16 @@ const HTML_TOP = `
       <div class="rev-top">${G.replace('width:26px', '')}<span class="score">5.0</span><div class="stars">${STARS5}</div></div>
       <p>A 5.0 Google rating - trusted by 10,000+ patients across the UAE.</p>
     </div>
-    <div class="rgrid">${REVIEWS}</div>
+    <div class="rgrid" id="reviewTrack">${REVIEWS}</div>
     <div class="rev-cta"><a class="btn btn-primary" href="#book">Join 10,000+ happy patients - Book now</a></div>
   </div>
 </section>
 
-<section style="background:linear-gradient(135deg,#D4B06A 0%,#B58A3C 100%);color:#2B1A17">
-  <div class="wrap" style="padding:48px 0;text-align:center">
-    <h2 style="color:#2B1A17;font-size:clamp(1.55rem,3.2vw,2.15rem);margin:0 auto 16px;max-width:20em">See a doctor today for AED 249 - often within about 30 minutes</h2>
+<section class="midcta">
+  <div class="wrap" style="padding:56px 0;text-align:center;position:relative;z-index:2">
+    <h2 style="color:#fff;font-size:clamp(1.55rem,3.2vw,2.15rem);margin:0 auto 20px;max-width:20em">See a doctor today for AED 249 - often within about 30 minutes</h2>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <a class="btn btn-primary" href="#book">Request a Free Callback</a>
+      <a class="btn btn-gold" href="#book">Request a Free Callback</a>
       <a class="btn btn-wa" href="${WA}" target="_blank" rel="noopener">${WA_ICON}WhatsApp Us</a>
     </div>
   </div>
@@ -837,6 +841,37 @@ export default function DoctorOnCallPpc() {
       cleanups.push(() => {
         clearInterval(timer);
         dots.forEach((d, k) => d.removeEventListener("click", dotHandlers[k]));
+      });
+    }
+
+    // ---- Reviews auto-scrolling carousel (pauses on hover / touch) ----
+    const rtrack = root.querySelector<HTMLElement>("#reviewTrack");
+    if (rtrack) {
+      const stepPx = () => {
+        const card = rtrack.querySelector<HTMLElement>(".rcard");
+        return card ? card.offsetWidth + 20 : 360;
+      };
+      let timer = 0;
+      const tick = () => {
+        const max = rtrack.scrollWidth - rtrack.clientWidth;
+        if (rtrack.scrollLeft >= max - 4)
+          rtrack.scrollTo({ left: 0, behavior: "smooth" });
+        else rtrack.scrollBy({ left: stepPx(), behavior: "smooth" });
+      };
+      const start = () => {
+        clearInterval(timer);
+        timer = window.setInterval(tick, 3200);
+      };
+      const stop = () => clearInterval(timer);
+      start();
+      rtrack.addEventListener("pointerenter", stop);
+      rtrack.addEventListener("pointerleave", start);
+      rtrack.addEventListener("touchstart", stop, { passive: true });
+      cleanups.push(() => {
+        stop();
+        rtrack.removeEventListener("pointerenter", stop);
+        rtrack.removeEventListener("pointerleave", start);
+        rtrack.removeEventListener("touchstart", stop);
       });
     }
 
