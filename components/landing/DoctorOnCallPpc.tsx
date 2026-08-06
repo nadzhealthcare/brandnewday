@@ -295,7 +295,14 @@ section.sec{padding:74px 0}
 .hero-feats .fi svg{width:22px;height:22px}
 .hero-feats b{display:block;font-size:1rem;color:#fff;font-weight:700;line-height:1.15}
 .hero-feats .feat>div>span{font-size:.8rem;color:rgba(255,255,255,.62)}
-@media(max-width:640px){.hero-feats{grid-template-columns:1fr;gap:13px}}
+@media(max-width:640px){
+  .hero-feats{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px}
+  .hero-feats .feat{gap:9px}
+  .hero-feats .fi{width:38px;height:38px;border-radius:11px}
+  .hero-feats .fi svg{width:19px;height:19px}
+  .hero-feats b{font-size:.85rem}
+  .hero-feats .feat>div>span{font-size:.72rem}
+}
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:26px}
 .hero-cta .btn-gold svg{width:16px;height:16px}
 .hero-tags{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
@@ -433,8 +440,8 @@ const HTML = `
       <div class="hero-copy">
         <span class="hero-rate">${G}<b>5.0</b> · Trusted by 10,000+ patients</span>
         <span class="hero-eyebrow">Doctor on Call · Dubai</span>
-        <h1>See a Doctor <i>Wherever You Are</i> — Home, Office or Hotel</h1>
-        <p class="sub">Real, in-person care across Dubai and nearby areas — no clinic queues, no ER waits.</p>
+        <h1>See a Doctor <i>Wherever You Are</i> - Home, Office or Hotel</h1>
+        <p class="sub">Real, in-person care across Dubai and nearby areas - no clinic queues, no ER waits.</p>
         <div class="hero-feats">
           <div class="feat"><span class="fi">${SHIELD}</span><div><b>DHA-licensed</b><span>doctors &amp; nurses</span></div></div>
           <div class="feat"><span class="fi">${CLOCK}</span><div><b>30 min · 24/7</b><span>day, night &amp; weekends</span></div></div>
