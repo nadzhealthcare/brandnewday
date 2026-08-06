@@ -119,15 +119,16 @@ const CSS = `
 .form-success .ok{width:64px;height:64px;border-radius:50%;background:#E7F7EE;color:var(--wa-dark);display:grid;place-items:center;margin:0 auto 14px}
 .form-success .ok svg{width:32px;height:32px}
 .form-success h3{color:var(--maroon)}
-.trustbar{background:var(--maroon-dark);color:#F1E4D6}
-.trustbar .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px 30px;padding:22px}
-.trustbar .ti{display:flex;align-items:center;gap:12px;min-width:150px}
+.trustbar{background:radial-gradient(720px 320px at 82% -30%,rgba(160,26,38,.28),transparent 60%),linear-gradient(150deg,#4A1C20,#2B1A17);color:#F1E4D6}
+.trustbar .wrap{padding:28px 22px}
+.trustbar .ti-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px 26px}
+.trustbar .ti{display:flex;align-items:center;gap:12px}
 .trustbar .ti .n{font-size:1.55rem;font-weight:800;font-family:var(--font-inter),sans-serif;color:#fff;line-height:1}
 .trustbar .ti .l{font-size:.78rem;color:#CDB9A9;font-weight:600}
 .trustbar .ti .tic{width:42px;height:42px;border-radius:11px;background:rgba(198,161,91,.16);color:var(--gold-soft);display:grid;place-items:center;flex:none}
 .trustbar .ti .tic svg{width:22px;height:22px}
-.trustbar .award{display:flex;align-items:center;gap:10px}
-.trustbar .award img{height:40px;width:auto;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))}
+.trustbar .award{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:24px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);text-align:left}
+.trustbar .award img{height:56px;width:auto;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))}
 section.sec{padding:74px 0}
 .sec-head{text-align:center;max-width:720px;margin:0 auto 44px}
 .sec-head h2{font-size:clamp(1.8rem,3.4vw,2.6rem);color:var(--maroon);margin:12px 0 12px}
@@ -293,7 +294,7 @@ section.sec{padding:74px 0}
 .slider-bar{position:absolute;top:0;left:0;height:100%;width:24%;background:var(--maroon);border-radius:999px;transition:left .2s ease,width .2s ease}
 @media(max-width:1120px){.sgrid{grid-template-columns:repeat(3,1fr)}.hero-grid{gap:38px}}
 @media(max-width:960px){.hero-grid{grid-template-columns:1fr;gap:28px;padding:36px 0 44px}.hero h1{font-size:clamp(2rem,6vw,2.9rem)}.bgrid{grid-template-columns:repeat(2,1fr)}.sgrid{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:1fr}.rgrid{grid-template-columns:repeat(2,1fr)}.split .wrap{grid-template-columns:1fr;gap:50px}.foot-grid{grid-template-columns:1fr;gap:28px}.nav-phone .txt{display:none}.split-img{max-width:440px;margin:0 auto}.staffgrid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:760px){section.sec{padding:56px 0}.trustbar .wrap{gap:16px 22px}.trustbar .ti{min-width:44%}.rev-top .score{font-size:1.9rem}}
+@media(max-width:760px){section.sec{padding:56px 0}.trustbar .ti-grid{grid-template-columns:repeat(2,1fr);gap:18px 16px}.rev-top .score{font-size:1.9rem}}
 @media(max-width:640px){.wrap{padding:0 16px}section.sec{padding:48px 0}.sec-head{margin-bottom:34px}.btn{white-space:normal}.nav .btn.book-top{display:none}.bgrid,.sgrid,.rgrid{grid-template-columns:1fr}.greviews{width:100%;justify-content:flex-start}.hero-cta{gap:10px}.hero-cta .btn{flex:1 1 auto}.fc-alt{flex-direction:column}.mobile-cta{display:flex}.ppc{padding-bottom:76px}.topstrip .hide-sm{display:none}.foot-bottom{flex-direction:column}.formcard{padding:24px 18px 22px}.split-img{max-width:100%}.trustbar .award{width:100%}.staffgrid{grid-template-columns:repeat(2,1fr)}.gallery{grid-template-columns:1fr}.team-head{flex-direction:column;align-items:flex-start;gap:16px}.slide{flex-basis:80vw;max-width:80vw}.rcard{flex-basis:84vw;max-width:84vw}}
 @media(max-width:400px){.hero h1{font-size:1.72rem}.btn{padding:14px 18px;font-size:.95rem}.sec-head h2{font-size:1.5rem}.mobile-cta a{font-size:.68rem}.step,.bcard,.scard{padding:22px 18px}}
 
@@ -399,7 +400,6 @@ const HOME = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
 const STETH = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.8 2.3A2 2 0 0 0 3 4v5a5 5 0 0 0 10 0V4a2 2 0 0 0-1.8-1.7"/><path d="M8 15v1a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="10" r="2"/></svg>`;
 const PULSE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`;
 const FLASK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6L4.6 18.4A2 2 0 0 0 6.3 21h11.4a2 2 0 0 0 1.7-2.6L14 9V3"/><path d="M7.5 14h9"/></svg>`;
-const USERS = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>`;
 const GLOBE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`;
 const RECEIPT = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>`;
 const WA = `https://wa.me/${WA_NUMBER}?text=Hi%20NADZ%20Healthcare%2C%20I%27d%20like%20to%20request%20a%20home%20doctor%20visit.`;
@@ -548,12 +548,13 @@ const HTML_TOP = `
 
 <div class="trustbar">
   <div class="wrap">
-    <div class="ti"><span class="tic">${SHIELD}</span><div><div class="n" style="font-size:1.05rem">Licensed</div><div class="l">by Dubai Health Authority</div></div></div>
-    <div class="ti"><span class="tic">${STETH}</span><div><div class="n">30+</div><div class="l">Board-certified medical staff</div></div></div>
-    <div class="ti"><span class="tic">${PULSE}</span><div><div class="n">30+</div><div class="l">Medical services delivered</div></div></div>
-    <div class="ti"><span class="tic">${FLASK}</span><div><div class="n">10+</div><div class="l">Global laboratory partners</div></div></div>
-    <div class="ti"><span class="tic">${USERS}</span><div><div class="n">10,000+</div><div class="l">Patients cared for</div></div></div>
-    <div class="award"><img src="/assets/best-award.png" alt="Best Home Healthcare Award 2025" /><div><div class="n" style="font-size:.98rem">Best Home Healthcare</div><div class="l">Health Magazine Awards 2025</div></div></div>
+    <div class="ti-grid">
+      <div class="ti"><span class="tic">${SHIELD}</span><div><div class="n" style="font-size:1.05rem">Licensed</div><div class="l">by Dubai Health Authority</div></div></div>
+      <div class="ti"><span class="tic">${STETH}</span><div><div class="n">30+</div><div class="l">Board-certified medical staff</div></div></div>
+      <div class="ti"><span class="tic">${PULSE}</span><div><div class="n">30+</div><div class="l">Medical services delivered</div></div></div>
+      <div class="ti"><span class="tic">${FLASK}</span><div><div class="n">10+</div><div class="l">Global laboratory partners</div></div></div>
+    </div>
+    <div class="award"><img src="/assets/best-award.png" alt="Best Home Healthcare Award 2025" /><div><div class="n" style="font-size:1.25rem">Best Home Healthcare</div><div class="l" style="font-size:.92rem">Health Magazine Awards 2025</div></div></div>
   </div>
 </div>
 
