@@ -591,7 +591,7 @@ const HTML_TOP = `
       <ul class="split-list">
         <li><span class="ck">${CHECK}</span><div><h4>A complete consultation, not a rushed house call</h4><p>Real time to examine, diagnose and explain your treatment - never a five-minute rush.</p></div></li>
         <li><span class="ck">${CHECK}</span><div><h4>Care wherever you are</h4><p>At home, at the office or at your hotel - comfortable, private and convenient across the UAE.</p></div></li>
-        <li><span class="ck">${CHECK}</span><div><h4>Affordable, transparent care</h4><p>A flat AED 249 consultation with the examination and advice included - real value, no surprises.</p></div></li>
+        <li><span class="ck">${CHECK}</span><div><h4>Affordable, transparent care</h4><p>Clear, upfront pricing with the consultation, examination and advice included - real value, no surprises.</p></div></li>
         <li><span class="ck">${CHECK}</span><div><h4>One connected medical team</h4><p>Seamlessly backed by nursing, physiotherapy and home lab tests whenever you need more.</p></div></li>
       </ul>
       <a class="btn btn-primary" href="#book" style="margin-top:26px">Request a Doctor</a>
@@ -613,7 +613,7 @@ const HTML_TOP = `
 
 <section class="midcta">
   <div class="wrap" style="padding:56px 0;text-align:center;position:relative;z-index:2">
-    <h2 style="color:#fff;font-size:clamp(1.55rem,3.2vw,2.15rem);margin:0 auto 20px;max-width:20em">See a doctor today for AED 249 - often within about 30 minutes</h2>
+    <h2 style="color:#fff;font-size:clamp(1.55rem,3.2vw,2.15rem);margin:0 auto 20px;max-width:20em">See a doctor within about 30 minutes</h2>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
       <a class="btn btn-gold" href="#book">Request a Free Callback</a>
       <a class="btn btn-wa" href="${WA}" target="_blank" rel="noopener">${WA_ICON}WhatsApp Us</a>
@@ -641,11 +641,11 @@ const HTML_TOP = `
 const HTML_BOTTOM = `
 <section class="sec" style="background:#fff">
   <div class="wrap">
-    <div class="sec-head"><span class="eyebrow">Care in action</span><h2>Bringing the clinic to your doorstep</h2><p>Real NADZ care, delivered across Dubai and nearby areas.</p></div>
+    <div class="sec-head"><span class="eyebrow">More care at home</span><h2>One team for the whole family</h2><p>The same NADZ team also brings these services to your door across Dubai.</p></div>
     <div class="gallery">
-      <figure><img src="/assets/fam.jpg" alt="Trusted by 10,000+ patients &amp; families" loading="lazy" /><figcaption>Trusted by 10,000+ patients &amp; families</figcaption></figure>
-      <figure><img src="/assets/doct.jpg" alt="DHA-licensed doctors &amp; clinicians" loading="lazy" /><figcaption>DHA-licensed doctors &amp; clinicians</figcaption></figure>
-      <figure><img src="/assets/lab.jpg" alt="Tests &amp; treatment at your home" loading="lazy" /><figcaption>Tests &amp; treatment at your home</figcaption></figure>
+      <figure><img src="/assets/physio.webp" alt="Physiotherapy at home" loading="lazy" /><figcaption>Physiotherapy at home</figcaption></figure>
+      <figure><img src="/assets/ivdrips.webp" alt="NAD+ IV therapy at home" loading="lazy" /><figcaption>NAD&#8314; IV therapy</figcaption></figure>
+      <figure><img src="/assets/labs-at-home.webp" alt="Lab tests at home" loading="lazy" /><figcaption>Lab tests at home</figcaption></figure>
     </div>
   </div>
 </section>
@@ -675,7 +675,7 @@ const HTML_BOTTOM = `
   <div class="wrap">
     <span class="eyebrow light">Ready when you are</span>
     <h2>See a doctor from the comfort of home</h2>
-    <p>DHA-licensed doctors, a flat AED 249 consultation and treatment on the spot - at home, at the office or at your hotel. A doctor can be there in about 30 minutes.</p>
+    <p>DHA-licensed doctors, a full consultation and treatment on the spot - at home, at the office or at your hotel. A doctor can be there in about 30 minutes.</p>
     <div class="btns">
       <a class="btn btn-gold" href="#book">Request a Free Callback</a>
       <a class="btn btn-wa" href="${WA}" target="_blank" rel="noopener">${WA_ICON} Chat on WhatsApp</a>
