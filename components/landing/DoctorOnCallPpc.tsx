@@ -571,10 +571,10 @@ const HTML_TOP = `
   <div class="wrap">
     <div class="split-img" id="splitShow">
       <div class="split-slides">
-        <img class="split-slide is-active" src="/assets/doc-car.jpg" alt="NADZ Healthcare doctor arriving for a home visit" loading="lazy" />
-        <img class="split-slide" src="/assets/doc.webp" alt="A DHA-licensed doctor consulting a patient at home" loading="lazy" />
-        <img class="split-slide" src="/assets/doct.jpg" alt="NADZ doctor caring for a patient" loading="lazy" />
-        <img class="split-slide" src="/assets/fam.jpg" alt="A family cared for at home by NADZ" loading="lazy" />
+        <img class="split-slide is-active" src="/assets/ppc-1.webp" alt="NADZ Healthcare doctor visit" loading="lazy" />
+        <img class="split-slide" src="/assets/ppc-2.webp" alt="A DHA-licensed doctor caring for a patient at home" loading="lazy" />
+        <img class="split-slide" src="/assets/ppc-3.webp" alt="NADZ home healthcare in Dubai" loading="lazy" />
+        <img class="split-slide" src="/assets/ppc-4.webp" alt="NADZ care at your doorstep" loading="lazy" />
       </div>
       <div class="floatstat"><span class="fic">${CLOCK}</span><div><div class="n">24/7</div><div class="l">A doctor whenever<br/>you need one</div></div></div>
       <div class="split-dots">
