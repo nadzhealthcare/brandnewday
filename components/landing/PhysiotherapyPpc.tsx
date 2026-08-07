@@ -1,0 +1,899 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import { track } from "@/lib/analytics";
+import HowItWorks from "@/components/HowItWorks";
+
+/* Physiotherapy — PPC landing page (Google Ads).
+
+   A self-contained, single-purpose landing page for paid traffic. It renders
+   outside the (main) route group so it carries none of the site chrome; every
+   action stays on the page (in-page anchors, tel:, WhatsApp) — there are no
+   links off to the rest of the site.
+
+   The design is a standalone document with its own type scale and palette, so
+   rather than fight it into the app's Tailwind system it ships as its own CSS
+   block plus markup, and the three bits of behaviour (lead form → WhatsApp,
+   FAQ accordion, team slider) are wired in React. The lead submit still fires
+   the same generate_lead event the rest of the site uses, so Google Ads gets a
+   conversion signal. */
+
+const WA_NUMBER = "971521597336";
+
+const CSS = `
+:root{
+  --maroon:#4A1C20; --maroon-dark:#2B1A17; --maroon-soft:#6E2A2F;
+  --gold:#C6A15B; --gold-dark:#A9843B; --gold-soft:#EBDBBE;
+  --cream:#FBF7F2; --cream-2:#F5ECE1; --card:#FFFFFF;
+  --ink:#2B1A17; --muted:#7C6A62; --line:#EBDFD3;
+  --wa:#25D366; --wa-dark:#128C7E; --star:#FBBC04;
+  --radius:18px; --radius-sm:12px; --shadow:0 18px 50px -20px rgba(43,26,23,.35);
+  --shadow-sm:0 8px 24px -12px rgba(43,26,23,.28);
+  --maxw:1200px;
+}
+.ppc *{box-sizing:border-box;margin:0;padding:0}
+.ppc{
+  font-family:var(--font-inter),system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;scroll-behavior:smooth;
+}
+.ppc h1,.ppc h2,.ppc h3{font-family:var(--font-mona),Georgia,'Times New Roman',serif;line-height:1.12;font-weight:600;letter-spacing:-.01em}
+/* titles: Mona Sans expanded, uppercase (matches the hero). h4 team names and
+   the Inter-set FAQ questions / review names are intentionally left normal. */
+.ppc h1,.ppc h2,.ppc h3{text-transform:uppercase;font-stretch:125%;letter-spacing:-.005em}
+.ppc a:not(.btn){color:inherit}
+.ppc a{text-decoration:none}
+.ppc img{max-width:100%;display:block;height:auto}
+.ppc h1,.ppc h2{text-wrap:balance}
+.ppc p{text-wrap:pretty}
+.ppc [id]{scroll-margin-top:88px}
+.ppc a:focus-visible,.ppc button:focus-visible,.ppc input:focus-visible,.ppc select:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--font-inter),sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dark);display:inline-flex;align-items:center;gap:8px}
+.eyebrow.light{color:var(--gold-soft)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:700;font-size:1rem;padding:15px 26px;border-radius:999px;border:2px solid transparent;cursor:pointer;transition:.2s ease;font-family:inherit;white-space:nowrap;line-height:1.15;max-width:100%;text-align:center}
+.btn svg{width:19px;height:19px;flex:none}
+.btn-primary{background:var(--maroon);color:#fff;box-shadow:var(--shadow-sm)}
+.btn-primary:hover{background:var(--maroon-soft);transform:translateY(-2px)}
+.btn-gold{background:linear-gradient(180deg,#D4B06A,#B58A3C);color:#2B1A17;box-shadow:0 12px 26px -12px rgba(169,132,59,.7)}
+.btn-gold:hover{filter:brightness(1.05);transform:translateY(-2px)}
+.btn-wa{background:var(--wa);color:#fff}
+.btn-wa:hover{background:var(--wa-dark);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--maroon);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--maroon);background:#fff}
+.btn-outline-light{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.4)}
+.btn-outline-light:hover{background:rgba(255,255,255,.16)}
+.btn.block{width:100%}
+.topstrip{background:var(--maroon-dark);color:#F3E7D8;font-size:.82rem;font-weight:500;text-align:center;padding:9px 16px}
+.topstrip b{color:var(--gold-soft);font-weight:700}
+.topstrip .dot{opacity:.5;margin:0 9px}
+.ppc header{position:sticky;top:0;z-index:50;background:rgba(251,247,242,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 22px;max-width:var(--maxw);margin:0 auto}
+.brand img{height:38px;width:auto}
+.nav-actions{display:flex;align-items:center;gap:12px}
+.nav-phone{display:inline-flex;align-items:center;gap:9px;font-weight:700;color:var(--maroon)}
+.nav-phone small{display:block;font-size:.66rem;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.nav-phone .ph-ic{width:38px;height:38px;border-radius:50%;background:var(--cream-2);display:grid;place-items:center;color:var(--maroon)}
+.nav-phone .ph-ic svg{width:18px;height:18px}
+.nav .btn{padding:11px 20px;font-size:.92rem}
+.hero{position:relative;background:radial-gradient(1100px 520px at 82% -8%,rgba(198,161,91,.22),transparent 60%),radial-gradient(760px 520px at -6% 108%,rgba(110,42,47,.55),transparent 62%),linear-gradient(155deg,#4A1C20 0%,#3A1518 52%,#2B1A17 100%);color:#fff;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:22px 22px;opacity:.5;pointer-events:none}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center;padding:56px 0 64px}
+.hero h1{font-size:clamp(2.15rem,4.6vw,3.5rem);color:#fff;margin:16px 0 14px;font-weight:600}
+.hero h1 .hl{color:var(--gold-soft);font-style:italic}
+.hero .sub{font-size:1.1rem;color:#EBD9CB;max-width:34em;margin-bottom:22px}
+.usp{list-style:none;display:grid;gap:11px;margin:0 0 26px}
+.usp li{display:flex;align-items:flex-start;gap:11px;font-weight:500;color:#F4E7D9}
+.usp .ck{width:24px;height:24px;border-radius:50%;background:rgba(198,161,91,.22);color:var(--gold-soft);display:grid;place-items:center;flex:none;margin-top:2px}
+.usp .ck svg{width:14px;height:14px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.hero-mini{display:flex;align-items:center;gap:16px;margin-top:22px;flex-wrap:wrap}
+.hero-mini .m{display:flex;align-items:center;gap:9px;font-size:.86rem;color:#E7D6C8;font-weight:600}
+.hero-mini .m svg{width:20px;height:20px;color:var(--gold-soft);flex:none}
+.hero-mini .m b{color:var(--gold-soft)}
+.greviews{display:inline-flex;align-items:center;gap:14px;background:#fff;color:var(--ink);padding:12px 18px;border-radius:14px;box-shadow:var(--shadow);margin-bottom:4px}
+.greviews .g-left{display:flex;align-items:center;gap:10px}
+.greviews .g-logo{width:26px;height:26px;flex:none}
+.greviews .g-num{font-size:1.5rem;font-weight:800;line-height:1;font-family:var(--font-inter),sans-serif}
+.greviews .stars{display:flex;gap:2px;margin:3px 0}
+.greviews .stars svg{width:15px;height:15px;color:var(--star)}
+.greviews .g-sub{font-size:.72rem;color:var(--muted);font-weight:600}
+.greviews .g-divider{width:1px;height:40px;background:var(--line)}
+.greviews .g-word{font-size:.74rem;font-weight:700;color:#5f6368;letter-spacing:.02em}
+.formcard{background:#fff;border-radius:22px;box-shadow:var(--shadow);padding:26px 26px 24px;border:1px solid rgba(255,255,255,.6);position:relative}
+.formcard .fc-flag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(180deg,#D4B06A,#B58A3C);color:#2B1A17;font-size:.74rem;font-weight:800;padding:6px 16px;border-radius:999px;letter-spacing:.03em;box-shadow:0 8px 18px -8px rgba(169,132,59,.8);white-space:nowrap}
+.formcard h3{font-size:1.4rem;color:var(--maroon);margin:8px 0 3px;text-align:center}
+.formcard .fc-sub{text-align:center;color:var(--muted);font-size:.9rem;margin-bottom:18px}
+.formcard .fc-price{text-align:center;margin:-6px 0 16px}
+.formcard .fc-price span{display:inline-flex;align-items:center;gap:7px;background:var(--cream-2);color:var(--maroon);font-weight:800;font-size:.9rem;padding:7px 15px;border-radius:999px}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:.78rem;font-weight:700;color:var(--ink);margin-bottom:5px}
+.field input,.field select{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;font-family:inherit;font-size:.98rem;color:var(--ink);background:var(--cream);transition:.15s}
+.field input:focus,.field select:focus{outline:none;border-color:var(--gold);background:#fff;box-shadow:0 0 0 4px rgba(198,161,91,.15)}
+.field.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fc-alt{display:flex;gap:10px;margin-top:12px}
+.fc-alt .btn{flex:1;padding:13px 10px;font-size:.9rem}
+.fc-note{text-align:center;font-size:.74rem;color:var(--muted);margin-top:13px;display:flex;align-items:center;justify-content:center;gap:6px}
+.fc-note svg{width:14px;height:14px;color:var(--wa-dark)}
+.form-success{display:none;text-align:center;padding:20px 6px}
+.form-success .ok{width:64px;height:64px;border-radius:50%;background:#E7F7EE;color:var(--wa-dark);display:grid;place-items:center;margin:0 auto 14px}
+.form-success .ok svg{width:32px;height:32px}
+.form-success h3{color:var(--maroon)}
+.trustbar{background:radial-gradient(720px 320px at 82% -30%,rgba(160,26,38,.28),transparent 60%),linear-gradient(150deg,#4A1C20,#2B1A17);color:#F1E4D6}
+.trustbar .wrap{padding:28px 22px}
+.trustbar .ti-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px 26px}
+.trustbar .ti{display:flex;align-items:center;gap:12px}
+.trustbar .ti .n{font-size:1.55rem;font-weight:800;font-family:var(--font-inter),sans-serif;color:#fff;line-height:1}
+.trustbar .ti .l{font-size:.78rem;color:#CDB9A9;font-weight:600}
+.trustbar .ti .tic{width:42px;height:42px;border-radius:11px;background:rgba(198,161,91,.16);color:var(--gold-soft);display:grid;place-items:center;flex:none}
+.trustbar .ti .tic svg{width:22px;height:22px}
+.trustbar .award{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:24px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);text-align:left}
+.trustbar .award img{height:56px;width:auto;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))}
+section.sec{padding:74px 0}
+.sec-head{text-align:center;max-width:720px;margin:0 auto 44px}
+.sec-head h2{font-size:clamp(1.8rem,3.4vw,2.6rem);color:var(--maroon);margin:12px 0 12px}
+.sec-head p{color:var(--muted);font-size:1.05rem}
+.benefits{background:#fff}
+.bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.bcard{background:var(--cream);border:1px solid var(--line);border-radius:var(--radius);padding:26px 22px;transition:.2s}
+.bcard:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm);border-color:var(--gold-soft)}
+.bcard .ic{width:52px;height:52px;border-radius:14px;background:var(--maroon);color:var(--gold-soft);display:grid;place-items:center;margin-bottom:15px}
+.bcard .ic svg{width:26px;height:26px}
+.bcard h3{font-size:1.12rem;color:var(--maroon);margin-bottom:7px;font-family:var(--font-inter),sans-serif;font-weight:600;text-transform:none;font-stretch:normal;letter-spacing:-.01em}
+.bcard p{color:var(--muted);font-size:.94rem}
+.split{background:var(--cream)}
+.split .wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.split-img{position:relative;aspect-ratio:5/6;border-radius:22px;box-shadow:var(--shadow)}
+.split-slides{position:absolute;inset:0;border-radius:22px;overflow:hidden}
+.split-slides .split-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity 1.1s ease,transform 6s ease}
+.split-slides .split-slide.is-active{opacity:1;transform:scale(1)}
+.split-dots{position:absolute;left:16px;bottom:16px;z-index:3;display:flex;gap:7px}
+.split-dot{width:8px;height:8px;padding:0;border:none;border-radius:999px;background:rgba(255,255,255,.5);cursor:pointer;transition:width .25s ease,background .25s ease}
+.split-dot.is-active{width:22px;background:#fff}
+.split-dot:hover{background:rgba(255,255,255,.85)}
+/* ---------- micro-interactions ---------- */
+@media (prefers-reduced-motion: no-preference){
+  @keyframes ppcRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .hero-rate,.hero-eyebrow,.hero h1,.hero .sub,.hero-feats,.order-form{animation:ppcRise .65s cubic-bezier(.22,.61,.36,1) both}
+  .hero-eyebrow{animation-delay:.05s}
+  .hero h1{animation-delay:.1s}
+  .hero .sub{animation-delay:.2s}
+  .hero-feats{animation-delay:.28s}
+  .order-form{animation-delay:.16s}
+}
+.hero-feats .feat{transition:transform .25s ease}
+.hero-feats .feat:hover{transform:translateY(-2px)}
+.hero-feats .fi{transition:transform .25s ease,background .25s ease,border-color .25s ease}
+.hero-feats .feat:hover .fi{transform:scale(1.08);background:rgba(198,161,91,.28);border-color:rgba(255,255,255,.26)}
+.scard .ic,.bcard .ic{transition:transform .3s ease}
+.scard:hover .ic{transform:rotate(-6deg) scale(1.08)}
+.bcard:hover .ic{transform:scale(1.08)}
+.slide .tphoto img{transition:transform .5s ease}
+.slide:hover .tphoto img{transform:scale(1.06)}
+.faq-q{transition:background .2s ease,color .2s ease}
+.faq-q:hover{background:rgba(198,161,91,.08)}
+.faq-item.open .faq-q{color:var(--maroon-soft)}
+.fab-btn:active{transform:scale(.93)}
+.hero-rate{transition:transform .25s ease,background .25s ease}
+.hero-rate:hover{transform:translateY(-1px);background:rgba(255,255,255,.12)}
+.formcard.glass .field input,.formcard.glass .field select{transition:border-color .18s ease,background .18s ease,box-shadow .18s ease}
+.split-img .floatstat{position:absolute;right:-16px;bottom:-18px;background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:16px 20px;display:flex;align-items:center;gap:13px;border:1px solid var(--line)}
+.split-img .floatstat .n{font-size:1.5rem;font-weight:800;font-family:var(--font-inter),sans-serif;color:var(--maroon);line-height:1}
+.split-img .floatstat .l{font-size:.76rem;color:var(--muted);font-weight:600}
+.split-img .floatstat .fic{width:44px;height:44px;border-radius:12px;background:var(--cream-2);color:var(--maroon);display:grid;place-items:center;flex:none}
+.split-img .floatstat .fic svg{width:23px;height:23px}
+.split-list{list-style:none;display:grid;gap:16px;margin-top:8px}
+.split-list li{display:flex;gap:13px}
+.split-list .ck{width:28px;height:28px;border-radius:50%;background:var(--gold-soft);color:var(--maroon-dark);display:grid;place-items:center;flex:none}
+.split-list .ck svg{width:16px;height:16px}
+.split-list h4{font-size:1.02rem;color:var(--ink);font-family:var(--font-inter),sans-serif;font-weight:700;margin-bottom:2px}
+.split-list p{color:var(--muted);font-size:.92rem}
+.services{background:#fff}
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.scard{border:1px solid var(--line);border-radius:var(--radius);padding:24px 20px;background:var(--cream);position:relative;overflow:hidden;transition:.2s}
+.scard:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm);background:#fff;border-color:var(--gold)}
+.scard .ic{width:50px;height:50px;border-radius:13px;background:linear-gradient(160deg,#6E2A2F,#4A1C20);color:var(--gold-soft);display:grid;place-items:center;margin-bottom:14px}
+.scard .ic svg{width:26px;height:26px}
+.scard h3{font-size:1.04rem;color:var(--maroon);margin-bottom:6px;font-family:var(--font-inter),sans-serif;font-weight:600;text-transform:none;font-stretch:normal;letter-spacing:-.01em}
+.scard p{color:var(--muted);font-size:.9rem}
+.how{background:linear-gradient(160deg,#4A1C20,#2B1A17);color:#fff;position:relative;overflow:hidden}
+.how::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:24px 24px;opacity:.4}
+.how .sec-head h2{color:#fff}
+.how .sec-head p{color:#D9C6B7}
+.steps{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.step{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:var(--radius);padding:30px 24px;text-align:center;backdrop-filter:blur(4px)}
+.step .num{width:54px;height:54px;border-radius:50%;background:linear-gradient(180deg,#D4B06A,#B58A3C);color:#2B1A17;font-family:var(--font-mona),serif;font-weight:700;font-size:1.5rem;display:grid;place-items:center;margin:0 auto 16px}
+.step h3{color:#fff;font-size:1.22rem;margin-bottom:8px}
+.step p{color:#D9C6B7;font-size:.94rem}
+.how-cta{position:relative;z-index:2;text-align:center;margin-top:40px}
+.team{background:var(--cream)}
+.reviews{background:#fff}
+.rev-top{display:flex;align-items:center;justify-content:center;gap:16px;margin:0 auto 8px;flex-wrap:wrap}
+.rev-top .g-logo{width:36px;height:36px}
+.rev-top .score{font-size:2.2rem;font-weight:800;font-family:var(--font-inter),sans-serif;color:var(--ink);line-height:1}
+.rev-top .stars{display:flex;gap:3px}
+.rev-top .stars svg{width:22px;height:22px;color:var(--star)}
+.rgrid{display:flex;gap:20px;margin-top:8px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px 2px 8px;scrollbar-width:none;-ms-overflow-style:none}
+.rgrid::-webkit-scrollbar{display:none}
+.rcard{flex:0 0 340px;max-width:340px;scroll-snap-align:start;background:var(--cream);border:1px solid var(--line);border-radius:var(--radius);padding:24px 22px;display:flex;flex-direction:column;gap:12px}
+.rcard .rstars{display:flex;gap:2px}
+.rcard .rstars svg{width:16px;height:16px;color:var(--star)}
+.rcard .rtext{color:#4a3d37;font-size:.96rem;flex:1}
+.rcard .rfoot{display:flex;align-items:center;gap:12px;padding-top:6px;border-top:1px solid var(--line)}
+.rcard .av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:1rem;flex:none;font-family:var(--font-inter),sans-serif}
+.rcard .rname{font-weight:700;font-size:.92rem;color:var(--ink)}
+.rcard .rtag{font-size:.74rem;color:var(--muted);display:flex;align-items:center;gap:5px}
+.rcard .rtag svg{width:13px;height:13px;color:#4285F4}
+.rcard .gmark{margin-left:auto;width:22px;height:22px;opacity:.9}
+.rev-cta{text-align:center;margin-top:36px}
+.faq{background:var(--cream)}
+.faq-list{max-width:820px;margin:0 auto;display:grid;gap:12px}
+.faq-item{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.faq-q{width:100%;text-align:left;background:none;border:none;padding:19px 22px;font-family:inherit;font-size:1.02rem;font-weight:700;color:var(--maroon);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq-q .chev{width:22px;height:22px;flex:none;transition:.25s;color:var(--gold-dark)}
+.faq-item.open .chev{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;color:var(--muted);font-size:.96rem}
+.faq-a div{padding:0 22px 20px}
+.finalcta{background:linear-gradient(150deg,#6E2A2F,#4A1C20 55%,#2B1A17);color:#fff;text-align:center;position:relative;overflow:hidden}
+.finalcta::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:22px 22px;opacity:.5}
+.finalcta .wrap{position:relative;z-index:2}
+.finalcta h2{font-size:clamp(1.9rem,3.6vw,2.8rem);color:#fff;margin-bottom:14px}
+.finalcta p{color:#E7D6C8;font-size:1.1rem;max-width:36em;margin:0 auto 28px}
+.finalcta .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.ppc footer{background:radial-gradient(700px 340px at 88% -20%,rgba(160,26,38,.22),transparent 60%),linear-gradient(160deg,#4A1C20,#2B1A17 72%);color:#CDB9A9;padding:56px 0 30px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1.3fr;gap:36px;padding-bottom:34px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ppc footer .brand img{height:40px;margin-bottom:16px}
+.ppc footer p{font-size:.92rem;color:#C3AF9F;max-width:30em}
+.ppc footer h4{color:#fff;font-family:var(--font-inter),sans-serif;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;font-weight:700}
+.foot-c{display:flex;flex-direction:column;gap:12px}
+.foot-c.foot-services{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px}
+.foot-c a,.foot-c div{display:flex;align-items:flex-start;gap:11px;font-size:.92rem;color:#D4C1B2}
+.foot-c a:hover{color:#fff}
+.foot-c svg{width:18px;height:18px;color:var(--gold);flex:none;margin-top:2px}
+.foot-bottom{padding-top:22px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:.8rem;color:#9E8A7B}
+.foot-bottom .lic{color:var(--gold-soft)}
+.mobile-cta{position:fixed;bottom:0;left:0;right:0;z-index:60;display:none;background:rgba(255,255,255,.32);backdrop-filter:blur(20px) saturate(1.6);border-top:1px solid rgba(255,255,255,.4);box-shadow:0 -8px 24px -12px rgba(43,26,23,.3);padding:7px 9px;gap:7px}
+.mobile-cta a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 4px;border-radius:11px;font-size:.68rem;font-weight:700}
+.mobile-cta svg{width:18px;height:18px}
+.mobile-cta .m-call{background:var(--cream-2);color:var(--maroon)}
+.mobile-cta .m-wa{background:var(--wa);color:#fff}
+.mobile-cta .m-book{background:linear-gradient(180deg,#D4B06A,#B58A3C);color:#2B1A17}
+/* mid-page CTA: abstract maroon gradient (was flat gold) */
+.midcta{position:relative;overflow:hidden;background:radial-gradient(900px 420px at 80% -12%,rgba(198,161,91,.20),transparent 60%),radial-gradient(720px 460px at -6% 112%,rgba(110,42,47,.6),transparent 62%),linear-gradient(150deg,#6E2A2F,#4A1C20 55%,#2B1A17)}
+.midcta::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:22px 22px;opacity:.5;pointer-events:none}
+.staffgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.gallery figure{margin:0;position:relative;border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm);aspect-ratio:4/3}
+.gallery img{width:100%;height:100%;object-fit:cover;transition:.5s ease}
+.gallery figure:hover img{transform:scale(1.06)}
+.gallery figcaption{position:absolute;left:0;right:0;bottom:0;padding:30px 16px 15px;color:#fff;font-weight:700;font-size:.95rem;background:linear-gradient(transparent,rgba(43,26,23,.9))}
+.team-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:26px}
+.team-head-txt{max-width:640px}
+.team-head .eyebrow{margin-bottom:12px;display:inline-flex}
+.team-head h2{font-size:clamp(1.8rem,3.4vw,2.6rem);color:var(--maroon);margin:0 0 10px}
+.team-head p{color:var(--muted);font-size:1.02rem}
+.slider-nav{display:flex;gap:10px;flex:none}
+.sld-btn{width:50px;height:50px;border-radius:50%;border:1.5px solid var(--line);background:#fff;color:var(--maroon);cursor:pointer;display:grid;place-items:center;transition:.2s}
+.sld-btn svg{width:20px;height:20px}
+.sld-btn:hover{background:var(--maroon);color:#fff;border-color:var(--maroon)}
+.sld-btn:disabled{opacity:.35;cursor:default;background:#fff;color:var(--maroon);border-color:var(--line)}
+.slider{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px 2px 6px;scrollbar-width:none;-ms-overflow-style:none}
+.slider::-webkit-scrollbar{display:none}
+.slide{flex:0 0 278px;max-width:278px;scroll-snap-align:start;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-sm);transition:.2s;display:flex;flex-direction:column}
+.slide:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
+.slide .tphoto{position:relative;aspect-ratio:1/1.12;overflow:hidden;background:linear-gradient(160deg,#F2AF74,#DE7C3C)}
+.slide .tphoto img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.badge-yrs{position:absolute;top:12px;right:12px;background:#fff;color:var(--ink);font-size:.75rem;font-weight:700;padding:6px 11px;border-radius:999px;display:inline-flex;align-items:center;gap:5px;box-shadow:0 6px 16px -8px rgba(43,26,23,.5)}
+.badge-yrs svg{width:13px;height:13px;color:var(--gold-dark)}
+.badge-feat{position:absolute;top:12px;left:12px;background:var(--maroon);color:#fff;font-size:.72rem;font-weight:700;padding:6px 12px;border-radius:999px;box-shadow:0 6px 16px -8px rgba(43,26,23,.6)}
+.slide .tinfo{padding:16px 18px 18px;flex:1}
+.slide .tinfo h4{font-family:var(--font-mona),Georgia,serif;font-size:1.14rem;color:var(--maroon);margin:0 0 5px;font-weight:600;line-height:1.16;min-height:2.3em}
+.slide .trole{font-size:.85rem;color:var(--muted);font-weight:600;padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.slide .tlang{display:flex;align-items:flex-start;gap:8px;font-size:.8rem;color:var(--gold-dark);font-weight:600;line-height:1.35}
+.slide .tlang svg{width:15px;height:15px;flex:none;margin-top:1px}
+.slider-progress{position:relative;height:4px;background:var(--line);border-radius:999px;margin-top:16px;overflow:hidden}
+.slider-bar{position:absolute;top:0;left:0;height:100%;width:24%;background:var(--maroon);border-radius:999px;transition:left .2s ease,width .2s ease}
+@media(max-width:1120px){.sgrid{grid-template-columns:repeat(3,1fr)}.hero-grid{gap:38px}}
+@media(max-width:960px){.hero-grid{grid-template-columns:1fr;gap:28px;padding:36px 0 44px}.hero h1{font-size:clamp(2rem,6vw,2.9rem)}.bgrid{grid-template-columns:repeat(2,1fr)}.sgrid{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:1fr}.rgrid{grid-template-columns:repeat(2,1fr)}.split .wrap{grid-template-columns:1fr;gap:50px}.foot-grid{grid-template-columns:1fr;gap:28px}.nav-phone .txt{display:none}.split-img{width:100%;max-width:440px;margin:0 auto;justify-self:center}.staffgrid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){section.sec{padding:56px 0}.trustbar .ti-grid{grid-template-columns:repeat(2,1fr);gap:18px 16px}.rev-top .score{font-size:1.9rem}}
+@media(max-width:640px){.wrap{padding:0 16px}section.sec{padding:48px 0}.sec-head{margin-bottom:34px}.btn{white-space:normal}.nav .btn.book-top{display:none}.bgrid{grid-template-columns:repeat(2,1fr);gap:12px}.bcard{padding:16px 14px}.bcard h3{font-size:.98rem}.bcard .ic{width:44px;height:44px;margin-bottom:12px}.bcard .ic svg{width:22px;height:22px}.sgrid{grid-template-columns:repeat(2,1fr);gap:12px}.scard{padding:16px 14px}.scard h3{font-size:.96rem}.scard .ic{width:42px;height:42px;margin-bottom:11px}.scard .ic svg{width:22px;height:22px}.greviews{width:100%;justify-content:flex-start}.hero-cta{gap:10px}.hero-cta .btn{flex:1 1 auto}.fc-alt{flex-direction:column}.mobile-cta{display:flex}.ppc{padding-bottom:76px}.topstrip .hide-sm{display:none}.foot-bottom{flex-direction:column}.formcard{padding:24px 18px 22px}.split-img{max-width:100%}.trustbar .award{width:100%}.staffgrid{grid-template-columns:repeat(2,1fr)}.gallery{grid-template-columns:1fr}.team-head{flex-direction:column;align-items:flex-start;gap:16px}.slide{flex-basis:80vw;max-width:80vw}.rcard{flex-basis:84vw;max-width:84vw}}
+@media(max-width:400px){.hero h1{font-size:1.72rem}.btn{padding:14px 18px;font-size:.95rem}.sec-head h2{font-size:1.5rem}.mobile-cta a{font-size:.68rem}.step,.bcard,.scard{padding:22px 18px}}
+
+/* ---------- Hero redesign: full-bleed doc.webp + glassmorphism form ---------- */
+.hero{position:relative;min-height:100vh;color:#fff;overflow:hidden;display:flex;background:#2B1A17 url('/assets/doc.webp') center/cover no-repeat}
+.hero::after{display:none}
+.hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(26,9,12,.94) 0%,rgba(26,9,12,.74) 40%,rgba(26,9,12,.40) 100%),linear-gradient(0deg,rgba(18,7,9,.82) 0%,transparent 42%)}
+.hero-inner{position:relative;z-index:2;width:100%;max-width:var(--maxw);margin:0 auto;padding:18px 22px 46px;display:flex;flex-direction:column;min-height:100vh}
+.hero-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:11px 12px 11px 20px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(12px)}
+.hero-nav .brand img{height:32px;width:auto;display:block}
+.hero-nav-right{display:flex;align-items:center;gap:14px}
+.hero-phone{display:inline-flex;align-items:center;gap:10px;color:#fff;font-weight:700}
+.hero-phone small{display:block;font-size:.62rem;font-weight:600;color:rgba(255,255,255,.6);letter-spacing:.05em;text-transform:uppercase}
+.hero-phone .ph-ic{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.12);display:grid;place-items:center;color:var(--gold-soft)}
+.hero-phone .ph-ic svg{width:17px;height:17px}
+.btn-book{background:#fff;color:var(--maroon-dark);padding:11px 22px;font-size:.92rem;border:none}
+.btn-book:hover{background:#fff;transform:translateY(-2px);filter:brightness(.97)}
+.hero-grid{flex:1;display:grid;grid-template-columns:1.05fr minmax(0,430px);gap:46px;align-items:center;padding:34px 0;position:static}
+.hero-copy{max-width:660px}
+.hero-copy .hero-mob-pic{display:none}
+.hero-rate{display:inline-flex;align-items:center;gap:8px;font-size:.82rem;font-weight:600;color:#F4E7D9;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);padding:7px 15px;border-radius:999px;margin-bottom:20px}
+.hero-rate svg{width:17px;height:17px}
+/* floating WhatsApp + Call buttons, bottom-right (desktop; mobile uses the sticky bar) */
+.fab{position:fixed;right:20px;bottom:24px;z-index:70;display:flex;flex-direction:column;gap:12px}
+.fab-btn{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;color:#fff;box-shadow:0 14px 30px -8px rgba(0,0,0,.5);transition:transform .2s ease,filter .2s ease}
+.fab-btn svg{width:26px;height:26px}
+.fab-btn:hover{transform:translateY(-3px);filter:brightness(1.05)}
+.fab-wa{background:var(--wa)}
+.fab-call{background:linear-gradient(180deg,#D4B06A,#B58A3C);color:#2B1A17}
+@media(max-width:640px){.fab{display:none}}
+.hero-rate b{color:#fff;font-weight:800}
+.hero-eyebrow{display:block;font-size:.74rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:12px}
+.hero h1{font-size:clamp(2rem,4.3vw,3.3rem);line-height:1.06;margin:0 0 16px;font-weight:600;color:#fff;text-transform:uppercase;font-stretch:125%;letter-spacing:-.005em}
+.hero h1 i{font-style:italic;color:var(--gold-soft)}
+.hero .sub{font-size:1.05rem;color:#EAD9CC;max-width:33em;margin-bottom:22px}
+.hero .usp{margin:0 0 24px}
+.hero-feats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px;max-width:540px;margin:4px 0 4px}
+.hero-feats .feat{display:flex;align-items:center;gap:12px}
+.hero-feats .fi{width:44px;height:44px;border-radius:12px;background:rgba(198,161,91,.16);border:1px solid rgba(255,255,255,.12);display:grid;place-items:center;color:var(--gold-soft);flex:none}
+.hero-feats .fi svg{width:22px;height:22px}
+.hero-feats b{display:block;font-size:1rem;color:#fff;font-weight:700;line-height:1.15}
+.hero-feats .feat>div>span{font-size:.8rem;color:rgba(255,255,255,.62)}
+@media(max-width:640px){
+  .hero-feats{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px}
+  .hero-feats .feat{gap:9px}
+  .hero-feats .fi{width:38px;height:38px;border-radius:11px}
+  .hero-feats .fi svg{width:19px;height:19px}
+  .hero-feats b{font-size:.85rem}
+  .hero-feats .feat>div>span{font-size:.72rem}
+}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:26px}
+.hero-cta .btn-gold svg{width:16px;height:16px}
+.hero-tags{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.hero-tags-lbl{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.hero-tags .tag{display:inline-flex;align-items:center;gap:8px;font-size:.82rem;font-weight:600;color:#F4E7D9;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);padding:8px 14px;border-radius:999px}
+.hero-tags .tag svg{width:15px;height:15px;color:var(--gold-soft);flex:none}
+/* glassmorphism form */
+.formcard.glass{background:rgba(26,10,13,.5);backdrop-filter:blur(26px) saturate(1.25);border:1px solid rgba(255,255,255,.18);box-shadow:0 30px 80px -28px rgba(0,0,0,.75);color:#fff}
+.formcard.glass h3{color:#fff}
+.formcard.glass .fc-sub{color:rgba(255,255,255,.72)}
+.formcard.glass .fc-price span{background:rgba(198,161,91,.16);color:var(--gold-soft)}
+.formcard.glass .field label{color:rgba(255,255,255,.85)}
+.formcard.glass .field input,.formcard.glass .field select{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.2);color:#fff}
+.formcard.glass .field input::placeholder{color:rgba(255,255,255,.5)}
+.formcard.glass .field select option{color:#1c1c1c}
+.formcard.glass .field input:focus,.formcard.glass .field select:focus{border-color:var(--gold);background:rgba(255,255,255,.14);box-shadow:0 0 0 4px rgba(198,161,91,.2)}
+.formcard.glass .btn-ghost{color:#fff;border-color:rgba(255,255,255,.4)}
+.formcard.glass .btn-ghost:hover{background:rgba(255,255,255,.1);border-color:#fff}
+.formcard.glass .fc-note{color:rgba(255,255,255,.6)}
+.formcard.glass .fc-note svg{color:var(--wa)}
+.formcard.glass .form-success h3{color:#fff}
+.formcard.glass .form-success p{color:rgba(255,255,255,.72) !important}
+@media(max-width:960px){
+  .hero{min-height:auto}
+  .hero-inner{min-height:auto;padding-bottom:34px}
+  .hero-grid{grid-template-columns:1fr;gap:30px;padding:28px 0}
+  .hero-copy{max-width:none}
+  .hero h1{font-size:clamp(2rem,7vw,2.8rem)}
+  .hero-phone .txt{display:none}
+}
+@media(max-width:640px){
+  .hero{background-image:url('/assets/doc-mob-2.webp');background-position:center top}
+  .hero-scrim{background:linear-gradient(180deg,rgba(22,8,11,.30) 0%,rgba(22,8,11,.14) 45%,rgba(22,8,11,.62) 100%)}
+  .hero-copy .hero-mob-pic{display:block;width:100%;border-radius:20px;margin-bottom:18px;box-shadow:0 22px 44px -22px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.12)}
+  .hero-nav{padding:8px 10px 8px 14px}
+  .hero-nav .brand img{height:27px}
+  .btn-book{padding:10px 16px;font-size:.85rem}
+  .hero-cta .btn{flex:1 1 auto}
+  .hero-rate{font-size:.76rem}
+  .hero h1{font-size:clamp(1.7rem,6.2vw,2.45rem)}
+}
+`;
+
+const G = `<svg class="g-logo" viewBox="0 0 48 48"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24s.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>`;
+const STAR = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
+const STARS5 = STAR.repeat(5);
+const WA_ICON = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49a9.53 9.53 0 0 0 3.52.81c.54-.05 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/></svg>`;
+const PHONE_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`;
+const CHECK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+const SHIELD = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>`;
+const CLOCK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
+const HOME = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`;
+const STETH = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.8 2.3A2 2 0 0 0 3 4v5a5 5 0 0 0 10 0V4a2 2 0 0 0-1.8-1.7"/><path d="M8 15v1a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="10" r="2"/></svg>`;
+const PULSE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`;
+const FLASK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6L4.6 18.4A2 2 0 0 0 6.3 21h11.4a2 2 0 0 0 1.7-2.6L14 9V3"/><path d="M7.5 14h9"/></svg>`;
+const GLOBE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`;
+const RECEIPT = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>`;
+const WA = `https://wa.me/${WA_NUMBER}?text=Hi%20NADZ%20Healthcare%2C%20I%27d%20like%20to%20book%20a%20physiotherapy%20visit.`;
+
+const CONDITIONS = [
+  [`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M8 5l4-3 4 3M8 19l4 3 4-3M4 9v6M20 9v6"/></svg>`, "Back, neck & joint pain", "Relief and lasting recovery for chronic or sudden back, neck, shoulder, knee and joint pain."],
+  [`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4M3 10h18"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M9 16l2 2 4-4"/></svg>`, "Post-surgical rehabilitation", "Structured recovery after orthopaedic and other surgery - rebuild strength, mobility and confidence."],
+  [`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>`, "Sports injury recovery", "Get back to training safely - from sprains and strains to ligament and overuse injuries."],
+  [`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2a2.5 2.5 0 0 0-2.45 3A2.5 2.5 0 0 0 5 9.5v.5a3 3 0 0 0 0 6 2.5 2.5 0 0 0 4.5 1.5V6.5A2.5 2.5 0 0 0 9.5 2zM14.5 2a2.5 2.5 0 0 1 2.45 3A2.5 2.5 0 0 1 19 9.5v.5a3 3 0 0 1 0 6 2.5 2.5 0 0 1-4.5 1.5V6.5A2.5 2.5 0 0 1 14.5 2z"/></svg>`, "Neurological therapy", "Specialised rehab for stroke, Parkinson's and MS - restoring movement, balance and independence."],
+  [`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M12 7v6l-2 8M12 13l3 8M7 11l5-2 5 2"/></svg>`, "Elderly care & fall prevention", "Gentle, confidence-building therapy to improve strength, balance and mobility - and prevent falls."],
+  [`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3"/><path d="M12 11v6M9 14h6M6 21a6 6 0 0 1 12 0"/></svg>`, "Women's & postnatal physio", "Postnatal recovery, core and pelvic-floor rehabilitation - discreet, expert support at home."],
+  [`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2l-2 5 3 1-4 6M8 6l2 4M6 12l3 2M18 8l-3 6"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>`, "Manual therapy, dry needling & cupping", "Hands-on techniques including dry needling, cupping and hijama to ease pain and speed recovery."],
+  [`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`, "Chronic pain & posture", "Long-term relief programmes for chronic pain, poor posture and desk-work strain."],
+]
+  .map(
+    ([ic, h, p]) =>
+      `<div class="scard"><div class="ic">${ic}</div><h3>${h}</h3><p>${p}</p></div>`,
+  )
+  .join("");
+
+const REVIEWS = [
+  ["AK", "#8E24AA", "Anastasia K.", "I want to say a big thank you to Nurse Chandra and Physiotherapist Dr Ahsan! They came to me at 9pm even after their shift - truly went above and beyond."],
+  ["EM", "#1E88E5", "Eoin McLaughlin", "Dr Ahsan, physiotherapist - I was very impressed with the work he did on the very first session. Professional, knowledgeable and genuinely caring."],
+  ["RF", "#00897B", "Ruwan Ranjith Fernando", "Overall the service was superb. The contact person was very supportive and the nursing staff were very professional and kind. Highly recommend."],
+  ["PD", "#C0392B", "Priya Dhas", "Had a great experience with NADZ Healthcare. Booking was easy, the team arrived on time and the care was genuinely excellent from start to finish."],
+  ["HA", "#6D4C41", "Harriet Adomah", "Their nurse reached me within 20 minutes for a home visit. Incredibly fast, friendly and professional - exactly what you want when you need care quickly."],
+  ["PP", "#5E35B1", "Precious Piyoure", "Booked a home visit and the whole experience was seamless. Immediate relief and such attentive, caring staff. NADZ genuinely saved my day."],
+]
+  .map(
+    ([av, bg, name, text]) =>
+      `<div class="rcard"><div class="rstars">${STARS5}</div><p class="rtext">"${text}"</p><div class="rfoot"><span class="av" style="background:${bg}">${av}</span><div><div class="rname">${name}</div><div class="rtag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Verified patient</div></div>${G.replace("g-logo", "gmark")}</div></div>`,
+  )
+  .join("");
+
+const TEAM = [
+  ["drmuhammad.jpg", "Dr. Muhammad Ahsaan Akhtar", "Physiotherapist", "5 years", "English, Urdu, Hindi, Punjabi", true],
+  ["drnada.jpg", "Dr. Nada Thakur", "Physiotherapist", "5 years", "English, Hindi", false],
+  ["drnadia.jpg", "Dr. Nadia Choudhry", "GP & Co-Founder", "13 years", "English, Arabic, Urdu, Hindi, Punjabi", false],
+  ["dravinash.jpg", "Dr. Avinash Babu", "General Practitioner", "5 years", "English, Tamil, Telugu, Russian", false],
+  ["drdianne.jpg", "Dr. Dianne Jokene", "Osteopathic Practitioner", "15 years", "English", false],
+  ["chandra.jpg", "Chandra KC", "Registered Nurse", "3 years", "English, Nepali, Hindi", false],
+  ["roja.jpg", "Roja Devi Ningthoujam", "Registered Nurse", "4 years", "English, Hindi", false],
+  ["anjana.jpg", "Anjana Ghale", "Registered Nurse", "7 years", "English, Hindi, Nepali", false],
+  ["bincy.jpg", "Bincy Eldhose", "Registered Nurse", "3 years", "English, Tamil, Malayalam", false],
+  ["kajal.jpg", "Kajal Andriya", "Assistant Nurse", "3 years", "English, Hindi, Malayalam", false],
+  ["desire.jpg", "Desire Mendoza", "Caregiver", "8 years", "English, Arabic, Tagalog", false],
+  ["zainabu.jpg", "Zainabu Ibrahim", "Caregiver", "9 years", "English, Arabic, TWI", false],
+]
+  .map(
+    ([img, name, role, yrs, langs, feat]) =>
+      `<div class="slide"><div class="tphoto">${feat ? '<span class="badge-feat">Featured</span>' : ""}<span class="badge-yrs">${STAR} ${yrs}</span><img src="/assets/${img}" alt="${name}, ${role} at NADZ Healthcare" loading="lazy" /></div><div class="tinfo"><h4>${name}</h4><div class="trole">${role}</div><div class="tlang">${GLOBE}<span>${langs}</span></div></div></div>`,
+  )
+  .join("");
+
+const FAQS = [
+  ["Which areas do you cover?", "We provide home physiotherapy across Dubai, Abu Dhabi and nearby areas - with an average arrival time of around 30 minutes in Dubai. Wherever you are, call or WhatsApp us and we'll confirm availability at your location."],
+  ["How quickly can a physiotherapist reach me?", "We offer same-day and scheduled visits, including evenings and weekends. In many cases a physiotherapist can be with you within about 30 minutes - 24/7 support is always available."],
+  ["Are your physiotherapists licensed?", "Yes. Every physiotherapist is DHA-licensed and experienced. NADZ Healthcare is a licensed home-healthcare provider (Ministry of Health License No: P4DWL25W-100725) and was named Best Home Healthcare at the Health Magazine Awards 2025."],
+  ["How much does a physiotherapy visit cost?", "Our physiotherapy is affordable with clear, transparent pricing - and we build a progressive plan rather than charging for one-off visits. Share your needs by call or WhatsApp and we'll give you exact pricing before your visit, with no obligation."],
+  ["Do you bring your own equipment?", "Yes. Your physiotherapist arrives with the right equipment for your condition and will also guide you through home exercises with clear progression, coordinating with your wider medical team where needed."],
+  ["Can you treat at my office or hotel too?", "Absolutely. We deliver care wherever you feel most comfortable - your home, your office or your hotel - with the same discreet, professional standard."],
+]
+  .map(
+    ([q, a]) =>
+      `<div class="faq-item"><button class="faq-q" type="button">${q}<span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button><div class="faq-a"><div>${a}</div></div></div>`,
+  )
+  .join("");
+
+const HTML_TOP = `
+<section class="hero" id="top">
+  <div class="hero-scrim"></div>
+  <div class="hero-inner">
+    <nav class="hero-nav">
+      <a class="brand" href="#top" aria-label="NADZ Healthcare"><img src="/assets/logo-nadz.svg" alt="NADZ Healthcare" /></a>
+      <div class="hero-nav-right">
+        <a class="hero-phone" href="tel:80046239"><span class="ph-ic">${PHONE_ICON}</span><span class="txt"><small>24/7 Hotline</small><span>800 4 NADZ</span></span></a>
+        <a class="btn btn-book" href="#book">Book a Visit</a>
+      </div>
+    </nav>
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <img class="hero-mob-pic" src="/assets/physio.webp" alt="A DHA-licensed physiotherapist treating a patient at home" />
+        <span class="hero-rate">${G}<b>5.0</b> · Trusted by 10,000+ patients</span>
+        <span class="hero-eyebrow">Physiotherapy · Dubai &amp; Abu Dhabi</span>
+        <h1>Expert Physiotherapy <i>Wherever You Are</i> - Home, Office or Hotel</h1>
+        <p class="sub">DHA-licensed physiotherapists come to you across Dubai, Abu Dhabi and the UAE - no traffic, no waiting rooms.</p>
+        <div class="hero-feats">
+          <div class="feat"><span class="fi">${SHIELD}</span><div><b>DHA-licensed</b><span>physiotherapists</span></div></div>
+          <div class="feat"><span class="fi">${CLOCK}</span><div><b>30 min · 24/7</b><span>same-day &amp; scheduled</span></div></div>
+          <div class="feat"><span class="fi">${PULSE}</span><div><b>Progressive plan</b><span>with follow-up</span></div></div>
+          <div class="feat"><span class="fi">${HOME}</span><div><b>Home · office · hotel</b><span>we come to you</span></div></div>
+        </div>
+      </div>
+
+      <div class="order-form" id="book">
+        <form class="formcard glass" id="leadForm" novalidate>
+          <span class="fc-flag">&#9889; Same-day visits available</span>
+          <div id="formFields">
+            <h3>Book Your Visit</h3>
+            <p class="fc-sub">Home, office or hotel - free callback within minutes. No obligation.</p>
+            <div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" placeholder="e.g. Sara Ahmed" required autocomplete="name" /></div>
+            <div class="field"><label for="phone">Phone / WhatsApp number</label><input id="phone" name="phone" type="tel" placeholder="+971 5X XXX XXXX" required autocomplete="tel" inputmode="tel" /></div>
+            <div class="field"><label for="service">What do you need help with?</label>
+              <select id="service" name="service" required>
+                <option value="" disabled selected>Select a service</option>
+                <option>Back, neck &amp; joint pain</option>
+                <option>Post-surgical rehabilitation</option>
+                <option>Sports injury recovery</option>
+                <option>Neurological therapy (stroke / Parkinson's / MS)</option>
+                <option>Elderly care &amp; fall prevention</option>
+                <option>Women's &amp; postnatal physiotherapy</option>
+                <option>General physiotherapy / not sure yet</option>
+              </select>
+            </div>
+            <div class="field"><label for="time">Preferred time</label>
+              <select id="time" name="time" required>
+                <option value="" disabled selected>Select preferred time</option>
+                <option>As soon as possible</option>
+                <option>Today</option>
+                <option>This evening</option>
+                <option>Tomorrow</option>
+                <option>This week / weekend</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-gold block" style="margin-top:6px">Request a Free Callback</button>
+            <div class="fc-alt">
+              <a class="btn btn-wa" href="${WA}" target="_blank" rel="noopener">${WA_ICON} WhatsApp</a>
+              <a class="btn btn-ghost" href="tel:80046239">${PHONE_ICON} Call</a>
+            </div>
+            <div class="fc-note">${SHIELD}Your details are private &amp; only used to arrange your visit.</div>
+          </div>
+          <div class="form-success" id="formSuccess">
+            <div class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <h3>Thank you!</h3>
+            <p style="color:var(--muted);margin:8px 0 16px">We've opened WhatsApp with your details so our team can confirm your physiotherapy visit right away. Prefer a call?</p>
+            <a class="btn btn-primary" href="tel:80046239">Call 800 4 NADZ</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trustbar">
+  <div class="wrap">
+    <div class="ti-grid">
+      <div class="ti"><span class="tic">${SHIELD}</span><div><div class="n" style="font-size:1.05rem">Licensed</div><div class="l">by Dubai Health Authority</div></div></div>
+      <div class="ti"><span class="tic">${STETH}</span><div><div class="n">30+</div><div class="l">Board-certified medical staff</div></div></div>
+      <div class="ti"><span class="tic">${PULSE}</span><div><div class="n">30+</div><div class="l">Medical services delivered</div></div></div>
+      <div class="ti"><span class="tic">${FLASK}</span><div><div class="n">10+</div><div class="l">Global laboratory partners</div></div></div>
+    </div>
+    <div class="award"><img src="/assets/best-award.png" alt="Best Home Healthcare Award 2025" /><div><div class="n" style="font-size:1.25rem">Best Home Healthcare</div><div class="l" style="font-size:.92rem">Health Magazine Awards 2025</div></div></div>
+  </div>
+</div>
+
+<section class="sec services" id="services">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">What we treat</span><h2>Every kind of physiotherapy - brought to you, wherever you are</h2><p>From everyday aches to complex rehabilitation, our physiotherapists cover the full range of care.</p></div>
+    <div class="sgrid">${CONDITIONS}</div>
+    <div style="text-align:center;margin-top:38px"><a class="btn btn-gold" href="#book">Not sure which you need? Get a free callback</a></div>
+  </div>
+</section>
+
+<section class="sec split">
+  <div class="wrap">
+    <div class="split-img">
+      <div class="split-slides">
+        <img class="split-slide is-active" src="/assets/physio.webp" alt="NADZ Healthcare physiotherapist treating a patient at home" loading="lazy" />
+      </div>
+      <div class="floatstat"><span class="fic">${HOME}</span><div><div class="n">100%</div><div class="l">Care wherever<br/>you are</div></div></div>
+    </div>
+    <div>
+      <span class="eyebrow">Why care that comes to you</span>
+      <h2 style="font-size:clamp(1.7rem,3.2vw,2.4rem);color:var(--maroon);margin:12px 0 16px">Better recovery starts where you feel safest</h2>
+      <p style="color:var(--muted);margin-bottom:8px">Skip the traffic, waiting rooms and repeated commutes. Our physiotherapists bring the clinic to you - with the right equipment and a plan built around your goals and your space.</p>
+      <ul class="split-list">
+        <li><span class="ck">${CHECK}</span><div><h4>Personalised, one-on-one sessions</h4><p>Full attention every visit - your physio focuses only on you, not a busy clinic floor.</p></div></li>
+        <li><span class="ck">${CHECK}</span><div><h4>Care wherever you are</h4><p>At home, at the office or at your hotel - comfortable, discreet and convenient across the UAE.</p></div></li>
+        <li><span class="ck">${CHECK}</span><div><h4>Affordable, transparent care</h4><p>Clear pricing and a progressive plan with follow-up - real value, no surprises.</p></div></li>
+        <li><span class="ck">${CHECK}</span><div><h4>Home exercises &amp; medical coordination</h4><p>Clear at-home guidance with progression, and coordination with your wider medical team.</p></div></li>
+      </ul>
+      <a class="btn btn-primary" href="#book" style="margin-top:26px">Book a Visit</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec reviews" id="reviews">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Loved by patients</span>
+      <div class="rev-top">${G.replace('width:26px', '')}<span class="score">5.0</span><div class="stars">${STARS5}</div></div>
+      <p>A 5.0 Google rating - trusted by 10,000+ patients across the UAE.</p>
+    </div>
+    <div class="rgrid" id="reviewTrack">${REVIEWS}</div>
+    <div class="rev-cta"><a class="btn btn-primary" href="#book">Join 10,000+ happy patients - Book now</a></div>
+  </div>
+</section>
+
+<section class="midcta">
+  <div class="wrap" style="padding:56px 0;text-align:center;position:relative;z-index:2">
+    <h2 style="color:#fff;font-size:clamp(1.55rem,3.2vw,2.15rem);margin:0 auto 20px;max-width:20em">Book your physiotherapy visit - we can be there in as little as 30 minutes</h2>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-gold" href="#book">Request a Free Callback</a>
+      <a class="btn btn-wa" href="${WA}" target="_blank" rel="noopener">${WA_ICON}WhatsApp Us</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec benefits">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Why choose NADZ</span><h2>Clinic-grade physiotherapy, delivered to your door</h2><p>Everything you'd expect from a top physiotherapy clinic - without ever leaving home.</p></div>
+    <div class="bgrid">
+      <div class="bcard"><div class="ic">${SHIELD}</div><h3>DHA-licensed experts</h3><p>Every physiotherapist is licensed by the Dubai Health Authority and experienced across a wide range of conditions.</p></div>
+      <div class="bcard"><div class="ic">${CLOCK}</div><h3>Fast, same-day arrival</h3><p>Fast dispatch across Dubai, Abu Dhabi and nearby areas - same-day and scheduled visits, 24/7.</p></div>
+      <div class="bcard"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><h3>One-on-one attention</h3><p>Personalised, undivided care every session - a plan shaped around your body, goals and pace.</p></div>
+      <div class="bcard"><div class="ic">${PULSE}</div><h3>Progressive plan &amp; follow-up</h3><p>Not a one-off visit - a complete, structured programme with measurable progress and check-ins.</p></div>
+      <div class="bcard"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h3>Affordable &amp; transparent</h3><p>Quality home physiotherapy at a fair, clear price - real value for you and your family.</p></div>
+      <div class="bcard"><div class="ic">${HOME}</div><h3>Home, office or hotel</h3><p>Wherever suits you best - comfortable, private care that fits around your day and family.</p></div>
+    </div>
+  </div>
+</section>
+
+`;
+
+// HowItWorks (the animated site component) renders between these two halves.
+const HTML_BOTTOM = `
+<section class="sec" style="background:#fff">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">More care at home</span><h2>One team for the whole family</h2><p>The same NADZ team also brings these services to your door across Dubai.</p></div>
+    <div class="gallery">
+      <figure><img src="/assets/doc.webp" alt="Doctor on call at home" loading="lazy" /><figcaption>Doctor on call</figcaption></figure>
+      <figure><img src="/assets/ivdrips.webp" alt="NAD+ IV therapy at home" loading="lazy" /><figcaption>NAD&#8314; IV therapy</figcaption></figure>
+      <figure><img src="/assets/labs-at-home.webp" alt="Lab tests at home" loading="lazy" /><figcaption>Lab tests at home</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec team" id="team">
+  <div class="wrap">
+    <div class="team-head">
+      <div class="team-head-txt"><span class="eyebrow">Meet the expert team</span><h2>Real, DHA-licensed experts behind your recovery</h2><p>DHA-licensed physiotherapists, doctors, nurses and specialists behind every NADZ visit.</p></div>
+      <div class="slider-nav">
+        <button class="sld-btn" type="button" data-dir="-1" aria-label="Previous team members"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button class="sld-btn" type="button" data-dir="1" aria-label="Next team members"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+    <div class="slider" id="teamSlider">${TEAM}</div>
+    <div class="slider-progress"><span class="slider-bar" id="teamBar"></span></div>
+  </div>
+</section>
+
+<section class="sec faq">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Good to know</span><h2>Frequently asked questions</h2></div>
+    <div class="faq-list">${FAQS}</div>
+  </div>
+</section>
+
+<section class="sec finalcta" id="contact">
+  <div class="wrap">
+    <span class="eyebrow light">Ready when you are</span>
+    <h2>Book your physiotherapy visit today</h2>
+    <p>DHA-licensed physiotherapists, affordable care, and a recovery plan built around you - at home, at the office or at your hotel. We can be there in as little as 30 minutes.</p>
+    <div class="btns">
+      <a class="btn btn-gold" href="#book">Request a Free Callback</a>
+      <a class="btn btn-wa" href="${WA}" target="_blank" rel="noopener">${WA_ICON} Chat on WhatsApp</a>
+      <a class="btn btn-outline-light" href="tel:80046239">${PHONE_ICON} Call 800 4 NADZ</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div><div class="brand"><img src="/assets/logo-nadz.svg" alt="NADZ Healthcare" /></div><p>Blending care with innovation. DHA-licensed physiotherapy and home-healthcare delivered to your home, office or hotel across Dubai, Abu Dhabi and the UAE.</p></div>
+      <div><h4>Physiotherapy</h4><div class="foot-c foot-services"><a href="#services">Back, neck &amp; joint pain</a><a href="#services">Post-surgical rehab</a><a href="#services">Sports injury recovery</a><a href="#services">Neurological therapy</a><a href="#services">Elderly care &amp; falls</a><a href="#services">Women's &amp; postnatal physio</a></div></div>
+      <div><h4>Contact us - 24/7</h4><div class="foot-c">
+        <a href="tel:80046239">${PHONE_ICON}800 4 NADZ (800 4 6239)</a>
+        <a href="https://wa.me/${WA_NUMBER}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.004c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01zM12.04 20.15h-.004a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 0 1 8.23 8.24c0 4.54-3.7 8.23-8.23 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43-.14-.01-.31-.01-.48-.01-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg>WhatsApp: +971 52 159 7336</a>
+        <a href="mailto:info@nadzhealthcare.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>info@nadzhealthcare.com</a>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Office 809, Armada 2, Cluster P, JLT, Dubai, UAE</div>
+      </div></div>
+    </div>
+    <div class="foot-bottom"><div>&copy; 2026 NADZ Healthcare. All rights reserved.</div><div class="lic">Licensed by Ministry of Health &middot; License No: P4DWL25W-100725</div></div>
+  </div>
+</footer>
+
+<div class="mobile-cta">
+  <a class="m-call" href="tel:80046239">${PHONE_ICON}Call</a>
+  <a class="m-wa" href="${WA}" target="_blank" rel="noopener">${WA_ICON}WhatsApp</a>
+  <a class="m-book" href="#book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4M3 10h18"/><rect x="3" y="4" width="18" height="18" rx="2"/></svg>Book</a>
+</div>
+
+<div class="fab">
+  <a class="fab-btn fab-wa" href="${WA}" target="_blank" rel="noopener" aria-label="WhatsApp us">${WA_ICON}</a>
+  <a class="fab-btn fab-call" href="tel:80046239" aria-label="Call us">${PHONE_ICON}</a>
+</div>
+`;
+
+export default function PhysiotherapyPpc() {
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const cleanups: Array<() => void> = [];
+
+    // ---- Lead form -> prefilled WhatsApp (fires the site's lead event) ----
+    const form = root.querySelector<HTMLFormElement>("#leadForm");
+    if (form) {
+      const onSubmit = (e: Event) => {
+        e.preventDefault();
+        const val = (id: string) =>
+          (root.querySelector<HTMLInputElement>("#" + id)?.value || "").trim();
+        const name = val("name"),
+          phone = val("phone"),
+          service = val("service"),
+          time = val("time");
+        if (!name || !phone || !service || !time) {
+          form.reportValidity();
+          return;
+        }
+        track("generate_lead", { service: "physiotherapy", source: "ppc" });
+        const msg = [
+          "Hi NADZ Healthcare, I'd like to book a physiotherapy visit.",
+          "",
+          "• Name: " + name,
+          "• Phone: " + phone,
+          "• Service: " + service,
+          "• Preferred time: " + time,
+        ].join("\n");
+        window.open(
+          "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg),
+          "_blank",
+          "noopener,noreferrer",
+        );
+        const fields = root.querySelector<HTMLElement>("#formFields");
+        const success = root.querySelector<HTMLElement>("#formSuccess");
+        if (fields) fields.style.display = "none";
+        if (success) success.style.display = "block";
+      };
+      form.addEventListener("submit", onSubmit);
+      cleanups.push(() => form.removeEventListener("submit", onSubmit));
+    }
+
+    // ---- FAQ accordion ----
+    root.querySelectorAll<HTMLButtonElement>(".faq-q").forEach((btn) => {
+      const handler = () => {
+        const item = btn.parentElement as HTMLElement;
+        const isOpen = item.classList.contains("open");
+        root.querySelectorAll<HTMLElement>(".faq-item").forEach((i) => {
+          i.classList.remove("open");
+          const a = i.querySelector<HTMLElement>(".faq-a");
+          if (a) a.style.maxHeight = "";
+        });
+        if (!isOpen) {
+          item.classList.add("open");
+          const a = item.querySelector<HTMLElement>(".faq-a");
+          if (a) a.style.maxHeight = a.scrollHeight + "px";
+        }
+      };
+      btn.addEventListener("click", handler);
+      cleanups.push(() => btn.removeEventListener("click", handler));
+    });
+
+    // ---- Team slider ----
+    const slider = root.querySelector<HTMLElement>("#teamSlider");
+    if (slider) {
+      const bar = root.querySelector<HTMLElement>("#teamBar");
+      const prev = root.querySelector<HTMLButtonElement>('[data-dir="-1"]');
+      const next = root.querySelector<HTMLButtonElement>('[data-dir="1"]');
+      const upd = () => {
+        const max = slider.scrollWidth - slider.clientWidth;
+        const vis = Math.min(1, slider.clientWidth / slider.scrollWidth);
+        if (bar) {
+          bar.style.width = vis * 100 + "%";
+          const p = max > 0 ? slider.scrollLeft / max : 0;
+          bar.style.left = p * (100 - vis * 100) + "%";
+        }
+        if (prev) prev.disabled = slider.scrollLeft <= 4;
+        if (next) next.disabled = slider.scrollLeft >= max - 4;
+      };
+      const go = (d: number) =>
+        slider.scrollBy({
+          left: d * Math.round(slider.clientWidth * 0.85),
+          behavior: "smooth",
+        });
+      const onPrev = () => go(-1);
+      const onNext = () => go(1);
+      prev?.addEventListener("click", onPrev);
+      next?.addEventListener("click", onNext);
+      slider.addEventListener("scroll", upd, { passive: true });
+      window.addEventListener("resize", upd);
+      upd();
+      cleanups.push(() => {
+        prev?.removeEventListener("click", onPrev);
+        next?.removeEventListener("click", onNext);
+        slider.removeEventListener("scroll", upd);
+        window.removeEventListener("resize", upd);
+      });
+    }
+
+    // ---- Split-section image slideshow (auto-advance + dot clicks) ----
+    const show = root.querySelector<HTMLElement>("#splitShow");
+    if (show) {
+      const slides = [...show.querySelectorAll<HTMLElement>(".split-slide")];
+      const dots = [...show.querySelectorAll<HTMLElement>(".split-dot")];
+      let i = 0;
+      const setSlide = (n: number) => {
+        i = (n + slides.length) % slides.length;
+        slides.forEach((s, k) => s.classList.toggle("is-active", k === i));
+        dots.forEach((d, k) => d.classList.toggle("is-active", k === i));
+      };
+      let timer = window.setInterval(() => setSlide(i + 1), 4000);
+      const reset = () => {
+        clearInterval(timer);
+        timer = window.setInterval(() => setSlide(i + 1), 4000);
+      };
+      const dotHandlers = dots.map((d, k) => {
+        const h = () => {
+          setSlide(k);
+          reset();
+        };
+        d.addEventListener("click", h);
+        return h;
+      });
+      cleanups.push(() => {
+        clearInterval(timer);
+        dots.forEach((d, k) => d.removeEventListener("click", dotHandlers[k]));
+      });
+    }
+
+    // ---- Reviews auto-scrolling carousel (pauses on hover / touch) ----
+    const rtrack = root.querySelector<HTMLElement>("#reviewTrack");
+    if (rtrack) {
+      const stepPx = () => {
+        const card = rtrack.querySelector<HTMLElement>(".rcard");
+        return card ? card.offsetWidth + 20 : 360;
+      };
+      let timer = 0;
+      const tick = () => {
+        const max = rtrack.scrollWidth - rtrack.clientWidth;
+        if (rtrack.scrollLeft >= max - 4)
+          rtrack.scrollTo({ left: 0, behavior: "smooth" });
+        else rtrack.scrollBy({ left: stepPx(), behavior: "smooth" });
+      };
+      const start = () => {
+        clearInterval(timer);
+        timer = window.setInterval(tick, 3200);
+      };
+      const stop = () => clearInterval(timer);
+      start();
+      rtrack.addEventListener("pointerenter", stop);
+      rtrack.addEventListener("pointerleave", start);
+      rtrack.addEventListener("touchstart", stop, { passive: true });
+      cleanups.push(() => {
+        stop();
+        rtrack.removeEventListener("pointerenter", stop);
+        rtrack.removeEventListener("pointerleave", start);
+        rtrack.removeEventListener("touchstart", stop);
+      });
+    }
+
+    // ---- Keep HowItWorks' CTA on-page ----
+    // The shared component links to /book (the full-chrome site page); on this
+    // self-contained landing that CTA should scroll to the form instead.
+    const howCta = root.querySelector<HTMLAnchorElement>('a[href="/book"]');
+    if (howCta) {
+      const h = (e: Event) => {
+        e.preventDefault();
+        root
+          .querySelector("#book")
+          ?.scrollIntoView({ behavior: "smooth", block: "start" });
+      };
+      howCta.addEventListener("click", h, true);
+      cleanups.push(() => howCta.removeEventListener("click", h, true));
+    }
+
+    return () => cleanups.forEach((fn) => fn());
+  }, []);
+
+  return (
+    // Headings use Mona Sans and body copy Inter — both loaded globally by the
+    // root layout as --font-mona / --font-inter, so no external font fetch.
+    // The page is two static halves with the animated HowItWorks between them;
+    // HowItWorks sits OUTSIDE .ppc so the page's hard CSS reset doesn't touch
+    // its Tailwind styling. rootRef wraps everything so the effect can still
+    // wire the form, FAQ, sliders and the HowItWorks CTA.
+    <div ref={rootRef}>
+      <style dangerouslySetInnerHTML={{ __html: CSS }} />
+      <div className="ppc" dangerouslySetInnerHTML={{ __html: HTML_TOP }} />
+      <HowItWorks />
+      <div className="ppc" dangerouslySetInnerHTML={{ __html: HTML_BOTTOM }} />
+    </div>
+  );
+}
