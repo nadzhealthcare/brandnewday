@@ -119,6 +119,14 @@ const LEGACY_REDIRECTS: [string, string][] = [
   ["/cookie-policy", "/cookies"],
   ["/privacy-policy", "/privacy"],
   ["/terms-and-conditions", "/terms"],
+
+  // ---- Old URLs still 404-ing in Search Console (Aug 2026) ----
+  ["/all-blogs", "/media/blogs"],
+  ["/partners", "/about/who-we-are"],
+  ["/services/lab-testing", "/services/labs-at-home"],
+  ["/services/elderly-care", "/services/nursing-care/elderly-care"],
+  ["/services/vital-brain", "/exclusive/nadz-vital-brain"],
+  ["/home-care/skin-brightening", "/services/iv-drips/iv-glutathione-radiance"],
 ];
 
 const nextConfig: NextConfig = {
@@ -172,6 +180,9 @@ const nextConfig: NextConfig = {
 
       // Slugs are identical on both sites, so these carry straight over.
       { source: "/blog", destination: "/media/blogs", permanent: true },
+      // Old WordPress numeric post URLs (/blog/10) have no slug equivalent, so
+      // send them to the index rather than to a /media/blogs/10 that 404s.
+      { source: "/blog/:n(\\d+)", destination: "/media/blogs", permanent: true },
       { source: "/blog/:slug", destination: "/media/blogs/:slug", permanent: true },
       {
         source: "/press-releases",
