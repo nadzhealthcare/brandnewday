@@ -2,7 +2,8 @@ import ConsoleFilter from "@/components/ConsoleFilter";
 import SmoothScroll from "@/components/SmoothScroll";
 import FloatingWidgets from "@/components/FloatingWidgets";
 import StickyBooking from "@/components/StickyBooking";
-import OfferPopup from "@/components/OfferPopup";
+// Offer popup disabled — re-enable by uncommenting this import and <OfferPopup /> below.
+// import OfferPopup from "@/components/OfferPopup";
 import CookieConsent from "@/components/CookieConsent";
 import Clarity from "@/components/Clarity";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
@@ -35,7 +36,7 @@ export default function MainLayout({
       {children}
       <Footer />
       <StickyBooking />
-      <OfferPopup />
+      {/* <OfferPopup /> — disabled */}
       <CookieConsent />
       <Clarity />
       <GoogleAnalytics />
