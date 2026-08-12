@@ -11,6 +11,9 @@ type Service = {
   desc: string;
   href: string;
   img: string;
+  // Exact value from lib/booking's SERVICES list, so "Book Now" can deep-link
+  // to /book with the dropdown pre-selected. Must match a dropdown option.
+  book: string;
 };
 
 const SERVICES: Service[] = [
@@ -20,6 +23,7 @@ const SERVICES: Service[] = [
     desc: "Fever, infections, migraines, food poisoning or a sick child at 2am.",
     href: "/services/doctor-on-call",
     img: "/assets/doctor-on-call.webp",
+    book: "Doctor on Call",
   },
   {
     title: "Nursing Care",
@@ -27,6 +31,7 @@ const SERVICES: Service[] = [
     desc: "Compassionate day-and-night nursing, wherever you call home.",
     href: "/services/nursing-care",
     img: "/assets/nurse-on-call.webp",
+    book: "Nursing Care",
   },
   {
     title: "IV Drips",
@@ -34,6 +39,7 @@ const SERVICES: Service[] = [
     desc: "Hydration, vitamins, NAD⁺ and radiance drips delivered to you.",
     href: "/services/iv-drips",
     img: "/assets/ivdrips.webp",
+    book: "IV Drips",
   },
   {
     title: "Physiotherapy",
@@ -41,6 +47,7 @@ const SERVICES: Service[] = [
     desc: "Expert physiotherapy sessions in the comfort of your home.",
     href: "/services/physiotherapy-at-home",
     img: "/assets/physio.webp",
+    book: "Physiotherapy at Home",
   },
   {
     title: "Labs at Home",
@@ -48,6 +55,7 @@ const SERVICES: Service[] = [
     desc: "Sample collection and lab testing right at your doorstep.",
     href: "/services/labs-at-home",
     img: "/assets/labs-at-home.webp",
+    book: "Labs at Home",
   },
   {
     title: "Vaccination",
@@ -55,6 +63,7 @@ const SERVICES: Service[] = [
     desc: "Routine and travel vaccines, administered safely at home.",
     href: "/services/vaccination-at-home",
     img: "/assets/vaccination.webp",
+    book: "Vaccination at Home",
   },
   {
     title: "Medical Tourism",
@@ -62,6 +71,7 @@ const SERVICES: Service[] = [
     desc: "World-class treatment abroad, seamlessly coordinated end to end.",
     href: "/services/medical-tourism",
     img: "/assets/medical-tour.webp",
+    book: "Medical Tourism",
   },
 ];
 
@@ -108,7 +118,7 @@ function CardInner({ s }: { s: Service }) {
           {s.desc}
         </p>
         <Link
-          href="/book"
+          href={`/book?service=${encodeURIComponent(s.book)}`}
           onClick={(e) => e.stopPropagation()}
           className="mt-4 flex items-center justify-between rounded-full bg-white px-5 py-3 text-[14px] font-semibold text-[color:var(--maroon)] shadow-lg transition-transform hover:-translate-y-0.5"
         >
