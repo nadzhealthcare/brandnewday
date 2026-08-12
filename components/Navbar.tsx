@@ -6,6 +6,7 @@ import { ChevronDown } from "lucide-react";
 import { NAV, type NavItem, type SubItem } from "@/lib/nav-data";
 import Logo from "./Logo";
 import MobileNav from "./MobileNav";
+import LanguageToggle from "./LanguageToggle";
 
 function MegaCard({ item }: { item: SubItem }) {
   const Icon = item.icon;
@@ -204,11 +205,15 @@ export default function Navbar() {
               </div>
             );
           })}
+          <LanguageToggle light={light} />
         </nav>
 
-          {/* Mobile trigger */}
-          {/* Mobile bar is always solid, so the trigger is always the dark mark. */}
-          <MobileNav triggerLight={false} />
+          {/* Mobile trigger + language toggle */}
+          {/* Mobile bar is always solid, so these are always the dark variant. */}
+          <div className="flex items-center gap-1 xl:hidden">
+            <LanguageToggle light={false} />
+            <MobileNav triggerLight={false} />
+          </div>
         </div>
       </div>
     </header>

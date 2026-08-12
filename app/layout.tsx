@@ -63,6 +63,14 @@ export default function RootLayout({
           group's layout, so PPC landing pages outside that group — e.g.
           /services/ppc-* — render with none of it, in the server HTML too. */}
       <body className="min-h-full flex flex-col bg-white text-[color:var(--foreground)]">
+        {/* If the Arabic translation is active (googtrans cookie), set RTL before
+            paint so the page doesn't flash left-to-right first. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var m=document.cookie.match(/googtrans=\\/en\\/(\\w+)/);if(m&&m[1]==='ar'){var e=document.documentElement;e.setAttribute('dir','rtl');e.setAttribute('lang','ar');}}catch(e){}})();",
+          }}
+        />
         {children}
       </body>
     </html>

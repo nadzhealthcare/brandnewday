@@ -657,3 +657,29 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .vb-help-video { display: none; }
 }
+
+/* ---------------- Google website-translate widget ---------------- */
+/* We drive the widget with the googtrans cookie (see LanguageToggle), so hide
+   all of Google's own UI — the top banner iframe, the tooltip balloon, and the
+   yellow highlight it paints on translated runs — and undo the body offset the
+   banner injects. Translated text is wrapped in <font> tags; keep them
+   inheriting the surrounding type. */
+.goog-te-banner-frame.skiptranslate,
+iframe.skiptranslate,
+.goog-te-gadget,
+.goog-te-gadget-icon,
+#goog-gt-tt,
+.goog-te-balloon-frame {
+  display: none !important;
+}
+body {
+  top: 0 !important;
+}
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+}
+.goog-te-gadget font,
+font {
+  font: inherit !important;
+}

@@ -12,6 +12,7 @@ import ConversionTracking from "@/components/ConversionTracking";
 import FazaaBanner from "@/components/FazaaBanner";
 import Preloader from "@/components/Preloader";
 import Footer from "@/components/Footer";
+import GoogleTranslate from "@/components/GoogleTranslate";
 import { CartProvider } from "@/lib/cart";
 
 /* The main site: everything with the full NADZ chrome — navbar (per page),
@@ -36,6 +37,7 @@ export default function MainLayout({
       {children}
       <Footer />
       <StickyBooking />
+      <GoogleTranslate />
       {/* <OfferPopup /> — disabled */}
       <CookieConsent />
       <Clarity />
