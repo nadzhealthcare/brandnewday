@@ -25,7 +25,11 @@ const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
 });
 
-const SCENE = "https://prod.spline.design/EFHKQjXKEMoZ8GS3/scene.splinecode";
+// Self-hosted from public/assets rather than the prod.spline.design cloud URL,
+// so the scene keeps rendering (and stays free of the "Built with Spline" badge
+// Spline re-adds to cloud-hosted scenes) independent of the Spline subscription.
+// This is the same approach the Vital Brain page uses for its scene.
+const SCENE = "/assets/hero-brain.splinecode";
 
 type Mode = "poster" | "video" | "spline";
 
