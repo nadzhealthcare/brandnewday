@@ -177,6 +177,12 @@ const nextConfig: NextConfig = {
           "/?ref=ummleya&utm_source=instagram&utm_medium=influencer&utm_campaign=ummleya_doula",
         permanent: false,
       },
+      {
+        source: "/lili",
+        destination:
+          "/?ref=lili&utm_source=instagram&utm_medium=influencer&utm_campaign=lili",
+        permanent: false,
+      },
 
       // Slugs are identical on both sites, so these carry straight over.
       { source: "/blog", destination: "/media/blogs", permanent: true },
