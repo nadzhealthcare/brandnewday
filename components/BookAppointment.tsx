@@ -16,6 +16,7 @@ import {
   ShieldCheck,
   Timer,
   ArrowRight,
+  Ticket,
   type LucideIcon,
 } from "lucide-react";
 import SectionTitle from "./SectionTitle";
@@ -74,6 +75,7 @@ export default function BookAppointment() {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [notes, setNotes] = useState("");
+  const [referralCode, setReferralCode] = useState("");
   const [locating, setLocating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -105,7 +107,16 @@ export default function BookAppointment() {
     }
     setError(null);
     handOffToWhatsApp(
-      bookingLink({ service, name, phone, location, date, time, notes }),
+      bookingLink({
+        service,
+        name,
+        phone,
+        location,
+        date,
+        time,
+        notes,
+        referralCode,
+      }),
     );
   };
 
@@ -285,6 +296,25 @@ export default function BookAppointment() {
                       rows={3}
                       placeholder="Symptoms, patient age, or any access details"
                       className={`${FIELD} resize-none`}
+                    />
+                  </div>
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label htmlFor="bk-referral" className={LABEL}>
+                    Referral / promo code{" "}
+                    <span className="font-normal normal-case tracking-normal text-black/35">
+                      (optional)
+                    </span>
+                  </label>
+                  <div className={SHELL}>
+                    <Ticket className="h-[18px] w-[18px] shrink-0 text-[color:var(--maroon)]" />
+                    <input
+                      id="bk-referral"
+                      value={referralCode}
+                      onChange={(e) => setReferralCode(e.target.value)}
+                      placeholder="Who referred you? Enter their code"
+                      className={FIELD}
                     />
                   </div>
                 </div>

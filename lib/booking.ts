@@ -28,6 +28,10 @@ export type BookingFields = {
   date?: string;
   time?: string;
   notes?: string;
+  /** A code the patient was given (friend, clinician, promo). Shown verbatim in
+      the WhatsApp message so the team can credit the referrer. Separate from the
+      automatic ?ref= influencer-link attribution waLink appends. */
+  referralCode?: string;
 };
 
 /** Where the tab lands after handing off to WhatsApp, so Ads/Analytics have a
@@ -53,6 +57,7 @@ export function bookingLink(f: BookingFields): string {
     f.date ? `Preferred date: ${f.date}` : null,
     f.time ? `Preferred time: ${f.time}` : null,
     f.notes ? `Notes: ${f.notes}` : null,
+    f.referralCode?.trim() ? `Referral code: ${f.referralCode.trim()}` : null,
   ].filter(Boolean);
   return waLink(lines.join("\n"));
 }
