@@ -1,14 +1,21 @@
 "use client";
 
-import { WA_NUMBER, PHONE_TEL } from "@/lib/contact";
+import { WA_NUMBER, PHONE_TEL, waLink } from "@/lib/contact";
 
 import { useEffect, useRef, useState } from "react";
 import { Phone, MessageCircle, X, Send } from "lucide-react";
 
-// TODO: replace with the real NADZ numbers
 /* These were local copies that had drifted to a placeholder number, so the
-   floating call and WhatsApp buttons pointed nowhere. Single source now. */
-const WA_LINK = `https://wa.me/${WA_NUMBER}`;
+   floating call and WhatsApp buttons pointed nowhere. Single source now.
+
+   WA_FALLBACK is the no-JS href (a blank chat). The click handler upgrades it
+   to a pre-filled message that carries the parked referral slug — waLink
+   appends "Referral: <slug>" — so a visitor who arrived on an influencer link
+   (or typed a code that set the cookie) is recognisable the moment they
+   message, not only when they submit the booking form. */
+const WA_FALLBACK = `https://wa.me/${WA_NUMBER}`;
+const WA_MESSAGE =
+  "Hi NADZ, I'd like to know more about your home healthcare services.";
 
 function WhatsAppIcon({ className = "" }: { className?: string }) {
   return (
@@ -180,7 +187,11 @@ export default function FloatingWidgets() {
 
         {/* WhatsApp */}
         <a
-          href={WA_LINK}
+          href={WA_FALLBACK}
+          onClick={(e) => {
+            e.preventDefault();
+            window.open(waLink(WA_MESSAGE), "_blank", "noopener,noreferrer");
+          }}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="WhatsApp"
