@@ -14,12 +14,16 @@ export async function POST(request: Request) {
     return Response.json({ error: "Invalid or expired link" }, { status: 400 });
   }
 
+  // Tabby identifies the buyer by phone and collects the rest in its hosted
+  // flow, so phone is the only mandatory field. Name (from the pay-link) and
+  // email (when we have it) are forwarded to help pre-scoring but aren't
+  // required from the customer.
   const name = String(body?.name ?? "").trim();
   const email = String(body?.email ?? "").trim();
   const phone = String(body?.phone ?? "").trim();
-  if (!name || !email || !phone) {
+  if (!phone) {
     return Response.json(
-      { error: "Name, email and phone are required for Tabby." },
+      { error: "A phone number is required for Tabby." },
       { status: 400 },
     );
   }
@@ -29,7 +33,7 @@ export async function POST(request: Request) {
     amount: data.a,
     currency: data.c || "AED",
     description: data.d,
-    buyer: { name, email, phone },
+    buyer: { name: name || undefined, email: email || undefined, phone },
     refId: `nadz-${Date.now()}`,
     ref: ref!,
     site,

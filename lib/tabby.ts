@@ -19,7 +19,7 @@ async function tabbyFetch(path: string, init?: RequestInit) {
   });
 }
 
-export type TabbyBuyer = { name: string; email: string; phone: string };
+export type TabbyBuyer = { name?: string; email?: string; phone: string };
 
 export type TabbyCheckoutResult =
   | { ok: true; url: string }
@@ -41,7 +41,13 @@ export async function createTabbyCheckout(input: {
       amount,
       currency: input.currency || "AED",
       description: input.description || "NADZ Healthcare",
-      buyer: input.buyer,
+      // Only include buyer fields we actually have; Tabby collects the rest in
+      // its hosted checkout keyed off the phone number.
+      buyer: {
+        phone: input.buyer.phone,
+        ...(input.buyer.name ? { name: input.buyer.name } : {}),
+        ...(input.buyer.email ? { email: input.buyer.email } : {}),
+      },
       order: {
         reference_id: input.refId,
         items: [

@@ -24,10 +24,11 @@ function AppleIcon({ className = "" }: { className?: string }) {
 }
 
 function TabbyMark() {
+  // Official Tabby wordmark (same asset the homepage payment strip uses),
+  // per Tabby's brand-asset guidance — no recoloured/hand-drawn substitute.
   return (
-    <span className="rounded bg-[#3bffa0] px-1.5 py-0.5 text-[13px] font-extrabold tracking-tight text-[#0b0b0b]">
-      tabby
-    </span>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src="/assets/pay-tabby.svg" alt="Tabby" className="h-[20px] w-auto" />
   );
 }
 
@@ -73,8 +74,10 @@ export default function PayClient({
   const [tabbyOpen, setTabbyOpen] = useState(tabbyDefaultOpen);
   const [tabbyLoading, setTabbyLoading] = useState(false);
   const [tabbyMsg, setTabbyMsg] = useState<string | null>(null);
-  const [name, setName] = useState(data?.n ?? "");
-  const [email, setEmail] = useState(initialEmail);
+  // Sent to Tabby but no longer collected on this form: name is known from the
+  // pay-link, email only when pre-supplied (e.g. the sandbox demo page).
+  const name = data?.n ?? "";
+  const email = initialEmail;
   const [phone, setPhone] = useState(data?.p ?? "");
 
   const payWithCard = async () => {
@@ -99,8 +102,11 @@ export default function PayClient({
 
   const payWithTabby = async () => {
     setTabbyMsg(null);
-    if (!name.trim() || !email.trim() || !phone.trim()) {
-      setTabbyMsg("Please enter your name, email and phone.");
+    // Tabby identifies the buyer by phone and collects the rest in its own
+    // hosted flow, so phone is the only field we ask for. Name comes from the
+    // pay-link and email is passed only when we already have it (e.g. sandbox).
+    if (!phone.trim()) {
+      setTabbyMsg("Please enter your phone number.");
       return;
     }
     setTabbyLoading(true);
@@ -247,7 +253,7 @@ export default function PayClient({
                       className="flex w-full items-center justify-between bg-[#f5f4f2] px-5 py-4 text-[14px] font-medium text-[#241417]"
                     >
                       <span className="flex items-center gap-2">
-                        <TabbyMark /> Split in 4 · interest-free
+                        Pay later with <TabbyMark />
                       </span>
                       <ChevronDown
                         className={`h-4 w-4 text-black/40 transition-transform ${tabbyOpen ? "rotate-180" : ""
@@ -256,19 +262,6 @@ export default function PayClient({
                     </button>
                     {tabbyOpen && (
                       <div className="space-y-2.5 border-t border-black/10 bg-white p-4">
-                        <input
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          placeholder="Full name"
-                          className={field}
-                        />
-                        <input
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          type="email"
-                          placeholder="Email"
-                          className={field}
-                        />
                         <input
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
@@ -303,7 +296,7 @@ export default function PayClient({
                     className="flex w-full items-center justify-between rounded-2xl border border-black/10 bg-[#f5f4f2] px-5 py-4 text-[14px] font-medium text-black/50"
                   >
                     <span className="flex items-center gap-2">
-                      <TabbyMark /> Split in 4 · interest-free
+                      Pay later with <TabbyMark />
                     </span>
                     <span className="text-[11px] font-semibold uppercase tracking-wide text-black/35">
                       Available Now

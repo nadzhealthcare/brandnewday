@@ -3,6 +3,7 @@ import Link from "next/link";
 import { CircleCheck } from "lucide-react";
 import { getStripe } from "@/lib/stripe";
 import { captureAuthorized } from "@/lib/tabby";
+import ClearCartOnSuccess from "@/components/ClearCartOnSuccess";
 
 export const metadata: Metadata = {
   title: "Payment Received, NADZ Healthcare",
@@ -54,6 +55,9 @@ export default async function PaySuccessPage({
 
   return (
     <main className="grid min-h-[100svh] place-items-center bg-[color:var(--cream)] px-4 py-10">
+      {/* Empty the basket once payment is confirmed, so the same booking can't
+          be paid for twice. */}
+      {paid && <ClearCartOnSuccess />}
       <div className="w-full max-w-[440px] overflow-hidden rounded-[26px] bg-white p-8 text-center shadow-[0_30px_70px_-30px_rgba(43,26,23,0.4)] ring-1 ring-black/5">
         <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-[#2fa060]/12 text-[#2fa060]">
           <CircleCheck className="h-9 w-9" />

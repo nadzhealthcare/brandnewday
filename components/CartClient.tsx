@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Minus, Plus, Trash2, ShoppingBag, ArrowRight } from "lucide-react";
 import { formatAed } from "@/lib/catalog";
 import { useCart } from "@/lib/cart";
+import TabbyPromo from "@/components/TabbyPromo";
 
 export default function CartClient() {
   const { entries, total, count, setQty, remove, ready } = useCart();
@@ -154,6 +155,12 @@ export default function CartClient() {
               {formatAed(total)}
             </span>
           </div>
+
+          {/* Tabby on-site messaging ("Pay in 4 interest-free…") for the basket
+              total, shown before checkout per Tabby's on-site-messaging spec. */}
+          {total > 0 && (
+            <TabbyPromo price={total} source="cart" className="mt-4" />
+          )}
 
           {error && (
             <p className="mt-3 text-[13px] text-[color:var(--maroon)]">{error}</p>
