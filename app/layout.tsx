@@ -19,13 +19,40 @@ const monaSans = localFont({
   weight: "200 900",
 });
 
+const DESCRIPTION =
+  "NADZ Healthcare brings the clinic to your home, doctor on call, nursing care, IV drips, labs at home, vaccination, and longevity medicine.";
+
 export const metadata: Metadata = {
   // Resolves relative OG/Twitter image paths (CMS media served from /api/media)
   // into the absolute URLs social crawlers require.
   metadataBase: new URL(SITE_URL),
   title: "NADZ Healthcare, Your Family Doctor",
-  description:
-    "NADZ Healthcare brings the clinic to your home, doctor on call, nursing care, IV drips, labs at home, vaccination, and longevity medicine.",
+  description: DESCRIPTION,
+  // Default share-preview card for the whole site. Pages that set their own
+  // openGraph.images (blogs, awards, events) override this; every other page —
+  // including the home page — falls back to this branded 1200×630 card.
+  openGraph: {
+    type: "website",
+    siteName: "NADZ Healthcare",
+    title: "NADZ Healthcare, Your Family Doctor",
+    description: DESCRIPTION,
+    url: SITE_URL,
+    locale: "en_AE",
+    images: [
+      {
+        url: "/assets/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "NADZ Healthcare — home healthcare in Dubai",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "NADZ Healthcare, Your Family Doctor",
+    description: DESCRIPTION,
+    images: ["/assets/og-image.jpg"],
+  },
   icons: {
     icon: [
       { url: "/assets/32.png", sizes: "32x32", type: "image/png" },
