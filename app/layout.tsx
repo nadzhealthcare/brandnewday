@@ -40,10 +40,12 @@ export const metadata: Metadata = {
     locale: "en_AE",
     images: [
       {
-        url: "/assets/og-image.jpg",
+        // JPG (converted from nadz_thumb.webp) for universal crawler support —
+        // WhatsApp/X/LinkedIn don't reliably render WebP link previews.
+        url: "/assets/nadz_thumb.jpg",
         width: 1200,
         height: 630,
-        alt: "NADZ Healthcare — home healthcare in Dubai",
+        alt: "NADZ Healthcare, Your Family Doctor",
       },
     ],
   },
@@ -51,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "NADZ Healthcare, Your Family Doctor",
     description: DESCRIPTION,
-    images: ["/assets/og-image.jpg"],
+    images: ["/assets/nadz_thumb.jpg"],
   },
   icons: {
     icon: [
