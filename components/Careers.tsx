@@ -16,6 +16,7 @@ import {
   Check,
   Dot,
   ArrowUpRight,
+  Lock,
   type LucideIcon,
 } from "lucide-react";
 import SectionTitle from "./SectionTitle";
@@ -114,6 +115,33 @@ function RoleCard({ role }: { role: Role }) {
   );
 }
 
+/* A filled/expired vacancy, kept on the page as a muted, non-applyable card. */
+function ClosedRoleCard({ role }: { role: Role }) {
+  return (
+    <article className="rounded-[22px] border border-black/[0.07] bg-[#f7f6f4] p-6 ring-1 ring-black/[0.04]">
+      <div className="flex items-start justify-between gap-3">
+        <h3 className="text-[17px] font-semibold leading-snug text-black/55">
+          {role.title}
+        </h3>
+        <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-black/[0.06] px-2.5 py-1 text-[11.5px] font-semibold uppercase tracking-wide text-black/45">
+          <Lock className="h-3 w-3" /> Closed
+        </span>
+      </div>
+      <div className="mt-3 flex flex-wrap gap-2">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-black/[0.04] px-3 py-1 text-[12px] font-medium text-black/40">
+          <MapPin className="h-3.5 w-3.5" /> {role.location}
+        </span>
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-black/[0.04] px-3 py-1 text-[12px] font-medium text-black/40">
+          <Briefcase className="h-3.5 w-3.5" /> {role.type}
+        </span>
+      </div>
+      <p className="mt-4 text-[13.5px] leading-relaxed text-black/45">
+        This position is no longer accepting applications.
+      </p>
+    </article>
+  );
+}
+
 /* Shown when there are no open roles. */
 function TalentPoolCard() {
   return (
@@ -200,6 +228,9 @@ const BENEFITS: { icon: LucideIcon; title: string; desc: string }[] = [
 ];
 
 export default function Careers() {
+  const openRoles = ROLES.filter((r) => !r.closed);
+  const closedRoles = ROLES.filter((r) => r.closed);
+
   return (
     <div className="bg-white">
       {/* 1, hero band */}
@@ -322,15 +353,28 @@ export default function Careers() {
             Current opportunities
           </SectionTitle>
 
-          {ROLES.length === 0 ? (
+          {openRoles.length === 0 ? (
             <div className="mt-10">
               <TalentPoolCard />
             </div>
           ) : (
             <div className="mx-auto mt-10 flex max-w-3xl flex-col gap-6">
-              {ROLES.map((role) => (
+              {openRoles.map((role) => (
                 <RoleCard key={role.slug} role={role} />
               ))}
+            </div>
+          )}
+
+          {closedRoles.length > 0 && (
+            <div className="mx-auto mt-14 max-w-3xl">
+              <p className="text-center text-[12px] font-semibold uppercase tracking-[0.16em] text-black/35">
+                Recently closed
+              </p>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {closedRoles.map((role) => (
+                  <ClosedRoleCard key={role.slug} role={role} />
+                ))}
+              </div>
             </div>
           )}
         </div>

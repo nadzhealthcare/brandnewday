@@ -14,10 +14,71 @@ export type Role = {
   summary: string;
   responsibilities: string[];
   requirements: string[];
+  /** A filled/expired vacancy. Kept on the page as a muted "closed" card
+      (no apply button) rather than deleted, so recent postings still show. */
+  closed?: boolean;
 };
 
 export const ROLES: Role[] = [
   {
+    slug: "business-development-executive",
+    title: "Business Development Executive",
+    location: "Dubai, UAE",
+    type: "Full-Time",
+    summary:
+      "NADZ Healthcare is looking for a motivated, confident, and results-driven Business Development Executive with a strong healthcare background to join our team in Dubai.",
+    responsibilities: [
+      "Identify and develop new business opportunities in the healthcare sector",
+      "Build and maintain strong relationships with clients and healthcare partners",
+      "Generate leads and convert potential clients into business opportunities",
+      "Conduct client meetings, presentations, and follow-ups",
+      "Develop strategies to achieve business development and revenue targets",
+      "Research market trends, competitors, and potential business opportunities",
+      "Coordinate with internal teams to ensure smooth client onboarding and service delivery",
+      "Maintain regular records and reports of business development activities",
+      "Represent the company at meetings, networking events, and promotional activities",
+    ],
+    requirements: [
+      "Minimum 3 years of experience in business development within the healthcare industry",
+      "Strong understanding of the UAE healthcare market is preferred",
+      "Proven experience in client acquisition, lead generation, and relationship management",
+      "Excellent communication, negotiation, and presentation skills",
+      "Strong networking and interpersonal skills",
+      "Target-oriented, proactive, and self-motivated",
+      "Ability to work independently and as part of a team",
+    ],
+  },
+  {
+    slug: "caregiver-nursing-assistant",
+    title: "Caregiver / Nursing Assistant",
+    location: "Dubai, UAE",
+    type: "Full-Time",
+    summary:
+      "NADZ Healthcare is looking for a compassionate, responsible, and dedicated Caregiver/Nursing Assistant to join our healthcare team in Dubai.",
+    responsibilities: [
+      "Assist patients with daily activities and personal care",
+      "Support patients with mobility, hygiene, feeding, and dressing",
+      "Assist nurses and healthcare professionals with patient care",
+      "Monitor patients and report any changes in their condition",
+      "Provide companionship and emotional support to patients",
+      "Maintain a clean, safe, and comfortable environment for patients",
+      "Follow patient care plans and instructions from healthcare professionals",
+      "Maintain patient dignity, privacy, and confidentiality",
+      "Follow healthcare, safety, and infection-control procedures",
+      "Communicate effectively with patients, families, nurses, and the healthcare team",
+    ],
+    requirements: [
+      "Previous experience as a Caregiver, Nursing Assistant, Healthcare Assistant, or similar role is preferred",
+      "Healthcare or caregiving qualification/certification is an advantage",
+      "Must have own valid UAE visa",
+      "Good communication and interpersonal skills",
+      "Compassionate, patient, and responsible attitude",
+      "Ability to work according to the required shift schedule",
+      "Candidates available to join immediately are preferred",
+    ],
+  },
+  {
+    closed: true,
     slug: "personal-assistant-brand-coordinator",
     title: "Personal Assistant & Brand Coordinator",
     location: "Dubai, UAE",
@@ -48,6 +109,7 @@ export const ROLES: Role[] = [
     ],
   },
   {
+    closed: true,
     slug: "driver",
     title: "Driver (Own Visa Preferred)",
     location: "Dubai, UAE",
