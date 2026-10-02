@@ -1,9 +1,10 @@
-/* Strapi v5 content API client. Content is fetched server-side, so the plain
-   http:// origin is fine (no browser mixed-content). Images are served through
-   next/image, which optimises them and re-serves over https. */
+/* Strapi v5 content API client. The CMS is self-hosted on its own box behind
+   HTTPS at admincms.nadzhealthcare.com (reverse-proxied to Strapi). Content is
+   fetched server-side; uploads are still proxied through /api/media so they
+   share this origin and stay same-origin for the browser. */
 
 export const STRAPI_URL =
-  process.env.STRAPI_URL || "http://161.35.236.196:1337";
+  process.env.STRAPI_URL || "https://admincms.nadzhealthcare.com";
 
 type MediaFormat = { url: string; width: number; height: number };
 type StrapiMedia = {

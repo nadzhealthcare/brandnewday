@@ -233,9 +233,8 @@ const nextConfig: NextConfig = {
     unoptimized: true,
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "161.35.236.196",
-        port: "1337",
+        protocol: "https",
+        hostname: "admincms.nadzhealthcare.com",
         pathname: "/uploads/**",
       },
       { protocol: "https", hostname: "img.youtube.com" },
